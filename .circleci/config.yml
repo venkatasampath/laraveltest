@@ -27,7 +27,7 @@ jobs:
       # - run: composer update -d ./LaravelTesting --ignore-platform-reqs
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.json" }}
+          key: v1-dependencies-{{ checksum "./LaravelTesting/composer.json" }}
           paths:
             - ./vendor
       
