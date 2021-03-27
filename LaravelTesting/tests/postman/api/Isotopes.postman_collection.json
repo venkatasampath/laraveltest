@@ -1,0 +1,2303 @@
+{
+	"info": {
+		"_postman_id": "f560840c-18d4-4a4c-98da-c9ea2b0f9eb8",
+		"name": "Isotopes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Isotope",
+			"item": [
+				{
+					"name": "Negative Tests",
+					"item": [
+						{
+							"name": "Create isotope wrong token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "50f3bde7-0ca2-4a0c-9dd7-88b5022108a4",
+										"exec": [
+											"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. This request should not create a new isotope.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Create isotope wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6c2eead0-fbde-4b44-b7d5-d359de9436bb",
+										"exec": [
+											"\r",
+											"pm.globals.set(\"page\", \"1\");\r",
+											"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+											"pm.globals.set(\"atoken\", anthrotoken);\r",
+											"\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = pm.globals.get(\"invalidtoken\");\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"atoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{atoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"org_id\": \"2\",\r\n\t\"project_id\": \"2\",\r\n    \"se_id\":\"51670\",\r\n\t\"sb_id\": \"37\",\r\n\t\"lab_id\": \"1\",\r\n\t\"sample_number\": \"381S4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotopes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get wrong isotope detail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2d2cab06-2d3f-4209-ab5f-bc5fa47e0403",
+										"exec": [
+											"//This request is trying to get wrong isotope id and check if data is returing ot not.\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8e2f5774-40b1-4b2c-b747-cc44b6915dc8",
+										"exec": [
+											"var id = pm.collectionVariables.get(\"isotopeid\")\r",
+											"\r",
+											"pm.globals.set (\"id\",id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotopes/xxx",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes",
+										"xxx"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete invalid isotope",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3703e34b-48fc-45f1-85ec-a548134e2136",
+										"exec": [
+											"//This request is trying to delete wrong isotope id and check if data is returing ot not.\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotopes/x12",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes",
+										"x12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update invalid isotope fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c36446f2-be8d-44e1-ab47-d1757da2ec23",
+										"exec": [
+											"// This request is trying to edit the isotope created with inavlid values.\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d1c5da80-e2af-4cc4-9470-dbbc154243cb",
+										"exec": [
+											"var id = pm.collectionVariables.get(\"isotopeid\")\r",
+											"\r",
+											"pm.globals.set (\"id\",id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\t\"external_case_id\": \"xxx\",\r\n\t\"c_weight\": \"1cv\",\r\n\t\"c_delta\": \"1we\" }\r\n\r\n\t",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotopes/{{id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Create isotope",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9b59508b-3895-45e4-985f-9e316d2c334b",
+								"exec": [
+									"// This post request creates a new isotope and saves the returned values as collection variables.\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var orgid = jsonData.data.org_id\r",
+									"    pm.collectionVariables.set(\"orgid\", orgid)\r",
+									"    var projectid = jsonData.data.project_id\r",
+									"    pm.collectionVariables.set(\"projectid\",projectid)\r",
+									"    var specimenid= jsonData.data.se_id\r",
+									"    pm.collectionVariables.set(\"specimenid\",specimenid)\r",
+									"    var boneid = jsonData.data.sb_id\r",
+									"    pm.collectionVariables.set(\"boneid\",boneid)\r",
+									"    var labid = jsonData.data.lab_id\r",
+									"    pm.collectionVariables.set(\"labid\",labid)\r",
+									"    var samplenumber= jsonData.data.sample_number\r",
+									"    pm.collectionVariables.set(\"samplenumber\",samplenumber)\r",
+									"    var isotopeid = jsonData.data.id\r",
+									"    pm.collectionVariables.set(\"isotopeid\",isotopeid)\r",
+									"\r",
+									"    pm.expect(jsonData.data.org_id).to.eql(orgid);\r",
+									"    pm.expect(jsonData.data.project_id).to.eql(projectid);\r",
+									"    pm.expect(jsonData.data.se_id).to.eql(specimenid);\r",
+									"    pm.expect(jsonData.data.sb_id).to.eql(boneid); \r",
+									"    pm.expect(jsonData.data.lab_id).to.eql(labid); \r",
+									"    pm.expect(jsonData.data.sample_number).to.eql(samplenumber); \r",
+									"    pm.expect(jsonData.data.id).to.eql(isotopeid); \r",
+									"  \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"org_id\": \"2\",\r\n\t\"project_id\": \"2\",\r\n    \"se_id\":\"51670\",\r\n\t\"sb_id\": \"37\",\r\n\t\"lab_id\": \"1\",\r\n\t\"sample_number\": \"381S4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotopes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotopes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update isotope",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86b1e70d-a658-4ae8-a434-76613cb858e7",
+								"exec": [
+									"// This request is used to update the existing isotope and saving the returned values as collection level variables.\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var caseid = jsonData.data.external_case_id\r",
+									"    pm.collectionVariables.set(\"caseid\", caseid)\r",
+									"    var c_weight = jsonData.data.c_weight\r",
+									"    pm.collectionVariables.set(\"c_weight\",c_weight)\r",
+									"    var c_delta = jsonData.data.c_delta\r",
+									"    pm.collectionVariables.set(\"c_delta\",c_delta)\r",
+									"    var c_percent = jsonData.data.c_percent\r",
+									"    pm.collectionVariables.set(\"c_percent\",c_percent)\r",
+									"    var c_to_n_ratio= jsonData.data.c_to_n_ratio\r",
+									"    pm.collectionVariables.set(\"c_to_n_ratio\",c_to_n_ratio)\r",
+									"    var c_to_o_ratio = jsonData.data.c_to_o_ratio\r",
+									"    pm.collectionVariables.set(\"c_to_o_ratio\",c_to_o_ratio)\r",
+									"    var weight_sample_cleaned = jsonData.data.weight_sample_cleaned\r",
+									"    pm.collectionVariables.set(\"weight_sample_cleaned\",weight_sample_cleaned)\r",
+									"    var weight_vial_lid= jsonData.data.weight_vial_lid\r",
+									"    pm.collectionVariables.set(\"weight_vial_lid\",weight_vial_lid)\r",
+									"    var weight_sample_vial_lid = jsonData.data.weight_sample_vial_lid\r",
+									"    pm.collectionVariables.set(\"weight_sample_vial_lid\",weight_sample_vial_lid)\r",
+									"    var weight_collagen = jsonData.data.weight_collagen\r",
+									"    pm.collectionVariables.set(\"weight_collagen\",weight_collagen)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1ac903ff-512b-49dc-8579-5a8d57011119",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopeid\")\r",
+									"\r",
+									"pm.globals.set (\"id\",id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\t\"external_case_id\": \"377S42020\",\r\n\t\"c_weight\": \"1.1\",\r\n\t\"c_delta\": \"0.5\",\r\n\t\"c_percent\": \"5\",\r\n\t\"c_to_n_ratio\": \"0.1\",\r\n\t\"c_to_o_ratio\": \"0.2\",\r\n    \"weight_sample_cleaned\": \"50\",\r\n    \"weight_vial_lid\": \"100\",\r\n    \"weight_sample_vial_lid\": \"110\",\r\n    \"weight_collagen\": \"10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotopes/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotopes",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get isotope detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c285e8cb-2726-4d68-9e6a-3b44bc6b6df6",
+								"exec": [
+									"//This request is to check if the isotope has created with correct post criteria. It will check the response of the request against the saved collection level variables values.\r",
+									"\r",
+									"pm.test(\" Check the correct returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var orgid =JSON.parse( pm.collectionVariables.get(\"orgid\"))\r",
+									"    var projectid = JSON.parse(pm.collectionVariables.get(\"projectid\"))\r",
+									"    var specimenid= JSON.parse(pm.collectionVariables.get(\"specimenid\"))\r",
+									"    var boneid = JSON.parse(pm.collectionVariables.get(\"boneid\"))\r",
+									"    var labid = JSON.parse(pm.collectionVariables.get(\"labid\"))\r",
+									"    var samplenumber= pm.collectionVariables.get(\"samplenumber\")\r",
+									"    var isotopeid = pm.collectionVariables.get(\"isotopeid\")\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonData.data.org_id).to.eql(orgid);\r",
+									"    pm.expect(jsonData.data.project_id).to.eql(projectid);\r",
+									"    pm.expect(jsonData.data.se_id).to.eql(specimenid);\r",
+									"    pm.expect(jsonData.data.sb_id).to.eql(boneid); \r",
+									"    pm.expect(jsonData.data.lab_id).to.eql(labid); \r",
+									"    pm.expect(jsonData.data.sample_number).to.eql(samplenumber); \r",
+									"    pm.expect(jsonData.data.id).to.eql(isotopeid); \r",
+									"  \r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f94777a4-f920-4c67-9627-1a7d6ca796f1",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopeid\")\r",
+									"\r",
+									"pm.globals.set (\"id\",id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotopes/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotopes",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete isotope",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c133679-e969-4849-a2fd-58d9b95417bf",
+								"exec": [
+									"// This request is used to delete a isotope.\r",
+									"\r",
+									"pm.test(\" Check delete status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(\"Resource deleted successfully\");\r",
+									"    \r",
+									"   \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotopes/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotopes",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get isotopes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "031256ef-37c4-4164-aedf-3eff82c68af6",
+								"exec": [
+									"//This request gets all the available isotopes.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify List of Keys in the Response\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Total Count: \"  + jsonData.meta.total] = true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotopes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotopes"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6ae0fd41-8123-4932-9b3c-f5ebb1e5baf8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4245ab68-429c-42e5-9077-113e9e415988",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Isotope Batch",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Create Isotope Batch wrong token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "81dc43ef-cd7d-4203-9e50-270a13a40e81",
+										"exec": [
+											"// This test is looping the diffrent token values of anthro and dna analyst who should not be able to create or edit a isotope batch. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Create Isotope Batch wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.include(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3cc56b97-7628-4714-b374-db9c65a960b7",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,anthrotoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true,
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"org_id\": \"2\",\n    \"project_id\": \"2\",\n    \"lab_id\": \"3\",\n    \"batch_num\": \"APItest3\"\n\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotope",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotope"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Isotope Batch wrong token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8fdf0da3-34b5-4f43-9091-78a70456b05d",
+										"exec": [
+											"// This test is looping the diffrent token values of anthro and dna analyst who should not be able to create or edit a isotope batch. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Update Isotope Batch wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.include(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3c5a4472-f24a-4724-999c-f0749c18cb40",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,anthrotoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true,
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"org_id\": \"2\",\n    \"project_id\": \"2\",\n    \"lab_id\": \"3\",\n    \"batch_num\": \"APItest3\"\n\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotope/81",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotope",
+										"81"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Isotope Batch with existing batch number",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c78d780c-8237-4afb-a434-717595be7269",
+										"exec": [
+											"// This request tries to create a new isotope batch using existing batch number.\r",
+											"\r",
+											"pm.test(\" Check unauthorized status\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data).to.eql(\"Isotope add unsuccessful. Batch number already exists.\");\r",
+											"    \r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true,
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{isotope_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"org_id\": \"2\",\n    \"project_id\": \"2\",\n    \"lab_id\": \"3\",\n    \"batch_num\": \"APItest3\"\n\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotope",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotope"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Associate wrong Isotopes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e7cddd02-97b3-43a1-8d15-797b78772e33",
+										"exec": [
+											"var id = pm.collectionVariables.get(\"isotopebatchid\")\r",
+											"\r",
+											"pm.globals.set (\"batchid\",id)"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "2076fff0-bab9-42a6-b5e8-e214003a4558",
+										"exec": [
+											"pm.test(\" Check unauthorized status\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data).to.eql(\"IsotopeBatch add unsuccessful.\");\r",
+											"    \r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-length": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QbUzD9OLwRwYXgZMuFQcUQLpkvpJBfTk3DkUQxGnxa0njBb67mJ69zBWI8hx",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotope/batch/82/associateisotopes?isotopelist[]=xxx",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotope",
+										"batch",
+										"82",
+										"associateisotopes"
+									],
+									"query": [
+										{
+											"key": "isotopelist[]",
+											"value": "xxx"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Isotope Batch Details",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ef5d6682-97a1-43dd-a5b6-0aab0c10227a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "7f71cdb6-398b-401e-8407-c6a4c7a6d917",
+										"exec": [
+											"// This request is checking if the data is returing for the wrong isotope batch id.\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{isotope_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/isotope/batch/xcvb",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotope",
+										"batch",
+										"xcvb"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Create Isotope Batch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c774a7ad-b2f1-4bb0-85d7-49ab553af2de",
+								"exec": [
+									"// This request cretes a new isotope batch and saves the response in collection level variables.\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var orgid = jsonData.data.org_id\r",
+									"    pm.collectionVariables.set(\"batch_orgid\", orgid)\r",
+									"    var projectid = jsonData.data.project_id\r",
+									"    pm.collectionVariables.set(\"batch_projectid\",projectid)\r",
+									"    var labid= jsonData.data.lab_id\r",
+									"    pm.collectionVariables.set(\"batch_labid\",labid)\r",
+									"    var batchnumber= jsonData.data.batch_num\r",
+									"    pm.collectionVariables.set(\"batchnumber\",batchnumber)\r",
+									"    var isotopebatchid = jsonData.data.id\r",
+									"    pm.collectionVariables.set(\"isotopebatchid\",isotopebatchid)\r",
+									"\r",
+									"  \r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"org_id\": \"2\",\n    \"project_id\": \"2\",\n    \"lab_id\": \"3\",\n    \"batch_num\": \"APItest92\"\n\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotope",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Isotope Batch",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e13312ab-1455-4109-8c5b-8e2e280270fd",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopebatchid\")\r",
+									"\r",
+									"pm.globals.set (\"batchid\",id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1039ae2-1028-4d6d-a1a2-c2d998290920",
+								"exec": [
+									"// This request is used to update a existing isotope batch and saves the response in collection level variables.\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData)\r",
+									"    var externalid = jsonData.isotopebatch.external_case_id\r",
+									"    pm.collectionVariables.set(\"externalid\", externalid)\r",
+									"    var notes = jsonData.isotopebatch.notes\r",
+									"    pm.collectionVariables.set(\"notes\",notes)\r",
+									"});\r",
+									"\r",
+									"pm.test(\" Check success status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(\"IsotopeBatch update successful.\");\r",
+									"    \r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotope/{{batchid}}?external_case_id=API tester&notes=API test 12/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"{{batchid}}"
+							],
+							"query": [
+								{
+									"key": "external_case_id",
+									"value": "API tester"
+								},
+								{
+									"key": "notes",
+									"value": "API test 12/6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Isotope Batch Details",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ec2f3aba-595e-4f8c-a3e5-a4a9b493ab0b",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopebatchid\")\r",
+									"\r",
+									"pm.globals.set (\"batchid\",id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0361a039-bd78-49d3-ac39-35d9835fce69",
+								"exec": [
+									"// This request is used to get the data of a particular batch id.\r",
+									"\r",
+									"pm.test(\" Check the correct returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var orgid =JSON.parse( pm.collectionVariables.get(\"batch_orgid\"))\r",
+									"    var projectid = JSON.parse(pm.collectionVariables.get(\"batch_projectid\"))\r",
+									"    var labid = JSON.parse(pm.collectionVariables.get(\"batch_labid\"))\r",
+									"    var batchnumber= pm.collectionVariables.get(\"batchnumber\")\r",
+									"    var isotopebatchid = pm.collectionVariables.get(\"isotopebatchid\")\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonData.data.org_id).to.eql(orgid);\r",
+									"    pm.expect(jsonData.data.project_id).to.eql(projectid);\r",
+									"    pm.expect(jsonData.data.lab_id).to.eql(labid); \r",
+									"    pm.expect(jsonData.data.batch_num).to.eql(batchnumber); \r",
+									"    pm.expect(jsonData.data.id).to.eql(isotopebatchid); \r",
+									"  \r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify List of Keys in the Response\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/isotope/batch/{{batchid}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"batch",
+								"{{batchid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project Isotopes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "65268052-423c-4863-9b4e-c40c60322c24",
+								"exec": [
+									"//This request gets all the available isotopes from a particular project.\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"status sould be success\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData)\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QbUzD9OLwRwYXgZMuFQcUQLpkvpJBfTk3DkUQxGnxa0njBb67mJ69zBWI8hx",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_id\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotope/projectisotopes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"projectisotopes"
+							]
+						},
+						"description": "Gets avialble and associated istopes for isotope batch"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Isotope batches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66510d9d-c7f8-4048-a1f0-4754c505c6da",
+								"exec": [
+									"//This request gets all the available isotopes batches.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify List of Keys in the Response\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Total Count: \"  + jsonData.meta.total] = true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/isotope/batches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"batches"
+							]
+						},
+						"description": "Gets avialble and associated istopes for isotope batch"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all associated isotopes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f04c4ddf-33b6-4ad7-91b9-26bc4f9d51f1",
+								"exec": [
+									"//This request gets all the available isotopes in all projects to be associated.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"status sould be success\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData)\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/isotope/associatedisotopes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"associatedisotopes"
+							]
+						},
+						"description": "Gets avialble and associated istopes for isotope batch"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{isotope_analyst_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "26ffcfe2-a144-4745-b325-393f1cfc5ec6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff6a1679-8036-4893-b124-2c702c4cdf8b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Isotope batch(tbd)",
+			"item": [
+				{
+					"name": "Associate Isotopes",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968dc532-d78c-47a3-aa2a-2d92a54b014f",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopebatchid\")\r",
+									"\r",
+									"pm.globals.set (\"batchid\",id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9bd3c7dd-a6d0-4288-82ee-81afdd1cbbf1",
+								"exec": [
+									"//This request is used to associate isotope to a particular batch id.\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Display associated isotope\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData)\r",
+									"     tests[\" associated isotope: \"  + JSON.stringify(jsonData.isotopes)] = true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QbUzD9OLwRwYXgZMuFQcUQLpkvpJBfTk3DkUQxGnxa0njBb67mJ69zBWI8hx",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotope/batch/82/associateisotopes?isotopelist[]=150",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"batch",
+								"82",
+								"associateisotopes"
+							],
+							"query": [
+								{
+									"key": "isotopelist[]",
+									"value": "150"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Isotope batch change status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c64b32e-acac-405b-8c8d-fda1cf6b8d37",
+								"exec": [
+									"// This request with change the status of the isotope batch to cleaning.\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Update successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(\"IsotopeBatch update successful.\")\r",
+									"  \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e93bd94-3819-4134-be30-74025fad202a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotope/batch/82/startprocessing",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"batch",
+								"82",
+								"startprocessing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Isotope batch start processing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f611c1b3-3540-49a8-aba9-08baa6860131",
+								"exec": [
+									"// This request will put the data in isotpe stepper function and check if the changes are done correctly.\r",
+									"\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData)\r",
+									"    var rinse_samples = jsonData.isotopebatch.rinse_samples\r",
+									"    pm.collectionVariables.set(\"rinse_samples\", rinse_samples)\r",
+									"    var labeling_tubes = jsonData.isotopebatch.labeling_tubes\r",
+									"    pm.collectionVariables.set(\"labeling_tubes\",labeling_tubes)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b6292a06-33af-4527-bb4c-33ea4e438125",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopebatchid\")\r",
+									"\r",
+									"pm.globals.set (\"batchid\",id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rinse_samples\":true,\r\n    \"labeling_tubes\": true\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/isotope/83",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"83"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Isotope Batch Details after processing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5d3f1645-8f31-4a4a-9375-77d3e7b932b1",
+								"exec": [
+									"var id = pm.collectionVariables.get(\"isotopebatchid\")\r",
+									"\r",
+									"pm.globals.set (\"batchid\",id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "23cb8ef2-98af-46be-8710-fb21067167ab",
+								"exec": [
+									"// This request is to check if the data associated in processing stage is correctly updated or not.\r",
+									"\r",
+									"pm.test(\" Check the correct returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var rinse_samples= pm.collectionVariables.get(\"rinse_samples\")\r",
+									"    var labeling_tubes  = pm.collectionVariables.get(\"labeling_tubes\")\r",
+									"\r",
+									"\r",
+									"    pm.expect(jsonData.isotopebatch.rinse_samples).to.eql(rinse_samples);\r",
+									"    pm.expect(jsonData.isotopebatch.labeling_tubes).to.eql(labeling_tubes);\r",
+									"  \r",
+									"  \r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{isotope_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/isotope/batch/82",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"isotope",
+								"batch",
+								"82"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c3915a22-3144-448e-8b26-1379bd061441",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "411f2e6a-542a-4883-80b8-fe66a011fdd2",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status Code\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,500,400,422,404]);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7ed9fa8d-0712-4879-b802-4c802faccb27",
+			"key": "boneid",
+			"value": ""
+		},
+		{
+			"id": "50d52618-1384-43ce-bc3c-23e6147a1835",
+			"key": "isotopeid",
+			"value": ""
+		},
+		{
+			"id": "2d33cdba-b20b-49c0-a964-e6f37bb7683e",
+			"key": "labid",
+			"value": ""
+		},
+		{
+			"id": "5f1edd7b-9475-45a2-8ff4-c3151c10dfde",
+			"key": "orgid",
+			"value": ""
+		},
+		{
+			"id": "a56057c1-bddc-4ac3-8272-1910a013de98",
+			"key": "projectid",
+			"value": ""
+		},
+		{
+			"id": "e73971fc-7f8e-4728-b7f4-fbeb422d0a70",
+			"key": "samplenumber",
+			"value": ""
+		},
+		{
+			"id": "3ab6ea61-9331-4848-97e2-b09ce349e173",
+			"key": "specimenid",
+			"value": ""
+		},
+		{
+			"id": "2c63b5d9-bc3e-47c2-9323-596d709a1e15",
+			"key": "batch_orgid",
+			"value": ""
+		},
+		{
+			"id": "b43cbb56-87ed-4ceb-ab23-48b5f0cb1ee0",
+			"key": "batch_projectid",
+			"value": ""
+		},
+		{
+			"id": "774ebebe-6a41-4255-996a-851b0eb9323f",
+			"key": "batch_labid",
+			"value": ""
+		},
+		{
+			"id": "0b6af9ac-1a4e-41e3-9acf-ff05a37d8b2a",
+			"key": "batchnumber",
+			"value": ""
+		},
+		{
+			"id": "59d7de0d-7c12-4ee2-aa4b-240f1293266d",
+			"key": "isotopebatchid",
+			"value": ""
+		},
+		{
+			"id": "d3a1cf77-b20c-4328-b74b-7b5ea49fe8f6",
+			"key": "externalid",
+			"value": ""
+		},
+		{
+			"id": "595c658e-5336-4a09-b07b-b7ca9722a980",
+			"key": "notes",
+			"value": ""
+		},
+		{
+			"id": "108ed3aa-a914-4856-9817-1a7ccf952c74",
+			"key": "labeling_tubes",
+			"value": ""
+		},
+		{
+			"id": "627a929a-b0e7-4c34-85f9-28c1a2ee5d89",
+			"key": "rinse_samples",
+			"value": ""
+		},
+		{
+			"id": "da1a5eeb-6284-4b45-a83c-ad2bfd0ee6fa",
+			"key": "c_delta",
+			"value": ""
+		},
+		{
+			"id": "ed9cdb54-3cad-4f0f-836f-dfe4d6cae4d5",
+			"key": "c_percent",
+			"value": ""
+		},
+		{
+			"id": "223107f6-b032-44ba-9323-403ec609756f",
+			"key": "c_to_n_ratio",
+			"value": ""
+		},
+		{
+			"id": "27f0d860-8d1c-4d77-beef-96a942586219",
+			"key": "c_to_o_ratio",
+			"value": ""
+		},
+		{
+			"id": "04a76f9b-96f0-4d9c-8722-5445e212469e",
+			"key": "c_weight",
+			"value": ""
+		},
+		{
+			"id": "8eb7e2df-13f3-498a-9b5a-6982af38ba87",
+			"key": "caseid",
+			"value": ""
+		},
+		{
+			"id": "8b33c57b-3c9e-4d7d-85db-aaa3c14235a6",
+			"key": "weight_collagen",
+			"value": ""
+		},
+		{
+			"id": "c456322e-76dd-406a-88b6-c031bfff635f",
+			"key": "weight_sample_cleaned",
+			"value": ""
+		},
+		{
+			"id": "8bf01d06-2537-4098-ba0b-d2b8b0efbc6a",
+			"key": "weight_sample_vial_lid",
+			"value": ""
+		},
+		{
+			"id": "fd8a0cfe-4a8c-430a-bd47-6e6bef7657aa",
+			"key": "weight_vial_lid",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,330 @@
+id,group_name,sb_id,side,display_order,created_by,updated_by,created_at,updated_at,deleted_at,for_inventory,for_articulation,middle
+5,Arm,148,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+4,Arm,93,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+3,Arm,37,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+10,Arm and Shoulder,12,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+9,Arm and Shoulder,148,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+8,Arm and Shoulder,93,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+7,Arm and Shoulder,37,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+6,Arm and Shoulder,117,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+56,Cervical vertebrae,11,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+50,Cervical vertebrae,4,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+51,Cervical vertebrae,5,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+52,Cervical vertebrae,6,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+53,Cervical vertebrae,7,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+54,Cervical vertebrae,8,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+55,Cervical vertebrae,9,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+81,Foot,75,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+83,Foot,118,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+84,Foot,126,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+85,Foot,69,false,8,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+87,Foot,71,false,10,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+89,Foot,73,false,12,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+90,Foot,88,false,13,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+91,Foot,89,false,14,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+92,Foot,90,false,15,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+93,Foot,91,false,16,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+96,Foot,46,false,19,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+95,Foot,45,false,18,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+97,Foot,47,false,20,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+98,Foot,48,false,21,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+99,Foot,25,false,22,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+100,Foot,26,false,23,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+101,Foot,27,false,24,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+102,Foot,28,false,25,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+80,Foot,124,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+78,Foot,2,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+88,Foot,72,false,11,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+103,Foot,29,false,26,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+94,Foot,92,false,17,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+86,Foot,70,false,9,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+82,Foot,34,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+79,Foot,19,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+26,Hand,85,false,16,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+35,Hand,22,false,25,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+18,Hand,36,false,8,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+20,Hand,65,false,10,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+21,Hand,66,false,11,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+22,Hand,67,false,12,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+23,Hand,68,false,13,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+24,Hand,83,false,14,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+25,Hand,84,false,15,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+27,Hand,86,false,17,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+28,Hand,87,false,18,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+29,Hand,41,false,19,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+30,Hand,42,false,20,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+31,Hand,43,false,21,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+32,Hand,44,false,22,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+33,Hand,20,false,23,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+36,Hand,23,false,26,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+37,Hand,24,false,27,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+11,Hand,116,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+12,Hand,59,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+13,Hand,147,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+14,Hand,82,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+15,Hand,145,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+16,Hand,146,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+17,Hand,3,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+19,Hand,64,false,9,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+34,Hand,21,false,24,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+77,Leg,81,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+76,Leg,33,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+75,Leg,144,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+74,Leg,32,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,false
+71,Lumbar vertebrae,54,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+73,Lumbar vertebrae,58,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+69,Lumbar vertebrae,50,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+72,Lumbar vertebrae,56,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+70,Lumbar vertebrae,52,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+128,Mandibular dentition,198,false,9,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+120,Mandibular dentition,190,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+121,Mandibular dentition,191,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+126,Mandibular dentition,196,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+127,Mandibular dentition,197,false,8,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+129,Mandibular dentition,199,false,10,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+131,Mandibular dentition,201,false,12,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+132,Mandibular dentition,202,false,13,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+135,Mandibular dentition,205,false,16,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+122,Mandibular dentition,192,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+123,Mandibular dentition,193,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+124,Mandibular dentition,194,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+125,Mandibular dentition,195,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+130,Mandibular dentition,200,false,11,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+133,Mandibular dentition,203,false,14,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+134,Mandibular dentition,204,false,15,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+192,Mandibular dentition,61,false,17,System,System,2019-11-22 02:03:10,2019-12-27 05:08:56,,true,true,true
+115,Maxillary dentition,185,false,12,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+107,Maxillary dentition,177,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+190,Maxillary dentition,63,true,17,System,System,2019-11-22 02:03:10,2019-12-27 05:08:56,,true,true,true
+191,Maxillary dentition,18,false,18,System,System,2019-11-22 02:03:10,2019-12-27 05:08:56,,true,true,true
+111,Maxillary dentition,181,false,8,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+110,Maxillary dentition,180,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+109,Maxillary dentition,179,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+106,Maxillary dentition,176,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+104,Maxillary dentition,174,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+114,Maxillary dentition,184,false,11,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+112,Maxillary dentition,182,false,9,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+113,Maxillary dentition,183,false,10,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+108,Maxillary dentition,178,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+105,Maxillary dentition,175,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+119,Maxillary dentition,189,false,16,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+118,Maxillary dentition,188,false,15,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+117,Maxillary dentition,187,false,14,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+116,Maxillary dentition,186,false,13,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,true,true
+162,Pelvic Girdle,17,false,2,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,true,true
+161,Pelvic Girdle,115,false,1,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,true,true
+163,Pelvic Girdle,77,true,3,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,true,true
+49,Ribs,99,false,12,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+45,Ribs,108,false,8,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+38,Ribs,94,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+42,Ribs,105,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+40,Ribs,102,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+39,Ribs,100,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+43,Ribs,106,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+41,Ribs,104,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+48,Ribs,97,false,11,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+47,Ribs,95,false,10,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+46,Ribs,109,false,9,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+44,Ribs,107,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+1,Shoulder,117,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+2,Shoulder,12,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,false
+2001,Skeleton,61,false,17,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1865,Skeleton,37,true,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1866,Skeleton,93,true,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1867,Skeleton,148,true,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1868,Skeleton,117,true,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1869,Skeleton,12,true,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1870,Skeleton,116,true,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1871,Skeleton,59,true,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1872,Skeleton,147,true,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1873,Skeleton,82,true,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1874,Skeleton,145,true,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1875,Skeleton,146,true,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1876,Skeleton,3,true,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1877,Skeleton,36,true,8,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1878,Skeleton,64,true,9,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1879,Skeleton,65,true,10,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1880,Skeleton,66,true,11,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1940,Skeleton,81,true,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1941,Skeleton,2,true,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1942,Skeleton,19,true,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1943,Skeleton,124,true,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1944,Skeleton,75,true,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1945,Skeleton,34,true,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1946,Skeleton,118,true,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1947,Skeleton,126,true,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1948,Skeleton,69,true,8,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1949,Skeleton,70,true,9,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1950,Skeleton,71,true,10,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1951,Skeleton,72,true,11,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1952,Skeleton,73,true,12,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1953,Skeleton,88,true,13,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1954,Skeleton,89,true,14,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1955,Skeleton,90,true,15,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1956,Skeleton,91,true,16,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1957,Skeleton,92,true,17,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1958,Skeleton,45,true,18,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1960,Skeleton,47,true,20,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1961,Skeleton,48,true,21,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1962,Skeleton,25,true,22,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1963,Skeleton,26,true,23,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1964,Skeleton,27,true,24,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1965,Skeleton,28,true,25,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1966,Skeleton,29,true,26,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1967,Skeleton,174,false,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1968,Skeleton,175,false,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1969,Skeleton,176,false,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1970,Skeleton,177,false,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1971,Skeleton,178,false,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1972,Skeleton,179,false,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1973,Skeleton,180,false,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1974,Skeleton,181,false,8,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1975,Skeleton,182,false,9,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1976,Skeleton,183,false,10,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1977,Skeleton,184,false,11,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1978,Skeleton,185,false,12,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1979,Skeleton,186,false,13,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1980,Skeleton,187,false,14,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1981,Skeleton,188,false,15,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1982,Skeleton,189,false,16,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1890,Skeleton,43,true,21,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1932,Skeleton,56,false,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1959,Skeleton,46,true,19,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1983,Skeleton,63,true,17,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1984,Skeleton,18,false,18,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1985,Skeleton,190,false,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1986,Skeleton,191,false,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1987,Skeleton,192,false,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1988,Skeleton,193,false,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1989,Skeleton,194,false,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1990,Skeleton,195,false,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1991,Skeleton,196,false,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1992,Skeleton,197,false,8,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1993,Skeleton,198,false,9,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1994,Skeleton,199,false,10,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1995,Skeleton,200,false,11,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1996,Skeleton,201,false,12,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1997,Skeleton,202,false,13,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1998,Skeleton,203,false,14,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1999,Skeleton,204,false,15,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+2000,Skeleton,205,false,16,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1881,Skeleton,67,true,12,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1882,Skeleton,68,true,13,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1883,Skeleton,83,true,14,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1884,Skeleton,84,true,15,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1885,Skeleton,85,true,16,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1886,Skeleton,86,true,17,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1887,Skeleton,87,true,18,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1888,Skeleton,41,true,19,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1889,Skeleton,42,true,20,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1891,Skeleton,44,true,22,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1892,Skeleton,20,true,23,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1893,Skeleton,21,true,24,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1894,Skeleton,22,true,25,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1895,Skeleton,23,true,26,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1896,Skeleton,24,true,27,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1897,Skeleton,4,false,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1898,Skeleton,5,false,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1899,Skeleton,6,false,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1900,Skeleton,7,false,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1901,Skeleton,8,false,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1902,Skeleton,9,false,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1903,Skeleton,11,false,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1904,Skeleton,94,true,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1905,Skeleton,100,true,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1906,Skeleton,102,true,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1907,Skeleton,104,true,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1908,Skeleton,105,true,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1909,Skeleton,106,true,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1910,Skeleton,107,true,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1911,Skeleton,108,true,8,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1912,Skeleton,109,true,9,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1913,Skeleton,95,true,10,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1914,Skeleton,97,true,11,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1915,Skeleton,99,true,12,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1916,Skeleton,127,false,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1917,Skeleton,136,false,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1918,Skeleton,137,false,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1919,Skeleton,138,false,4,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1920,Skeleton,139,false,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1921,Skeleton,140,false,6,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1922,Skeleton,141,false,7,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1923,Skeleton,142,false,8,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1924,Skeleton,143,false,9,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1925,Skeleton,129,false,10,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1926,Skeleton,132,false,11,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1927,Skeleton,134,false,12,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1928,Skeleton,123,false,25,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,false,true,true
+1929,Skeleton,50,false,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1930,Skeleton,52,false,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1931,Skeleton,54,false,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1933,Skeleton,58,false,5,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,false,true
+1934,Skeleton,115,false,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1935,Skeleton,17,false,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1936,Skeleton,77,true,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1937,Skeleton,32,true,1,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1938,Skeleton,144,true,2,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+1939,Skeleton,33,true,3,System,System,2019-12-25 22:08:58,2019-12-27 05:08:56,,true,true,true
+67,Thoracic vertebrae,132,false,11,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+58,Thoracic vertebrae,136,false,2,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+62,Thoracic vertebrae,140,false,6,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+60,Thoracic vertebrae,138,false,4,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+57,Thoracic vertebrae,127,false,1,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+66,Thoracic vertebrae,129,false,10,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+65,Thoracic vertebrae,143,false,9,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+64,Thoracic vertebrae,142,false,8,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+63,Thoracic vertebrae,141,false,7,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+68,Thoracic vertebrae,134,false,12,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+61,Thoracic vertebrae,139,false,5,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+59,Thoracic vertebrae,137,false,3,System,System,2018-12-08 16:50:21,2019-12-27 05:08:56,,true,false,true
+148,Thorax,127,false,1,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+149,Thorax,136,false,2,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+150,Thorax,137,false,3,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+151,Thorax,138,false,4,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+152,Thorax,139,false,5,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+153,Thorax,140,false,6,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+154,Thorax,141,false,7,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+156,Thorax,143,false,9,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+158,Thorax,132,false,11,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+159,Thorax,134,false,12,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+160,Thorax,123,false,25,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,false,true,true
+136,Thorax,94,true,1,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+138,Thorax,102,true,3,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+137,Thorax,100,true,2,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+139,Thorax,104,true,4,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+140,Thorax,105,true,5,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+141,Thorax,106,true,6,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+155,Thorax,142,false,8,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+157,Thorax,129,false,10,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+142,Thorax,107,true,7,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+143,Thorax,108,true,8,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+144,Thorax,109,true,9,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+145,Thorax,95,true,10,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+146,Thorax,97,true,11,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+147,Thorax,99,true,12,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+166,Vertebral Column,6,false,3,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+189,Vertebral Column,17,false,26,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,false,true,true
+188,Vertebral Column,115,false,25,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,false,true,true
+187,Vertebral Column,58,false,5,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+186,Vertebral Column,56,false,4,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+185,Vertebral Column,54,false,3,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+184,Vertebral Column,52,false,2,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+183,Vertebral Column,50,false,1,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+182,Vertebral Column,134,false,12,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+181,Vertebral Column,132,false,11,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+180,Vertebral Column,129,false,10,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+165,Vertebral Column,5,false,2,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+164,Vertebral Column,4,false,1,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+179,Vertebral Column,143,false,9,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+177,Vertebral Column,141,false,7,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+176,Vertebral Column,140,false,6,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+175,Vertebral Column,139,false,5,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+178,Vertebral Column,142,false,8,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+174,Vertebral Column,138,false,4,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+173,Vertebral Column,137,false,3,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+172,Vertebral Column,136,false,2,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+171,Vertebral Column,127,false,1,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+170,Vertebral Column,11,false,7,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+169,Vertebral Column,9,false,6,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+168,Vertebral Column,8,false,5,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true
+167,Vertebral Column,7,false,4,System,System,2019-08-11 16:24:16,2019-12-27 05:08:56,,true,false,true

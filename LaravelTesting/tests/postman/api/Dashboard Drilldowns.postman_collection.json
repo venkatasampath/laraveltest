@@ -1,0 +1,1000 @@
+{
+	"info": {
+		"_postman_id": "d2fe433c-b1fe-4ddf-8364-467257cd4f17",
+		"name": "Dashboard Drilldowns",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "Drilldown Specimen wrong token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d2880518-7b14-4519-a204-7b419626785b",
+								"exec": [
+									"\r",
+									"pm.globals.set(\"page\", \"1\");\r",
+									"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+									"pm.globals.set(\"atoken\", anthrotoken);\r",
+									"\r",
+									"\r",
+									"var token = pm.globals.get(\"token\")\r",
+									"\r",
+									"if(!token){\r",
+									"     token = pm.globals.get(\"invalidtoken\");\r",
+									"}\r",
+									"\r",
+									"var currenttoken = token.shift();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"atoken\", currenttoken);\r",
+									"pm.globals.set(\"token\", token);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f483dfd2-d5c0-4692-aab3-dff900e444c0",
+								"exec": [
+									"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+									"\r",
+									"var token = pm.globals.get(\"token\");\r",
+									"\r",
+									"if (token.length > 0) {\r",
+									"    postman.setNextRequest(\"Drilldown Specimen wrong token\")\r",
+									"\r",
+									"} else {\r",
+									"    pm.globals.unset(\"token\")\r",
+									"   \r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{atoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects/2/drilldowns?type=specimen&filter={{filters}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects",
+								"2",
+								"drilldowns"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "specimen"
+								},
+								{
+									"key": "filter",
+									"value": "{{filters}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drilldown DNA wrong token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "129787f9-8920-418b-9031-1d4f63c18fa9",
+								"exec": [
+									"\r",
+									"pm.globals.set(\"page\", \"1\");\r",
+									"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+									"pm.globals.set(\"atoken\", anthrotoken);\r",
+									"\r",
+									"\r",
+									"var token = pm.globals.get(\"token\")\r",
+									"\r",
+									"if(!token){\r",
+									"     token = pm.globals.get(\"invalidtoken\");\r",
+									"}\r",
+									"\r",
+									"var currenttoken = token.shift();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"atoken\", currenttoken);\r",
+									"pm.globals.set(\"token\", token);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9cb1d5d-5018-402e-9efc-57f03266ca2c",
+								"exec": [
+									"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+									"\r",
+									"var token = pm.globals.get(\"token\");\r",
+									"\r",
+									"if (token.length > 0) {\r",
+									"    postman.setNextRequest(\"Drilldown DNA wrong token\")\r",
+									"\r",
+									"} else {\r",
+									"    pm.globals.unset(\"token\")\r",
+									"   \r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{atoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects/2/drilldowns?type=dna&filter={{filters}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects",
+								"2",
+								"drilldowns"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "dna"
+								},
+								{
+									"key": "filter",
+									"value": "{{filters}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drilldown MNI wrong token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80949731-74fa-43e3-aaf8-84e52d4545a7",
+								"exec": [
+									"\r",
+									"pm.globals.set(\"page\", \"1\");\r",
+									"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+									"pm.globals.set(\"atoken\", anthrotoken);\r",
+									"\r",
+									"\r",
+									"var token = pm.globals.get(\"token\")\r",
+									"\r",
+									"if(!token){\r",
+									"     token = pm.globals.get(\"invalidtoken\");\r",
+									"}\r",
+									"\r",
+									"var currenttoken = token.shift();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"atoken\", currenttoken);\r",
+									"pm.globals.set(\"token\", token);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d98ef822-3d6b-4622-9239-d8451288d7d0",
+								"exec": [
+									"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+									"\r",
+									"var token = pm.globals.get(\"token\");\r",
+									"\r",
+									"if (token.length > 0) {\r",
+									"    postman.setNextRequest(\"Drilldown MNI wrong token\")\r",
+									"\r",
+									"} else {\r",
+									"    pm.globals.unset(\"token\")\r",
+									"   \r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{atoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects/mni?by={{by}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects",
+								"mni"
+							],
+							"query": [
+								{
+									"key": "by",
+									"value": "{{by}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drilldown mito sequence wrong token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dbcbe629-3f3d-4302-942b-d35b9484f374",
+								"exec": [
+									"\r",
+									"pm.globals.set(\"page\", \"1\");\r",
+									"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+									"pm.globals.set(\"atoken\", anthrotoken);\r",
+									"\r",
+									"\r",
+									"var token = pm.globals.get(\"token\")\r",
+									"\r",
+									"if(!token){\r",
+									"     token = pm.globals.get(\"invalidtoken\");\r",
+									"}\r",
+									"\r",
+									"var currenttoken = token.shift();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"atoken\", currenttoken);\r",
+									"pm.globals.set(\"token\", token);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "00502658-adc0-43ee-989d-eb5cdeae9611",
+								"exec": [
+									"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+									"\r",
+									"var token = pm.globals.get(\"token\");\r",
+									"\r",
+									"if (token.length > 0) {\r",
+									"    postman.setNextRequest(\"Drilldown mito sequence wrong token\")\r",
+									"\r",
+									"} else {\r",
+									"    pm.globals.unset(\"token\")\r",
+									"   \r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{atoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects/dnas/mito",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects",
+								"dnas",
+								"mito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drilldown invalid type",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8a8f0333-01ed-46df-bc7e-5a6f2e4f357c",
+								"exec": [
+									"pm.collectionVariables.set(\"type\",\"x12\")\r",
+									"pm.globals.set(\"filter\",\"complete\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1ac39fd7-4225-4a6a-bffc-892b71dcbea6",
+								"exec": [
+									"// This request is testing the diffrent invalid types of drilldown and checking the response.\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.globals.unset(\"filter\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects/2/drilldowns?type={{type}}&filter={{filter}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects",
+								"2",
+								"drilldowns"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "{{type}}"
+								},
+								{
+									"key": "filter",
+									"value": "{{filter}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drilldown invalid Mni",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d48fb6b-b661-418c-b54b-61372c4b776f",
+								"exec": [
+									"pm.globals.set(\"by\",\"qwerty123\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f95721f6-ce68-4d01-8d06-ba595970f9bf",
+								"exec": [
+									"// This request is testing the diffrent invalid types of drilldown and checking the response.\r",
+									"\r",
+									"\r",
+									"pm.test(\"Bad request status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData)\r",
+									"     pm.expect(jsonData.data).to.eql(\"Bad request: unsupported mni by\")\r",
+									"   \r",
+									" \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects/mni?by={{by}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects",
+								"mni"
+							],
+							"query": [
+								{
+									"key": "by",
+									"value": "{{by}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Dashboard Drilldowns specimen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7c2c14ff-683a-4039-83a3-485d6a80c328",
+						"exec": [
+							"pm.collectionVariables.set(\"type\", \"specimen\");\r",
+							"//pm.collectionVariables.set(\"filter\", \"complete\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"var filter = pm.globals.get(\"filter\")\r",
+							"// CT scanned will work after the merging sprint 6 to master.\r",
+							"if(!filter){\r",
+							"    filter = [\"complete\",\"measured\",\"clavicle_triage\",\"xray_scanned\",\"dna_sampled\",\"individual_assigned\",\"isotope_sampled\"];\r",
+							"}\r",
+							"\r",
+							"var currenttype = filter.shift();\r",
+							"\r",
+							"\r",
+							"pm.globals.set(\"filters\", currenttype);\r",
+							"pm.globals.set(\"filter\", filter);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "da1d2848-87cc-44b5-b8a1-596782e39103",
+						"exec": [
+							"// This request loops through specimen and its diffrent filter types savailable and will check the status and count of the response data.\r",
+							"\r",
+							"var filter = pm.globals.get(\"filter\");\r",
+							"\r",
+							"if (filter.length > 0) {\r",
+							"    postman.setNextRequest(\"Dashboard Drilldowns specimen\")\r",
+							"\r",
+							"} else {\r",
+							" \r",
+							"    pm.globals.unset(\"filter\")\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Display the selection criteria\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    console.log(jsonData)\r",
+							"     tests[\" Selected criteria: \"  +JSON.stringify (jsonData.criteria)] = true;\r",
+							"   \r",
+							" \r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"tests[\" Count: \"  + jsonData.meta.total] = true;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status of resposne\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.status).to.eql(\"success\")\r",
+							"   \r",
+							" \r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_manager_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/2/drilldowns?type={{type}}&filter={{filters}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"2",
+						"drilldowns"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "filter",
+							"value": "{{filters}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard Drilldowns DNA",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d213c511-0587-48f0-a1c5-108b86347cfe",
+						"exec": [
+							"pm.collectionVariables.set(\"type\", \"dna\");\r",
+							"//pm.collectionVariables.set(\"filter\", \"complete\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"var filter = pm.globals.get(\"filter\")\r",
+							"\r",
+							"if(!filter){\r",
+							"    filter = [\"dna_mito_results\",\"dna_ystr_results\",\"dna_austr_results\"];\r",
+							"}\r",
+							"\r",
+							"var currenttype = filter.shift();\r",
+							"\r",
+							"\r",
+							"pm.globals.set(\"filters\", currenttype);\r",
+							"pm.globals.set(\"filter\", filter);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd54c523-1eb6-4446-86eb-73dfaba01b67",
+						"exec": [
+							"// This request loops through DNA and its diffrent filter types savailable and will check the status and count of the response data.\r",
+							"\r",
+							"var filter = pm.globals.get(\"filter\");\r",
+							"\r",
+							"if (filter.length > 0) {\r",
+							"    postman.setNextRequest(\"Dashboard Drilldowns DNA\")\r",
+							"\r",
+							"} else {\r",
+							" \r",
+							"    pm.globals.unset(\"filter\")\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Display the selection criteria\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    console.log(jsonData)\r",
+							"     tests[\" selected criteria: \"  + JSON.stringify(jsonData.criteria)] = true;\r",
+							"   \r",
+							" \r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"tests[\" Count: \"  + jsonData.meta.total] = true;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status of resposne\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.status).to.eql(\"success\")\r",
+							"   \r",
+							" \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_manager_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/2/drilldowns?type={{type}}&filter={{filters}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"2",
+						"drilldowns"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "filter",
+							"value": "{{filters}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard Drilldown - getMni",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8f1a1653-d3f8-42b5-ac0e-b7881d4eb631",
+						"exec": [
+							"pm.globals.set(\"by\",\"all\")\r",
+							"var filterby = pm.globals.get(\"filterby\")\r",
+							"\r",
+							"if(!filterby){\r",
+							"    filterby = [\"bones\",\"zones\",\"bones_and_side\",\"bones_side_zones\",\"mito_bones_and_side\"];\r",
+							"}\r",
+							"\r",
+							"var currentfilterby = filterby.shift();\r",
+							"\r",
+							"\r",
+							"pm.globals.set(\"by\", currentfilterby);\r",
+							"pm.globals.set(\"filterby\", filterby);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf78d40d-0a53-4ee0-92b6-33018ab11dc1",
+						"exec": [
+							"// This request loops through mni and its diffrent filter types savailable and will check the status and count of the response data.\r",
+							"\r",
+							"var filterby = pm.globals.get(\"filterby\");\r",
+							"\r",
+							"if (filterby.length > 0) {\r",
+							"    postman.setNextRequest(\"Dashboard Drilldown - getMni\")\r",
+							"\r",
+							"} else {\r",
+							" \r",
+							"    pm.globals.unset(\"filterby\")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"tests[\" Count: \"  + jsonData.count] = true;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status of resposne\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.status).to.eql(\"success\")\r",
+							"   \r",
+							" \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"MNI Message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.message).to.eql(\"Project MNI get successful\")\r",
+							"   \r",
+							" \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_manager_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/mni?by={{by}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"mni"
+					],
+					"query": [
+						{
+							"key": "top",
+							"value": "60",
+							"disabled": true
+						},
+						{
+							"key": "by",
+							"value": "{{by}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard Drilldowns - getMitoSequence",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "125b11a2-b2d4-4afc-bf80-da4ea52202ca",
+						"exec": [
+							"// This request is getting all the available mito sequences from a specific project.\r",
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"tests[\" Count: \"  + jsonData.count] = true;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status of resposne\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.status).to.eql(\"success\")\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mito sequence sucessful message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.message).to.eql(\"Project DNA Mito sequence get successful\")\r",
+							"   \r",
+							" \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check returned mito fields\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"mito_sequence_number\",\"total\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_manager_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/dnas/mito",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"dnas",
+						"mito"
+					],
+					"query": [
+						{
+							"key": "top",
+							"value": "40",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2ec30abb-7a3d-40dc-97e7-f81b2b27e7f7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "282efcb9-9a87-4458-83ae-cabdbd3ffdda",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status Code\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,500,400,422,404]);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "30163036-4320-4b98-8440-94287ce969f5",
+			"key": "filter",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"id": "276e5898-79dc-4653-9109-c18b5fa8aab9",
+			"key": "type",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

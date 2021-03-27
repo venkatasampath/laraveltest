@@ -1,0 +1,2828 @@
+{
+  "info": {
+    "_postman_id": "e32bada0-072f-4237-aa39-0f9f1f5dff15",
+    "name": "BaseData",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "base-data",
+      "item": [
+        {
+          "name": "Get anomalies",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "\r",
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/anomalies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "anomalies"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "37",
+                  "description": "Id of the bone e..g 37=Humerus, 18=Cranium",
+                  "disabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "Humerus",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa",
+                  "disabled": true
+                },
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about anomalies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/anomalies?id=dolore Excepteur ullamco&name=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "anomalies"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/anomalies?id=dolore Excepteur ullamco&name=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "anomalies"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get bones",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/bones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "bones"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bones?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bones"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about bones",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bones?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bones"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get bone-articulations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/bone-articulations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "bone-articulations"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "37",
+                  "description": "Id of the bone e..g 37=Humerus, 18=Cranium",
+                  "disabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "Os Coxa",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about bone-articulations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bone-articulations?id=dolore Excepteur ullamco&name=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bone-articulations"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bone-articulations?id=dolore Excepteur ullamco&name=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bone-articulations"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get bone-morphologies",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/bone-morphologies?id=37&name=Os Coxa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "bone-morphologies"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "37",
+                  "description": "Id of the bone e..g 37=Humerus, 18=Cranium"
+                },
+                {
+                  "key": "name",
+                  "value": "Os Coxa",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bone-morphologies?id=dolore Excepteur ullamco&name=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bone-morphologies"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about bone-morphologies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bone-morphologies?id=dolore Excepteur ullamco&name=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bone-morphologies"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get bone-groups",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/bone-groups?name=Arm",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "bone-groups"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Arm",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa"
+                },
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bone-groups?name=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bone-groups"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about bone-morphologies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bone-groups?name=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bone-groups"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get bones-in-group",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"object check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"Object\");\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/bones-in-group?bone_group=Arm&bone_grouping=Arm and Shoulder",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "bones-in-group"
+              ],
+              "query": [
+                {
+                  "key": "bone_group",
+                  "value": "Arm"
+                },
+                {
+                  "key": "bone_grouping",
+                  "value": "Arm and Shoulder"
+                },
+                {
+                  "key": "group",
+                  "value": "Hand",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about bones-in-group",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bones-in-group?bone_group=dolore Excepteur ullamco&bone_grouping=dolore Excepteur ullamco&group=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bones-in-group"
+                  ],
+                  "query": [
+                    {
+                      "key": "bone_group",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "bone_grouping",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "group",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/bones-in-group?bone_group=dolore Excepteur ullamco&bone_grouping=dolore Excepteur ullamco&group=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "bones-in-group"
+                  ],
+                  "query": [
+                    {
+                      "key": "bone_group",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "bone_grouping",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "group",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get measurements",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/measurements?name=Os coxa&list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "measurements"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Os coxa",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa"
+                },
+                {
+                  "key": "id",
+                  "value": "37",
+                  "description": "Id of the bone e..g 37=Humerus, 18=Cranium",
+                  "disabled": true
+                },
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/measurements?name=dolore Excepteur ullamco&id=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "measurements"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about measurements",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/measurements?name=dolore Excepteur ullamco&id=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "measurements"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get methods",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/methods?list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "methods"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Os coxa",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa",
+                  "disabled": true
+                },
+                {
+                  "key": "id",
+                  "value": "18",
+                  "description": "Id of the bone e..g 37=Humerus, 18=Cranium",
+                  "disabled": true
+                },
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about methods",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/methods?name=dolore Excepteur ullamco&id=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "methods"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/methods?name=dolore Excepteur ullamco&id=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "methods"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get pathologies",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/pathologies?list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "pathologies"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about pathologies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/pathologies?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "pathologies"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/pathologies?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "pathologies"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get taphonomies",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/taphonomies?list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "taphonomies"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about taphonomies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/taphonomies?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "taphonomies"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/taphonomies?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "taphonomies"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get traumas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/traumas?list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "traumas"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/traumas?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "traumas"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about traumas",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/traumas?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "traumas"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get zones",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/zones?name=Os coxa&id=37&list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "zones"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Os coxa",
+                  "description": "Name of the bone e.g. Humerus, Cranium, Os coxa"
+                },
+                {
+                  "key": "id",
+                  "value": "37",
+                  "description": "Id of the bone e..g 37=Humerus, 18=Cranium"
+                },
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about zones",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/zones?name=dolore Excepteur ullamco&id=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "zones"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/zones?name=dolore Excepteur ullamco&id=dolore Excepteur ullamco&list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "zones"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "id",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get labs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/labs?list=true&type=Genomics",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "labs"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true"
+                },
+                {
+                  "key": "type",
+                  "value": "Genomics"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about labs",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/labs?list=true&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "labs"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/labs?list=true&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "labs"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get dna-analysis-types",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/dna-analysis-types?type=mito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "dna-analysis-types"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "mito"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about dna-analysis-types",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/dna-analysis-types?list=true&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "dna-analysis-types"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/dna-analysis-types?list=true&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "dna-analysis-types"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get profiles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/profiles?list=true&type=mito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "profiles"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true"
+                },
+                {
+                  "key": "type",
+                  "value": "mito"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/profiles?list=true&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about profiles",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/profiles?list=true&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get role-permissions",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/role-permissions?role=admin&type=mito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "role-permissions"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                },
+                {
+                  "key": "role",
+                  "value": "admin"
+                },
+                {
+                  "key": "type",
+                  "value": "mito"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/role-permissions?list=true&role=dolore Excepteur ullamco&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "role-permissions"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "role",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            },
+            {
+              "name": "Details about role-permissions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/role-permissions?list=true&role=dolore Excepteur ullamco&type=dolore Excepteur ullamco",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "role-permissions"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    },
+                    {
+                      "key": "role",
+                      "value": "dolore Excepteur ullamco"
+                    },
+                    {
+                      "key": "type",
+                      "value": "dolore Excepteur ullamco"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get project-statuses",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/project-statuses?list=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "project-statuses"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about project-statuses",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/project-statuses?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "project-statuses"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/project-statuses?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "project-statuses"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get localization-codes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Object check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"Object\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/localization-codes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "localization-codes"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about localization-codes",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/localization-codes?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "localization-codes"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/localization-codes?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "localization-codes"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get roles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json()\r",
+                  "\r",
+                  "pm.test(\"Array check\", () => {\r",
+                  "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/base-data/roles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "base-data",
+                "roles"
+              ],
+              "query": [
+                {
+                  "key": "list",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about roles",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/roles?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "roles"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sed cupidatat sunt",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  }
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [\n  {\n   \"id\": -81823900,\n   \"sb_id\": 16461900,\n   \"icon\": \"deserunt nulla adipisicing culpa\",\n   \"color\": \"commodo incididunt irure in\",\n   \"created_by\": \"occaecat nulla cillum labore\",\n   \"updated_by\": \"voluptate\",\n   \"created_at\": \"1959-08-10T02:58:12.935Z\",\n   \"updated_at\": \"2016-05-29T06:41:41.717Z\",\n   \"deleted_at\": \"2015-04-04T16:31:18.320Z\",\n   \"tag\": \"ad nostrud non eu\"\n  },\n  {\n   \"id\": -27135199,\n   \"sb_id\": 45076972,\n   \"icon\": \"cillum qui\",\n   \"color\": \"Lo\",\n   \"created_by\": \"velit est ullamco non\",\n   \"updated_by\": \"culpa et ipsum do\",\n   \"created_at\": \"1985-03-31T10:48:51.745Z\",\n   \"updated_at\": \"1991-05-06T07:30:10.498Z\",\n   \"deleted_at\": \"1971-11-09T04:33:47.350Z\",\n   \"tag\": \"aute labore ex\"\n  },\n  {\n   \"id\": 68200559,\n   \"sb_id\": -57200133,\n   \"icon\": \"ex\",\n   \"color\": \"fugiat anim velit consectetur culpa\",\n   \"created_by\": \"Duis enim fugiat\",\n   \"updated_by\": \"amet sed sunt Duis\",\n   \"created_at\": \"1957-06-10T02:53:13.704Z\",\n   \"updated_at\": \"2014-03-09T05:58:10.974Z\",\n   \"deleted_at\": \"1945-05-24T05:21:31.453Z\",\n   \"tag\": \"nisi sint\"\n  },\n  {\n   \"id\": -50784495,\n   \"sb_id\": -16829907,\n   \"icon\": \"aute sed\",\n   \"color\": \"dolor ess\",\n   \"created_by\": \"reprehenderit in magna esse irure\",\n   \"updated_by\": \"consequat Excepteur\",\n   \"created_at\": \"2011-07-20T10:25:44.193Z\",\n   \"updated_at\": \"1949-11-02T05:36:19.088Z\",\n   \"deleted_at\": \"1974-10-22T08:01:04.100Z\",\n   \"tag\": \"magna dolor sint\"\n  }\n ]\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/base-data/roles?list=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "base-data",
+                    "roles"
+                  ],
+                  "query": [
+                    {
+                      "key": "list",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55400435,\n \"message\": \"mollit dolore reprehenderit ipsum\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "",
+          "const Basedataschema = JSON.parse(pm.environment.get(\"Basedataschema\"));",
+          "",
+          "pm.test('Schema is valid', function () {",
+          "    pm.response.to.have.jsonSchema(Basedataschema)",
+          "});",
+          "",
+          "pm.test(\"Status Code Test\", () => {",
+          "  pm.expect(pm.response.code).to.be.oneOf([200,201,403,400,422,500]);",
+          "});",
+          "",
+          "pm.test(\"Response time is less than 200ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});",
+          "",
+          "pm.test(\"Check the active environment\", () => {",
+          "  pm.expect(pm.environment.name).to.eql(\"Testing\");",
+          "});",
+          "",
+          "let jsonData = pm.response.json()",
+          "pm.test(\"Data, Status & Meta Test\", () => {",
+          "    if(jsonData.meta == true){",
+          "    pm.response.to.have.jsonBody(\"data\");",
+          "    }",
+          "    else{",
+          "        pm.test(\"response body doesnt have meta\");",
+          "    }",
+          " ",
+          "});",
+          "",
+          "",
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "{{base_url}}/api"
+    },
+    {
+      "key": "schema",
+      "value": "{\"type\":\"object\",\"required\":[\"data\"],\"externalDocs\":{\"url\":\"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#projects-table\"},\"properties\":{\"data\":{\"title\":\"The data schema\",\"description\":\"List of all base-data for Cora\",\"default\":[],\"items\":{\"anyOf\":[{\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"id\":{\"type\":\"integer\"},\"sb_id\":{\"type\":\"integer\"},\"icon\":{\"type\":[\"string\",\"null\"]},\"color\":{\"type\":[\"string\",\"null\"]},\"created_by\":{\"type\":\"string\",\"description\":\"User who created project\"},\"updated_by\":{\"type\":\"string\",\"description\":\"User who last updated project\"},\"created_at\":{\"type\":\"string\",\"description\":\"Date and Time of creation\"},\"updated_at\":{\"type\":\"string\",\"description\":\"Date and Time of last update\"},\"deleted_at\":{\"type\":[\"string\",\"null\"],\"description\":\"Date and Time of project deleted\"},\"tag\":{\"type\":\"string\"}},\"additionalProperties\":true}]}},\"links\":{\"type\":\"object\",\"title\":\"The links schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"first\":{\"type\":[\"string\",\"null\"],\"title\":\"The first schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"last\":{\"type\":[\"string\",\"null\"],\"title\":\"The last schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"prev\":{\"type\":[\"string\",\"null\"],\"title\":\"The prev schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null},\"next\":{\"type\":[\"string\",\"null\"],\"title\":\"The next schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null}},\"additionalProperties\":true},\"meta\":{\"type\":\"object\",\"title\":\"The meta schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"current_page\":{\"type\":[\"integer\",\"null\"],\"title\":\"The current_page schema\",\"description\":\"Current page number.\",\"default\":0},\"from\":{\"type\":\"integer\",\"title\":\"The from schema\",\"description\":\"Starting page number\",\"default\":0},\"last_page\":{\"type\":\"integer\",\"title\":\"The last_page schema\",\"description\":\"Last page number\",\"default\":0},\"path\":{\"type\":\"string\",\"title\":\"The path schema\",\"description\":\"API URL.\",\"default\":\"\"},\"per_page\":{\"type\":\"integer\",\"title\":\"The per_page schema\",\"description\":\"Results per page\",\"default\":0},\"to\":{\"type\":\"integer\",\"title\":\"The to schema\",\"description\":\"Next page number\",\"default\":0},\"total\":{\"type\":\"integer\",\"title\":\"The total schema\",\"description\":\"Total number of projects\",\"default\":0},\"app\":{\"type\":\"string\",\"title\":\"The app schema\",\"description\":\"Application name\",\"default\":\"\"},\"app_version\":{\"type\":\"string\",\"title\":\"The app_version schema\",\"description\":\"Application version\",\"default\":\"\"},\"api_version\":{\"type\":\"string\",\"title\":\"The api_version schema\",\"description\":\"Version of API\",\"default\":\"\"},\"author\":{\"type\":\"string\",\"title\":\"The author schema\",\"description\":\"Author of application.\",\"default\":\"\"},\"copyright\":{\"type\":\"string\",\"title\":\"The copyright schema\",\"description\":\"Owner of application copyright.\",\"default\":\"\"}},\"additionalProperties\":true},\"status\":{\"type\":\"string\",\"title\":\"The status schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}}}"
+    },
+    {
+      "key": "schema2",
+      "value": "{\"type\":\"object\",\"required\":[\"data\",\"meta\",\"status\"],\"externalDocs\":{\"url\":\"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#projects-table\"},\"properties\":{\"data\":{\"title\":\"The data schema\",\"description\":\"List of all base-data for Cora\",\"default\":[],\"items\":{\"anyOf\":[{\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"id\":{\"type\":\"integer\"},\"sb_id\":{\"type\":\"integer\"},\"icon\":{\"type\":[\"string\",\"null\"]},\"color\":{\"type\":[\"string\",\"null\"]},\"created_by\":{\"type\":\"string\",\"description\":\"User who created project\"},\"updated_by\":{\"type\":\"string\",\"description\":\"User who last updated project\"},\"created_at\":{\"type\":\"string\",\"description\":\"Date and Time of creation\"},\"updated_at\":{\"type\":\"string\",\"description\":\"Date and Time of last update\"},\"deleted_at\":{\"type\":[\"string\",\"null\"],\"description\":\"Date and Time of project deleted\"},\"tag\":{\"type\":\"string\"}},\"additionalProperties\":true}]}},\"links\":{\"type\":\"object\",\"title\":\"The links schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"first\":{\"type\":[\"string\",\"null\"],\"title\":\"The first schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"last\":{\"type\":[\"string\",\"null\"],\"title\":\"The last schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"prev\":{\"type\":[\"string\",\"null\"],\"title\":\"The prev schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null},\"next\":{\"type\":[\"string\",\"null\"],\"title\":\"The next schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null}},\"additionalProperties\":true},\"meta\":{\"type\":\"object\",\"title\":\"The meta schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"current_page\":{\"type\":[\"integer\",\"null\"],\"title\":\"The current_page schema\",\"description\":\"Current page number.\",\"default\":0},\"from\":{\"type\":\"integer\",\"title\":\"The from schema\",\"description\":\"Starting page number\",\"default\":0},\"last_page\":{\"type\":\"integer\",\"title\":\"The last_page schema\",\"description\":\"Last page number\",\"default\":0},\"path\":{\"type\":\"string\",\"title\":\"The path schema\",\"description\":\"API URL.\",\"default\":\"\"},\"per_page\":{\"type\":\"integer\",\"title\":\"The per_page schema\",\"description\":\"Results per page\",\"default\":0},\"to\":{\"type\":\"integer\",\"title\":\"The to schema\",\"description\":\"Next page number\",\"default\":0},\"total\":{\"type\":\"integer\",\"title\":\"The total schema\",\"description\":\"Total number of projects\",\"default\":0},\"app\":{\"type\":\"string\",\"title\":\"The app schema\",\"description\":\"Application name\",\"default\":\"\"},\"app_version\":{\"type\":\"string\",\"title\":\"The app_version schema\",\"description\":\"Application version\",\"default\":\"\"},\"api_version\":{\"type\":\"string\",\"title\":\"The api_version schema\",\"description\":\"Version of API\",\"default\":\"\"},\"author\":{\"type\":\"string\",\"title\":\"The author schema\",\"description\":\"Author of application.\",\"default\":\"\"},\"copyright\":{\"type\":\"string\",\"title\":\"The copyright schema\",\"description\":\"Owner of application copyright.\",\"default\":\"\"}},\"additionalProperties\":true},\"status\":{\"type\":\"string\",\"title\":\"The status schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}}}"
+    }
+  ]
+}

@@ -1,0 +1,1690 @@
+{
+  "info": {
+    "_postman_id": "d320faaf-71de-4d79-ba85-799ed8600326",
+    "name": "SpecimensFinal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "specimens",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "associations",
+              "item": [
+                {
+                  "name": "Get Specimen Associations",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "id": "b5f85eb3-6944-49c6-b66d-b0799bbcf147",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {",
+                          "    pm.response.to.have.status(200);",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disabledSystemHeaders": {
+                      "accept": true
+                    }
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{org_token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/associations?type=measurements",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "associations"
+                      ],
+                      "query": [
+                        {
+                          "key": "type",
+                          "value": "measurements"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "4031",
+                          "type": "string",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Untitled Example",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations?type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations"
+                          ],
+                          "query": [
+                            {
+                              "key": "type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "x-next",
+                          "value": "Lorem aliqua",
+                          "description": "A link to the next page of responses"
+                        },
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{}"
+                    },
+                    {
+                      "name": "unexpected error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations?type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations"
+                          ],
+                          "query": [
+                            {
+                              "key": "type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                    }
+                  ]
+                },
+                {
+                  "name": "Update Specimen Associations",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "id": "eca9d90d-dae2-4a56-a8f5-85f12b258637",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disabledSystemHeaders": {
+                      "accept": true
+                    }
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{org_token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n\t\"type\": \"measurements\",\n\t\"listIds\": {\n\t\t\"96\":{\"id\":\"96\",\"measure\":\"250\"},\n\t\t\"97\":{\"id\":\"97\",\"measure\":\"250\"},\n\t\t\"98\":{\"id\":\"98\",\"measure\":\"250\"},\n\t\t\"100\":{\"id\":\"100\",\"measure\":\"250\"}\n\t}\n}",
+                      "options": {
+                        "raw": {}
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/associations?type=measurements",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "associations"
+                      ],
+                      "query": [
+                        {
+                          "key": "type",
+                          "value": "measurements"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "4031"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Update Specimen Associations",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations?type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations"
+                          ],
+                          "query": [
+                            {
+                              "key": "type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "x-next",
+                          "value": "Lorem aliqua",
+                          "description": ""
+                        },
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{}"
+                    },
+                    {
+                      "name": "unexpected error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations?type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations"
+                          ],
+                          "query": [
+                            {
+                              "key": "type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                    }
+                  ]
+                },
+                {
+                  "name": "Get Specimen Association Methods",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "id": "15d9b632-9ea0-4cc6-adcb-4ffb81a2a5dc",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disabledSystemHeaders": {
+                      "accept": true
+                    }
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{org_token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/associations/methods?accession_number=CIL 2017-310&designator=204&side=Right&completeness=Incomplete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "associations",
+                        "methods"
+                      ],
+                      "query": [
+                        {
+                          "key": "accession_number",
+                          "value": "CIL 2017-310",
+                          "description": "(Required) "
+                        },
+                        {
+                          "key": "designator",
+                          "value": "204",
+                          "description": "(Required) "
+                        },
+                        {
+                          "key": "side",
+                          "value": "Right",
+                          "description": "(Required) "
+                        },
+                        {
+                          "key": "completeness",
+                          "value": "Incomplete",
+                          "description": "(Required) "
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "4031",
+                          "type": "string",
+                          "description": "(Required) ID of the specimen"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "unexpected error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations/methods?accession_number=<string>&designator=<string>&side=<string>&completeness=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations",
+                            "methods"
+                          ],
+                          "query": [
+                            {
+                              "key": "accession_number",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "designator",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "side",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "completeness",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                    },
+                    {
+                      "name": "Untitled Example",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations/methods?accession_number=<string>&designator=<string>&side=<string>&completeness=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations",
+                            "methods"
+                          ],
+                          "query": [
+                            {
+                              "key": "accession_number",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "designator",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "side",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "completeness",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "x-next",
+                          "value": "Lorem aliqua",
+                          "description": "A link to the next page of responses"
+                        },
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{}"
+                    }
+                  ]
+                },
+                {
+                  "name": "Get Specimen Association Articulation",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "id": "fd17bf01-44a6-4bbe-a42f-38a1c4115eaf",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disabledSystemHeaders": {
+                      "accept": true
+                    }
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{org_token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/associations/articulations?accession_number=CIL 2017-310&designator=204&side=Right&completeness=Incomplete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "associations",
+                        "articulations"
+                      ],
+                      "query": [
+                        {
+                          "key": "accession_number",
+                          "value": "CIL 2017-310",
+                          "description": "(Required) "
+                        },
+                        {
+                          "key": "designator",
+                          "value": "204",
+                          "description": "(Required) "
+                        },
+                        {
+                          "key": "side",
+                          "value": "Right",
+                          "description": "(Required) "
+                        },
+                        {
+                          "key": "completeness",
+                          "value": "Incomplete",
+                          "description": "(Required) "
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "4031",
+                          "type": "string",
+                          "description": "(Required) ID of the specimen"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Untitled Example",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations/articulations?accession_number=<string>&designator=<string>&side=<string>&completeness=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations",
+                            "articulations"
+                          ],
+                          "query": [
+                            {
+                              "key": "accession_number",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "designator",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "side",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "completeness",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "x-next",
+                          "value": "Lorem aliqua",
+                          "description": "A link to the next page of responses"
+                        },
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{}"
+                    },
+                    {
+                      "name": "unexpected error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/specimens/:id/associations/articulations?accession_number=<string>&designator=<string>&side=<string>&completeness=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "specimens",
+                            ":id",
+                            "associations",
+                            "articulations"
+                          ],
+                          "query": [
+                            {
+                              "key": "accession_number",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "designator",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "side",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "completeness",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                    }
+                  ]
+                }
+              ],
+              "protocolProfileBehavior": {},
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "Get Specimen",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a9362283-5737-4ad3-998b-384a05c9e112",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/specimens/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "4031",
+                      "type": "string",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                },
+                {
+                  "name": "Untitled Example",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "Lorem aliqua",
+                      "description": "A link to the next page of responses"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{}"
+                }
+              ]
+            },
+            {
+              "name": "Get Specimens Pathology, Anomaly, & Trauma",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "1544eb6c-3d2d-4793-89ad-d00c2bfe95dd",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/specimens/:id/pat/?accession_number=CIL 2017-310&designator=204&side=Right&completeness=Incomplete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens",
+                    ":id",
+                    "pat",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "accession_number",
+                      "value": "CIL 2017-310",
+                      "description": "(Required) "
+                    },
+                    {
+                      "key": "designator",
+                      "value": "204",
+                      "description": "(Required) "
+                    },
+                    {
+                      "key": "side",
+                      "value": "Right",
+                      "description": "(Required) "
+                    },
+                    {
+                      "key": "completeness",
+                      "value": "Incomplete",
+                      "description": "(Required) "
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "4031",
+                      "type": "string",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/pat/?accession_number=<string>&designator=<string>&side=<string>&completeness=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "pat",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "key": "accession_number",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "designator",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "side",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "completeness",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                },
+                {
+                  "name": "Untitled Example",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/pat/?accession_number=<string>&designator=<string>&side=<string>&completeness=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "pat",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "key": "accession_number",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "designator",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "side",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "completeness",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "Lorem aliqua",
+                      "description": "A link to the next page of responses"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{}"
+                }
+              ]
+            },
+            {
+              "name": "Update Specimen Individual Number",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "49ba6557-b872-4a26-8097-d57d3f73af25",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"completeness\": \"Complete\",\n    \"side\": \"Left\",\n    \"designator\": \"704\",\n    \"accession_number\": \"CIL 2003-116\",\n    \"individual_number\": \"CIL 2003-116-I-215\",\n\t\"identification_date\": \"01-01-1990\",\n\t\"remains_status\": \"Released\",\n\t\"remains_release_date\": \"02-02-1995\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/specimens/:id/individual-number",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens",
+                    ":id",
+                    "individual-number"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "2100",
+                      "type": "string",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/individual-number",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "individual-number"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+                },
+                {
+                  "name": "Untitled Example",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/specimens/:id/individual-number",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "specimens",
+                        ":id",
+                        "individual-number"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "Lorem aliqua",
+                      "description": "A link to the next page of responses"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{}"
+                }
+              ]
+            }
+          ],
+          "protocolProfileBehavior": {},
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Get All specimens",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "cb4f5f53-64ad-473d-a8ce-0a0ab03c7fe9",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/specimens?id=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "specimens"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "<integer>",
+                  "description": "ID of the specimen"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about Specimens",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/specimens?id=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "Lorem aliqua",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/specimens?id=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update specimen",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "f924742a-1ab0-4199-885c-f01d2e9aa8d4",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"accession_number\": \"CIL 2017-310\",\n\t\"designator\": \"204\",\n\t\"side\": \"Right\",\n\t\"completeness\": \"Complete\",\n\t\"measured\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/specimens/4031",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "specimens",
+                "4031"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/specimens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+            },
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/specimens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "specimens"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "Lorem aliqua",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{}"
+            }
+          ]
+        }
+      ],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "Search Specimens",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "586f20d2-a8ac-4250-9002-7b924a950748",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{org_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/projects/:id/specimens/search?searchby=SB&searchstring=ulna&per_page=100",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "projects",
+            ":id",
+            "specimens",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "searchby",
+              "value": "SB",
+              "description": "(Required) "
+            },
+            {
+              "key": "searchstring",
+              "value": "ulna",
+              "description": "(Required) "
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "2",
+              "type": "string",
+              "description": "(Required) ID of the specimen"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "unexpected error",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/:id/specimens/search?searchby=<string>&searchstring=<string>&per_page=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                ":id",
+                "specimens",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "searchby",
+                  "value": "<string>"
+                },
+                {
+                  "key": "searchstring",
+                  "value": "<string>"
+                },
+                {
+                  "key": "per_page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n \"code\": -60698719,\n \"message\": \"aute Lorem\"\n}"
+        },
+        {
+          "name": "Details about specimens",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/:id/specimens/search?searchby=<string>&searchstring=<string>&per_page=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                ":id",
+                "specimens",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "searchby",
+                  "value": "<string>"
+                },
+                {
+                  "key": "searchstring",
+                  "value": "<string>"
+                },
+                {
+                  "key": "per_page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-next",
+              "value": "Lorem aliqua",
+              "description": "A link to the next page of responses"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "id": "baseUrl",
+      "key": "baseUrl",
+      "value": "{{base_url}}/api",
+      "type": "string"
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

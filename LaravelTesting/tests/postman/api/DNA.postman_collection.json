@@ -1,0 +1,811 @@
+{
+	"info": {
+		"_postman_id": "3090c40c-b460-480d-8e04-305f0380f1ac",
+		"name": "DNA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "Create DNA wrong token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b4616cf7-2ff0-4159-aa82-307741062a40",
+								"exec": [
+									"\r",
+									"pm.globals.set(\"page\", \"1\");\r",
+									"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+									"pm.globals.set(\"atoken\", anthrotoken);\r",
+									"\r",
+									"\r",
+									"var token = pm.globals.get(\"token\")\r",
+									"\r",
+									"if(!token){\r",
+									"     token = pm.globals.get(\"invalidtoken\");\r",
+									"}\r",
+									"\r",
+									"var currenttoken = token.shift();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"atoken\", currenttoken);\r",
+									"pm.globals.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "02492d0d-8efc-4296-882c-40e376c38468",
+								"exec": [
+									"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. This request should not create a new dna.\r",
+									"\r",
+									"var token = pm.globals.get(\"token\");\r",
+									"\r",
+									"if (token.length > 0) {\r",
+									"    postman.setNextRequest(\"Create DNA wrong token\")\r",
+									"\r",
+									"} else {\r",
+									"    pm.globals.unset(\"token\")\r",
+									"   \r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{atoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"org_id\": \"2\",\r\n\t\"project_id\": \"2\",\r\n    \"se_id\":\"51670\",\r\n\t\"sb_id\": \"37\",\r\n\t\"lab_id\": \"1\",\r\n\t\"sample_number\": \"381S4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/dnas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dnas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get wrong dna detail",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0553010a-e767-457f-8e1c-0458171340b2",
+								"exec": [
+									"var dna_id = pm.collectionVariables.get(\"dnaid\")\r",
+									"\r",
+									"pm.globals.set (\"dna_id\",dna_id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "78c9302f-e530-42db-bb78-f8b0c7b4ec8b",
+								"exec": [
+									"//This request is trying to get wrong dna id and check if data is returing ot not.\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dnas/xxx",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dnas",
+								"xxx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete invalid dna",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8716df88-defe-4112-8520-8854eefa2ba9",
+								"exec": [
+									"//This request is trying to delete wrong dna id and check if data is returing ot not.\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/dnas/01er",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dnas",
+								"01er"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Invalid dna fields",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fcb7349-a53f-4ff8-a328-d0689ed4e5a1",
+								"exec": [
+									"var dna_id = pm.collectionVariables.get(\"dnaid\")\r",
+									"\r",
+									"pm.globals.set (\"dna_id\",dna_id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "26a7e83e-cdf4-4fbd-95e0-d91503addfbb",
+								"exec": [
+									"// This request is trying to edit the dna created with inavlid values.\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"   // pm.response.to.not.be.Body;\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"btb_request_date\": \"xxx\",\r\n    \"weight_sample_remaining\": \"#@\",\r\n    \"sample_number\": \"#45t\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/dnas/{{dna_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dnas",
+								"{{dna_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Create DNA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23a85967-4860-461a-9142-a87840eb7fb5",
+						"exec": [
+							"// This post request creates a new dna and saves the returned values as collection variables.\r",
+							"\r",
+							"pm.test(\"Saving the returned values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var orgid = jsonData.data.org_id\r",
+							"    pm.collectionVariables.set(\"orgid\", orgid)\r",
+							"    var projectid = jsonData.data.project_id\r",
+							"    pm.collectionVariables.set(\"projectid\",projectid)\r",
+							"    var specimenid= jsonData.data.se_id\r",
+							"    pm.collectionVariables.set(\"specimenid\",specimenid)\r",
+							"    var boneid = jsonData.data.sb_id\r",
+							"    pm.collectionVariables.set(\"boneid\",boneid)\r",
+							"    var labid = jsonData.data.lab_id\r",
+							"    pm.collectionVariables.set(\"labid\",labid)\r",
+							"    var samplenumber= jsonData.data.sample_number\r",
+							"    pm.collectionVariables.set(\"samplenumber\",samplenumber)\r",
+							"    var dnaid = jsonData.data.id\r",
+							"    pm.collectionVariables.set(\"dnaid\",dnaid)\r",
+							"\r",
+							"    pm.expect(jsonData.data.org_id).to.eql(orgid);\r",
+							"    pm.expect(jsonData.data.project_id).to.eql(projectid);\r",
+							"    pm.expect(jsonData.data.se_id).to.eql(specimenid);\r",
+							"    pm.expect(jsonData.data.sb_id).to.eql(boneid); \r",
+							"    pm.expect(jsonData.data.lab_id).to.eql(labid); \r",
+							"    pm.expect(jsonData.data.sample_number).to.eql(samplenumber); \r",
+							"    pm.expect(jsonData.data.id).to.eql(dnaid); \r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"org_id\": \"2\",\r\n\t\"project_id\": \"2\",\r\n    \"se_id\":\"51670\",\r\n\t\"sb_id\": \"37\",\r\n\t\"lab_id\": \"1\",\r\n\t\"sample_number\": \"381S4\"\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/dnas",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update dna",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "54dbde78-6d4c-4d19-9c10-93e504dc8746",
+						"exec": [
+							"var dna_id = pm.collectionVariables.get(\"dnaid\")\r",
+							"\r",
+							"pm.globals.set (\"dna_id\",dna_id)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ceaff419-67e6-4384-a397-60b88b332c30",
+						"exec": [
+							"// This request is used to update the existing dna and saving the returned values as collection level variables.\r",
+							"\r",
+							"pm.test(\"Saving the returned values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var btb_request_date = jsonData.data.btb_request_date\r",
+							"    pm.collectionVariables.set(\"btb_request_date\", btb_request_date)\r",
+							"    var weight_sample_remaining = jsonData.data.weight_sample_remaining\r",
+							"    pm.collectionVariables.set(\"weight_sample_remaining\",weight_sample_remaining)\r",
+							"    var sample_number = jsonData.data.sample_number\r",
+							"    pm.collectionVariables.set(\"sample_number\",sample_number)\r",
+							"    var mito_method = jsonData.data.mito_method\r",
+							"    pm.collectionVariables.set(\"mito_method\",mito_method)\r",
+							"    var mito_base_pairs= jsonData.data.mito_base_pairs\r",
+							"    pm.collectionVariables.set(\"mito_base_pairs\",mito_base_pairs)\r",
+							"    var austr_method = jsonData.data.austr_method\r",
+							"    pm.collectionVariables.set(\"austr_method\",austr_method)\r",
+							"    var austr_num_loci = jsonData.data.austr_num_loci\r",
+							"    pm.collectionVariables.set(\"austr_num_loci\",austr_num_loci)\r",
+							"    var ystr_sequence_number= jsonData.data.ystr_sequence_number\r",
+							"    pm.collectionVariables.set(\"ystr_sequence_number\",ystr_sequence_number)\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"btb_request_date\": \"2020-12-04\",\r\n    \"weight_sample_remaining\": \"0.5\",\r\n    \"sample_number\": \"381S4\",\r\n    \"mito_method\": \"NGS\",\r\n    \"mito_base_pairs\": \"611\",\r\n    \"austr_method\": \"AmpFLSTR Identifiler\",\r\n    \"austr_num_loci\": \"9\",\r\n    \"ystr_sequence_number\": \"1\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/dnas/{{dna_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						"{{dna_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get DNA detail",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b28c4e30-b3ab-4db7-80f8-649fe7eb9c6b",
+						"exec": [
+							"var dna_id = pm.collectionVariables.get(\"dnaid\")\r",
+							"\r",
+							"pm.globals.set (\"dna_id\",dna_id)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b556636-c926-4dc2-afe8-3a8dd9a87b8d",
+						"exec": [
+							"//This request is to check if the dna has created with correct post criteria. It will check the response of the request against the saved collection level variables values.\r",
+							"\r",
+							"pm.test(\" Check the correct returned values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var orgid =JSON.parse( pm.collectionVariables.get(\"orgid\"))\r",
+							"    var projectid = JSON.parse(pm.collectionVariables.get(\"projectid\"))\r",
+							"    var specimenid= JSON.parse(pm.collectionVariables.get(\"specimenid\"))\r",
+							"    var boneid = JSON.parse(pm.collectionVariables.get(\"boneid\"))\r",
+							"    var labid = JSON.parse(pm.collectionVariables.get(\"labid\"))\r",
+							"    var samplenumber= pm.collectionVariables.get(\"samplenumber\")\r",
+							"    var dnaid = pm.collectionVariables.get(\"dnaid\")\r",
+							"\r",
+							"\r",
+							"    pm.expect(jsonData.data.org_id).to.eql(orgid);\r",
+							"    pm.expect(jsonData.data.project_id).to.eql(projectid);\r",
+							"    pm.expect(jsonData.data.se_id).to.eql(specimenid);\r",
+							"    pm.expect(jsonData.data.sb_id).to.eql(boneid); \r",
+							"    pm.expect(jsonData.data.lab_id).to.eql(labid); \r",
+							"    pm.expect(jsonData.data.sample_number).to.eql(samplenumber); \r",
+							"    pm.expect(jsonData.data.id).to.eql(dnaid); \r",
+							"  \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check response variables\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/dnas/{{dna_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						"{{dna_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete DNA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "298b8e2c-2264-4401-9071-919f28d00c65",
+						"exec": [
+							"// This request is used to delete a dna.\r",
+							"\r",
+							"pm.test(\" Check delete status\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.eql(\"Resource deleted successfully\");\r",
+							"    \r",
+							"   \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/dnas/{{dna_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						"{{dna_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get DNA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b47ea6fb-4b39-4b99-84d4-e0aadf3c4867",
+						"exec": [
+							"//This request gets all the available dnas.\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify List of Keys in the Response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Display count of records\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     tests[\" Total Count: \"  + jsonData.meta.total] = true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dnas",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c46116c4-95a7-4107-90e6-01561dff5e87",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "601eebba-b2aa-4718-b26f-0fba25565bb3",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status Code\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,500,400,422,404]);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "424673fe-2122-415d-9af7-ac4e88879216",
+			"key": "boneid",
+			"value": ""
+		},
+		{
+			"id": "1a12b4df-ce23-492f-94bb-ea040ec48f96",
+			"key": "dnaid",
+			"value": ""
+		},
+		{
+			"id": "22f867c2-d7db-480a-a4e4-f68b0087d33b",
+			"key": "labid",
+			"value": ""
+		},
+		{
+			"id": "9d80f3cf-1b8e-4990-9808-841af1481084",
+			"key": "orgid",
+			"value": ""
+		},
+		{
+			"id": "223756b1-1e48-4fac-ab10-d97c96804918",
+			"key": "projectid",
+			"value": ""
+		},
+		{
+			"id": "84e6912f-fa52-46eb-80aa-4b44ef17827f",
+			"key": "samplenumber",
+			"value": ""
+		},
+		{
+			"id": "8990d48a-a3ef-475f-8501-6038e5a1454f",
+			"key": "specimenid",
+			"value": ""
+		},
+		{
+			"id": "a8bc655a-58f0-4b1a-b1d7-0ef485c311f0",
+			"key": "austr_method",
+			"value": ""
+		},
+		{
+			"id": "1c3bd244-de07-4c00-85cf-b9499591ff07",
+			"key": "austr_num_loci",
+			"value": ""
+		},
+		{
+			"id": "42ba6a81-2cbe-4a24-b4b6-f906430b0028",
+			"key": "btb_request_date",
+			"value": ""
+		},
+		{
+			"id": "a3b48b41-f61a-4b5f-a8a2-06172284039d",
+			"key": "mito_base_pairs",
+			"value": ""
+		},
+		{
+			"id": "0a211c45-9752-4cb9-9ea0-cf3a0fdd9cd9",
+			"key": "mito_method",
+			"value": ""
+		},
+		{
+			"id": "ef49c499-d032-4351-867b-3ca832eff7a7",
+			"key": "sample_number",
+			"value": ""
+		},
+		{
+			"id": "faabb6f9-300e-4163-8a28-bbdb72102aa0",
+			"key": "weight_sample_remaining",
+			"value": ""
+		},
+		{
+			"id": "7bb0b2c6-2819-4c13-9acc-55e8baa283a4",
+			"key": "ystr_sequence_number",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,775 @@
+{
+	"info": {
+		"_postman_id": "941e17bb-f86f-4c58-968a-be63f9fa7a17",
+		"name": "Isotope",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "isotopes",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "GET all Isotopes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"const isotopeSchema = JSON.parse(pm.environment.get(\"isotopeSchema\"));",
+											"pm.test('Schema is valid', function () {",
+											"    pm.response.to.have.jsonSchema(isotopeSchema)",
+											"});",
+											"",
+											"if (jsonData.status === \"success\"){",
+											"",
+											"    pm.test(\"Application name is correct from the response\", () => {",
+											"    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");",
+											"        });",
+											"",
+											"    pm.test(\"Data type of the 'id' is correct\", () => {",
+											"    pm.expect(jsonData.data[0].id).to.be.a(\"number\");",
+											"    });",
+											"",
+											"    pm.test(\"Verify List of Keys in the Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");",
+											"});",
+											"",
+											"} else if (jsonData.message === \"Unauthenticated.\"){",
+											"    pm.test(\"Error. Please provide the authentication.\");",
+											"}",
+											"else {",
+											"    pm.test(\"Error. Please check the request again.\")",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/isotopes",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"isotopes"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "unexpected error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": -24715994,\n \"message\": \"ut commodo\"\n}"
+								},
+								{
+									"name": "Successful response of Isotope information",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "x-next",
+											"value": "commodo reprehenderit",
+											"description": ""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "create Isotope",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"//const isotopeSchema = JSON.parse(pm.environment.get(\"isotopeSchema\"));",
+											"",
+											"pm.environment.set('isotopeId', jsonData.data.id);",
+											"//pm.test('Schema is valid', function () {",
+											" //   pm.response.to.have.jsonSchema(isotopeSchema)",
+											"//});",
+											"",
+											"if (jsonData.status === \"success\"){",
+											"",
+											"    pm.test(\"Application name is correct from the response\", () => {",
+											"    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");",
+											"        });",
+											"",
+											"    pm.test(\"Test data type of the id response\", () => {",
+											"    pm.expect(jsonData.data.id).to.be.a(\"number\");",
+											"    });",
+											"",
+											"} ",
+											"else if (jsonData.message === \"Unauthenticated.\"){",
+											"    pm.test(\"Error. Please provide the authentication.\");",
+											"}",
+											"else {",
+											"    pm.test(\"Error. Please check the request again.\")",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"org_id\": \"2\",\n\t\"project_id\": \"2\",\n\t\"sb_id\": \"37\",\n\t\"se_id\": \"4031\",\n\t\"lab_id\": \"1\",\n\t\"sample_number\": \"02X\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotopes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "unexpected error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": -24715994,\n \"message\": \"ut commodo\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "x-next",
+											"value": "commodo reprehenderit",
+											"description": ""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Isotope",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"const isotopeSchema = JSON.parse(pm.environment.get(\"isotopeSchema\"));",
+											"",
+											"pm.test('Schema is valid', function () {",
+											"    pm.response.to.have.jsonSchema(isotopeSchema)",
+											"});",
+											"",
+											"if (jsonData.status === \"success\"){",
+											"",
+											"    pm.test(\"Application name is correct from the response\", () => {",
+											"    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");",
+											"        });",
+											"} ",
+											"else if (jsonData.message === \"Unauthenticated.\"){",
+											"    pm.test(\"Error. Please provide the authentication.\");",
+											"}",
+											"else {",
+											"    pm.test(\"Error. Please check the request again.\")",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"external_case_id\": \"2004H2020\",\n\t\"c_weight\": \"1.1\",\n\t\"c_delta\": \"0.5\",\n\t\"c_percent\": \"5\",\n\t\"c_to_n_ratio\": \"0.1\",\n\t\"c_to_o_ratio\": \"0.2\",\n    \"weight_sample_cleaned\": \"50\",\n    \"weight_vial_lid\": \"100\",\n    \"weight_sample_vial_lid\": \"110\",\n    \"weight_collagen\": \"10\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/isotopes/{{isotopeId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes",
+										"{{isotopeId}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "unexpected error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": -24715994,\n \"message\": \"ut commodo\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "x-next",
+											"value": "commodo reprehenderit",
+											"description": ""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "GET a Isotope",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"const isotopeSchema = JSON.parse(pm.environment.get(\"isotopeSchema\"));",
+											"",
+											"pm.test('Schema is valid', function () {",
+											"    pm.response.to.have.jsonSchema(isotopeSchema)",
+											"});",
+											"",
+											"if (jsonData.status === \"success\"){",
+											"",
+											"    pm.test(\"Application name is correct from the response\", () => {",
+											"    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");",
+											"        });",
+											"",
+											"    pm.test(\"Data type of the response is correct\", () => {",
+											"    pm.expect(jsonData.data.id).to.be.a(\"number\");",
+											"    });",
+											"",
+											"    pm.test(\"Response variables are correct\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");",
+											"});",
+											"",
+											"} else if (jsonData.message === \"Unauthenticated.\"){",
+											"    pm.test(\"Error. Please provide the authentication.\");",
+											"}",
+											"else {",
+											"    pm.test(\"Error. Please check the request again.\")",
+											"}",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/isotopes/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successful response of Isotope information",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "x-next",
+											"value": "commodo reprehenderit",
+											"description": ""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+								},
+								{
+									"name": "unexpected error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": -24715994,\n \"message\": \"ut commodo\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Isotope",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"if (jsonData.data === \"Resource deleted successfully\"){",
+											"    pm.test(\"Resource deleted successfully\");",
+											"} ",
+											"else if (jsonData.message === \"Unauthenticated.\"){",
+											"    pm.test(\"Error. Please provide the authentication.\");",
+											"}",
+											"else {",
+											"    pm.test(\"Error!!!Data not found.Please enter a valid id.\");",
+											"}",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/isotopes/{{isotopeId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"isotopes",
+										"{{isotopeId}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "x-next",
+											"value": "commodo reprehenderit",
+											"description": ""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+								},
+								{
+									"name": "unexpected error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/isotopes/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"isotopes",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": -24715994,\n \"message\": \"ut commodo\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const isotopeSchema = JSON.parse(pm.environment.get(\"isotopeSchema\"));",
+					"var jsonData = pm.response.json();",
+					"pm.test(\"Status code is correct\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,400,422,500]);",
+					"});",
+					"",
+					"",
+					"pm.test(\"Active Environment Test\", () => {",
+					"  pm.expect(pm.environment.name).to.eql(\"Testing\");",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});",
+					"",
+					"",
+					"pm.test(\"check the Data, Status & Meta in response\", () => {",
+					"    if(jsonData.meta == true){",
+					"    pm.response.to.have.jsonBody(\"data\");",
+					"    }",
+					"    else{",
+					"        pm.test(\"response body doesnt have meta\");",
+					"    }",
+					" ",
+					"});",
+					"",
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "{{base_url}}/api"
+		},
+		{
+			"key": "isotopeSchema",
+			"value": "{\"type\":[\"object\",\"array\"],\"required\":[\"data\",\"meta\",\"status\"],\"externalDocs\":{\"url\":\"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#isotopes-table\"},\"properties\":{\"data\":{\"type\":[\"object\",\"array\"],\"title\":\"The data schema\",\"description\":\"List of all Isotope for Cora\",\"default\":[],\"items\":{\"anyOf\":[{\"type\":[\"object\",\"array\"],\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"id\",\"se_id\",\"sb_id\",\"org_id\",\"project_id\"],\"properties\":{\"id\":{\"type\":\"integer\",\"description\":\"ID of Isotope sample record\"},\"se_id\":{\"type\":\"integer\",\"description\":\"\"},\"sb_id\":{\"type\":\"integer\",\"description\":\"ID of Bone\"},\"org_id\":{\"type\":\"integer\",\"description\":\"\"},\"project_id\":{\"type\":\"integer\",\"description\":\"\"},\"lab_id\":{\"type\":\"integer\",\"description\":\"\"},\"batch_id\":{\"type\":[\"integer\",\"null\"],\"description\":\"\"},\"sample_number\":{\"type\":\"string\",\"description\":\"\"},\"external_case_id\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"results_confidence\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"weight_sample_cleaned\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"weight_vial_lid\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"weight_sample_vial_lid\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"weight_collagen\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"yield_collagen\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"demineralizing_start_date\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"demineralizing_end_date\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"analysis_requested\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"well_location\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"collagen_weight_used_for_analysis\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"c_weight\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"n_weight\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"o_weight\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"s_weight\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"c_delta\":{\"type\":[\"integer\",\"null\",\"string\"],\"description\":\"\"},\"n_delta\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"o_delta\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"s_delta\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"c_percent\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"n_percent\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"o_percent\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"s_percent\":{\"type\":[\"number\",\"null\"],\"description\":\"\"},\"c_to_n_ratio\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"c_to_o_ratio\":{\"type\":[\"number\",\"null\",\"string\"],\"description\":\"\"},\"created_by\":{\"type\":[\"string\",\"null\"],\"description\":\"User who first created the DNA\"},\"updated_by\":{\"type\":[\"string\",\"null\"],\"description\":\"User who last updated the DNA\"},\"created_at\":{\"type\":\"string\",\"description\":\"Date and Time of creation\"},\"updated_at\":{\"type\":\"string\",\"description\":\"Date and Time of last update\"},\"deleted_at\":{\"type\":[\"string\",\"null\"],\"description\":\"Date and Time of recored deletion\"},\"uuid\":{\"type\":[\"string\",\"null\"],\"description\":\"\"},\"user_id\":{\"type\":[\"integer\",\"null\"],\"description\":\"\"},\"custom_field_1\":{\"type\":[\"string\",\"null\"],\"description\":\"Custom field 1 for additional data\"},\"custom_field_2\":{\"type\":[\"string\",\"null\"],\"description\":\"Custom field 2 for additional data\"},\"custom_field_3\":{\"type\":[\"string\",\"null\"],\"description\":\"Custom field 3 for additional data\"},\"tag\":{\"type\":\"string\"}},\"additionalProperties\":true}]}},\"links\":{\"type\":\"object\",\"title\":\"The links schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"first\",\"last\",\"prev\",\"next\"],\"properties\":{\"first\":{\"type\":\"string\",\"title\":\"The first schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"last\":{\"type\":\"string\",\"title\":\"The last schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"prev\":{\"type\":[\"string\",\"null\"],\"title\":\"The prev schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null},\"next\":{\"type\":[\"string\",\"null\"],\"title\":\"The next schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null}},\"additionalProperties\":true},\"meta\":{\"type\":\"object\",\"title\":\"The meta schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"app\",\"app_version\",\"api_version\",\"author\",\"copyright\"],\"properties\":{\"current_page\":{\"type\":\"integer\",\"title\":\"The current_page schema\",\"description\":\"Current page number\",\"default\":0},\"from\":{\"type\":\"integer\",\"title\":\"The from schema\",\"description\":\"Starting page number\",\"default\":0},\"last_page\":{\"type\":\"integer\",\"title\":\"The last_page schema\",\"description\":\"Last page number\",\"default\":0},\"path\":{\"type\":\"string\",\"title\":\"The path schema\",\"description\":\"API URL\",\"default\":\"\"},\"per_page\":{\"type\":\"integer\",\"title\":\"The per_page schema\",\"description\":\"Results per page\",\"default\":0},\"to\":{\"type\":\"integer\",\"title\":\"The to schema\",\"description\":\"Next page number\",\"default\":0},\"total\":{\"type\":\"integer\",\"title\":\"The total schema\",\"description\":\"Total number of DNA\",\"default\":0},\"app\":{\"type\":\"string\",\"title\":\"The app schema\",\"description\":\"Application name\",\"default\":\"\"},\"app_version\":{\"type\":\"string\",\"title\":\"The app_version schema\",\"description\":\"Application version\",\"default\":\"\"},\"api_version\":{\"type\":\"string\",\"title\":\"The api_version schema\",\"description\":\"Version of API\",\"default\":\"\"},\"author\":{\"type\":\"string\",\"title\":\"The author schema\",\"description\":\"Author of application\",\"default\":\"\"},\"copyright\":{\"type\":\"string\",\"title\":\"The copyright schema\",\"description\":\"Owner of application copyright\",\"default\":\"\"}},\"additionalProperties\":true},\"status\":{\"type\":\"string\",\"title\":\"The status schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}}}",
+			"disabled": true
+		},
+		{
+			"key": "isotopeId",
+			"value": "",
+			"disabled": true
+		}
+	]
+}

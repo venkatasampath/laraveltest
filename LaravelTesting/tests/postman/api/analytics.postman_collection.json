@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "b8f84ae7-2f29-429d-820b-8c87c7258ade",
+		"name": "AnalyticsTeam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "analytics",
+			"item": [
+				{
+					"name": "Get specimens in Anp1p2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-01\"],\r\n    \"p2\": [\"X-233E\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/analytics/anp1p2/specimens",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								"anp1p2",
+								"specimens"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/anp1p2/specimens",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"anp1p2",
+										"specimens"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+						},
+						{
+							"name": "Details about specimens",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/anp1p2/specimens",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"anp1p2",
+										"specimens"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-next",
+									"value": "sit consectetur eu incididunt",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get taphonomy with specimens",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-01\"],\r\n    \"p2\": [\"X-233E\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/analytics/taphonomy",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								"taphonomy"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Details about taphonomy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/taphonomy",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"taphonomy"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-next",
+									"value": "sit consectetur eu incididunt",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+						},
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/taphonomy",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"taphonomy"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get pairs with specimens",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/analytics/pairs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								"pairs"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/pairs",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"pairs"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+						},
+						{
+							"name": "Details about pairs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/pairs",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"pairs"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-next",
+									"value": "sit consectetur eu incididunt",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get specimens",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/analytics/specimens/1269/degree/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								"specimens",
+								"1269",
+								"degree",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/specimens/:id/degree/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"specimens",
+										":id",
+										"degree",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+						},
+						{
+							"name": "Details about specimens",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/specimens/:id/degree/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										"specimens",
+										":id",
+										"degree",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-next",
+									"value": "sit consectetur eu incididunt",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "{{base_url}}/api",
+			"type": "string"
+		}
+	]
+}

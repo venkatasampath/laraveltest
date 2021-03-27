@@ -1,0 +1,5747 @@
+{
+	"info": {
+		"_postman_id": "ab46a10c-9b10-4869-9cc0-31828044ea69",
+		"name": "Specimens",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Specimen",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Create Specimen token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f658b62d-d111-4e5b-9d2d-efc1ce102a97",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit a specimen. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Create Specimen token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "08df6e16-a31a-4a91-b59c-525004e5d599",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\t\"accession_number\": \"CIL 2003-116\",\r\n\t\"designator\": \"204\",\r\n\t\"side\": \"Right\",\r\n    \"sb_id\":37,\r\n\t\"completeness\": \"Incomplete\"\r\n\t\r\n} \r\n",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Specimen",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7911b708-60fd-491e-990a-80e7171f364e",
+										"exec": [
+											"// This negative test is to create a specimen giving missing parameters in the body and checkinhg if the api adds the new specimen or not.\r",
+											"\r",
+											"pm.test(\"Invalid data message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"The given data was invalid.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\t\r\n\t\"designator\": \"204\",\r\n\t\"side\": \"Right\",\r\n    \"sb_id\":37,\r\n\t\"completeness\": \"Incomplete\"\r\n\t\r\n} \r\n",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Specimen by unauthorized users",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e64ccb13-186f-41a2-8f3e-249dcf594a14",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "1f532b29-5f6d-4fe6-b091-2a0b82bc7c94",
+										"exec": [
+											"// var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Edit Specimen by unauthorized users\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"//test to see dna analyst and isotope anlayst cannot update the specimen\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"//check to see you get 403 status while editing by Dna Analyst and Isotope Analyst\r",
+											"pm.test(\"Status code is 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"    })\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\t\"accession_number\": \"CIL 2003-116\",\r\n\t\"designator\": \"204\",\r\n\t\"side\": \"Left\",\r\n    \"sb_id\":37,\r\n\t\"completeness\": \"Incomplete\",\r\n    \"provenance1\":\"G-01\",\r\n    \"provenance2\":\"\",\r\n    \"measured\":true,\r\n    \"dna_sampled\":true,\r\n    \"ct_scanned\": true,\r\n    \"ct_scanned_date\":\"2020-10-20\",\r\n    \"xray_scanned\": true,\r\n    \"xray_scanned_date\":\"2020-10-22\",\r\n    \"individual_number\": \"I-100\"\r\n   \r\n\t\r\n} ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Specimen by removing required field",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2141a6ff-5ffa-4b13-b60c-ddac87eb5e35",
+										"exec": [
+											"//test to see empty required fields gives error message\r",
+											"pm.test(\"Check invalid message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"The given data was invalid.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"//test to see empty required fields gives error message\r",
+											"pm.test(\"Check required field side error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.errors.side).to.eql(['The side field is required.' ]);\r",
+											"   \r",
+											"});\r",
+											"//test to see empty required fields gives error message\r",
+											"pm.test(\"Check required field completeness error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.errors.completeness).to.eql(['The completeness field is required.']);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"//check to see you get 422 error\r",
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"    })\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_manager_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n    \"accession_number\": \"CIL 2003-116\",\r\n\t\"side\": \"\",\r\n    \"sb_id\":37,\r\n\t\"completeness\": \"\",\r\n    \"provenance1\":\"G-01\",\r\n    \"designator\": \"204\"\r\n   \r\n} ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit Specimen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac49bfea-32bd-444e-afa8-634fc121ca62",
+								"exec": [
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var provenance1 = jsonData.data.provenance1\r",
+									"    pm.collectionVariables.set(\"provenance1\", provenance1)\r",
+									"    var provenance2 = jsonData.data.provenance2\r",
+									"    pm.collectionVariables.set(\"provenance2\",provenance2)\r",
+									"    var measured = jsonData.data.measured\r",
+									"    pm.collectionVariables.set(\"measured\",measured)\r",
+									"    var dna_sampled = jsonData.data.dna_sampled\r",
+									"    pm.collectionVariables.set(\"dna_sampled\",dna_sampled)\r",
+									"    var ct_scanned = jsonData.data.ct_scanned\r",
+									"    pm.collectionVariables.set(\"ct_scanned\",ct_scanned)\r",
+									"    var ct_scanned_date = jsonData.data.ct_scanned_date\r",
+									"    pm.collectionVariables.set(\"ct_scanned_date\",ct_scanned_date)\r",
+									"    var xray_scanned = jsonData.data.xray_scanned\r",
+									"    pm.collectionVariables.set(\"xray_scanned\",xray_scanned)\r",
+									"    var xray_scanned_date = jsonData.data.xray_scanned_date\r",
+									"    pm.collectionVariables.set(\"xray_scanned_date\",xray_scanned_date)\r",
+									"    var individual_number = jsonData.data.individual_number\r",
+									"    pm.collectionVariables.set(\"individual_number\",individual_number)\r",
+									"    pm.expect(jsonData.data.provenance1).to.eql(provenance1);\r",
+									"    pm.expect(jsonData.data.provenance2).to.eql(provenance2);\r",
+									"    pm.expect(jsonData.data.measured).to.eql(measured);\r",
+									"    pm.expect(jsonData.data.dna_sampled).to.eql(dna_sampled); \r",
+									"    pm.expect(jsonData.data.ct_scanned).to.eql(ct_scanned); \r",
+									"    pm.expect(jsonData.data.ct_scanned_date).to.eql(ct_scanned_date); \r",
+									"    pm.expect(jsonData.data.xray_scanned).to.eql(xray_scanned); \r",
+									"    pm.expect(jsonData.data.xray_scanned_date).to.eql(xray_scanned_date); \r",
+									"    pm.expect(jsonData.data.individual_number).to.eql(individual_number); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\t\"accession_number\": \"CIL 2003-116\",\r\n\t\"designator\": \"204\",\r\n\t\"side\": \"Left\",\r\n    \"sb_id\":37,\r\n\t\"completeness\": \"Incomplete\",\r\n    \"provenance1\":\"G-01\",\r\n    \"provenance2\":\"\",\r\n    \"measured\":true,\r\n    \"dna_sampled\":true,\r\n    \"ct_scanned\": true,\r\n    \"ct_scanned_date\":\"2020-10-20 00:00:00\",\r\n    \"xray_scanned\": true,\r\n    \"xray_scanned_date\":\"2020-10-22 00:00:00\",\r\n    \"individual_number\": \"I-100\"\r\n   \r\n\t\r\n} ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specimen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9d7d7e8-9e0d-4e3c-9699-0ee268997622",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var provenance1 = pm.collectionVariables.get(\"provenance1\")\r",
+									"    var provenance2 = pm.collectionVariables.get(\"provenance2\")\r",
+									"    var measured = pm.collectionVariables.get(\"measured\")\r",
+									"    var dna_sampled = pm.collectionVariables.get(\"dna_sampled\")\r",
+									"    var ct_scanned = pm.collectionVariables.get(\"ct_scanned\")\r",
+									"    var ct_scanned_date = pm.collectionVariables.get(\"ct_scanned_date\")\r",
+									"    var xray_scanned = pm.collectionVariables.get(\"xray_scanned\")\r",
+									"    var xray_scanned_date = pm.collectionVariables.get(\"xray_scanned_date\")\r",
+									"    var individual_number = pm.collectionVariables.get(\"individual_number\")\r",
+									"    pm.expect(jsonData.data.provenance1).to.eql(provenance1);\r",
+									"    pm.expect(jsonData.data.provenance2).to.eql(provenance2);\r",
+									"    pm.expect(jsonData.data.measured).to.eql(measured);\r",
+									"    pm.expect(jsonData.data.dna_sampled).to.eql(dna_sampled); \r",
+									"    pm.expect(jsonData.data.ct_scanned).to.eql(ct_scanned); \r",
+									"    pm.expect(jsonData.data.ct_scanned_date).to.eql(ct_scanned_date); \r",
+									"    pm.expect(jsonData.data.xray_scanned).to.eql(xray_scanned); \r",
+									"    pm.expect(jsonData.data.xray_scanned_date).to.eql(xray_scanned_date); \r",
+									"    pm.expect(jsonData.data.individual_number).to.eql(individual_number); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Specimen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f30bf71-9c08-4eac-b818-b056b1e48e13",
+								"exec": [
+									"// In this request we create a new specimen using the POST HTTP method. The fields required to create a specimen are given in the body and checks the response returned is matching to the body.\r",
+									"//Should chanege\r",
+									"pm.test(\"Body matches the response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var acc_num = jsonData.data.accession_number\r",
+									"    var des = jsonData.data.designator\r",
+									"    var side = jsonData.data.side\r",
+									"    var sb_id = jsonData.data.sb_id\r",
+									"    var completeness = jsonData.data.completeness\r",
+									"    pm.expect(jsonData.data.accession_number).to.eql(acc_num);\r",
+									"    pm.expect(jsonData.data.designator).to.eql(des);\r",
+									"    pm.expect(jsonData.data.side).to.eql(side);\r",
+									"    pm.expect(jsonData.data.sb_id).to.eql(sb_id);\r",
+									"    pm.expect(jsonData.data.completeness).to.eql(completeness);\r",
+									"\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check for expected field values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"designator\",\"side\",\"accession_number\",\"completeness\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\t\"accession_number\": \"CIL 2003-116\",\r\n\t\"designator\": \"204\",\r\n\t\"side\": \"Right\",\r\n    \"sb_id\":37,\r\n\t\"completeness\": \"Incomplete\"\r\n\t\r\n} \r\n",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "870d2335-646c-46ed-94e4-f48ba2858c5a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d907334e-3f7d-4ac3-b347-091b085a7c7c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Biological Profile",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Negative put Methodfeatures",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f79942a3-91bf-4058-af6a-208998c0f473",
+										"exec": [
+											"// These scripts are to check if the tests pass with the wrong values\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"type\":\"methodfeatures\"}\r\n    ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=methodfeatures",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "methodfeatures"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative del Methodfeatures",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ebf37a19-b3e8-4dcb-a948-29aac59ea98a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "829af2e4-0016-495c-812f-15641e0707dc",
+										"exec": [
+											"\r",
+											" pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.data).to.eql(\"Bad request: missing request parameters\");\r",
+											"   \r",
+											" });\r",
+											"\r",
+											" pm.test(\"Content-Type header is application/json\", () => {\r",
+											"   pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											" });\r",
+											"\r",
+											" pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"      pm.response.to.not.be.ok;\r",
+											" });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \r\n            \"method_id\":\"64\",\r\n            \"listIds\":{\r\n               \r\n                \"83\":{\"id\":\"83\",\"method_id\":\"64\",\"score\":\"1\"}\r\n    \r\n               \r\n}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/2747/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"2747",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Put token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "222c8754-5386-4fcc-aae3-bd149ffd806e",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit Pathology. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Put token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "656c138a-d55e-4c7f-8813-6a8cec24021c",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"type\":\"methodfeatures\",\r\n            \"method_id\":\"64\",\r\n            \"listIds\":{\r\n               \r\n                \"83\":{\"id\":\"83\",\"method_id\":\"64\",\"score\":\"1\"}\r\n    \r\n               \r\n}\r\n}\r\n\r\n        \r\n\r\n             \r\n",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit Methodfeatures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9461804-399c-4401-a39e-dd9b99143c3e",
+								"exec": [
+									"// pm.test(\"Method ID Check\", function () {\r",
+									"//     var jsonData = pm.response.json();\r",
+									"//     var method_id = jsonData.method_id;\r",
+									"//     var methodfeature_id = jsonData.methodfeature_id;\r",
+									"//     pm.expect(jsonData.method_id).to.eql(method_id);\r",
+									"//     pm.expect(jsonData.methodfeature_id).to.eql(methodfeature_id)\r",
+									"// });\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[1]).to.have.property(\"method_feature_id\");\r",
+									"    pm.expect(jsonData.data[1]).to.have.property(\"method_id\");\r",
+									"    pm.expect(jsonData.data[1]).to.have.property(\"score\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided keys\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"feature\",\"display_name\",\"display_order\",\"display_values\",\"display_interval\",\"computed\",\"compute_rule\",\"groups\",\"display_help\",\"method_id\",\"method_feature_id\",\"score\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var method_feature_id = jsonData.data[1].method_feature_id;\r",
+									"    pm.collectionVariables.set(\"method_feature_id\", method_feature_id)\r",
+									"    var method_id = jsonData.data[1].method_id\r",
+									"    pm.collectionVariables.set(\"method_id\",method_id)\r",
+									"    var score = jsonData.data[1].score\r",
+									"    pm.collectionVariables.set(\"score\",score)\r",
+									"    pm.expect(jsonData.data[1].method_feature_id).to.eql(method_feature_id);\r",
+									"    pm.expect(jsonData.data[1].method_id).to.eql(method_id);\r",
+									"    pm.expect(jsonData.data[1].score).to.eql(score);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"type\":\"methodfeatures\",\r\n            \"method_id\":\"64\",\r\n            \"listIds\":{\r\n               \r\n                \"83\":{\"id\":\"83\",\"method_id\":\"64\",\"score\":\"1\"}\r\n    \r\n               \r\n}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "method_id",
+									"value": "29",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "methodfeatures",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Methodfeatures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c24bc702-8370-42d0-9a71-4cc8c2518675",
+								"exec": [
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check for expected field values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"display_help\",\"method_id\",\"method_feature_id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var method_feature_id = JSON.parse(pm.collectionVariables.get(\"method_feature_id\"))\r",
+									"    var method_id =JSON.parse(pm.collectionVariables.get(\"method_id\"))\r",
+									"    var score = pm.collectionVariables.get(\"score\")\r",
+									"    // console.log(id)\r",
+									"    pm.expect(jsonData.data[1].method_feature_id).to.eql(method_feature_id);\r",
+									"    pm.expect(jsonData.data[1].method_id).to.eql(method_id); \r",
+									"    pm.expect(jsonData.data[1].score).to.eql(score); \r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ba5f9cb2-34c5-453c-a68f-96baf3e31412",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=methodfeatures",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "methodfeatures"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Methodfeatures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9f6bd0ea-3a0f-40f4-9600-a68b8834d7de",
+								"exec": [
+									"\r",
+									"// pm.test(\"Check if the response is empty\", function () {\r",
+									"//     var jsonData = pm.response.json();\r",
+									"//     pm.expect(jsonData.data[0]).to.eql();\r",
+									"// });\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check id for specific specimen\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = jsonData.specimen.id;\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"});\r",
+									"pm.test(\"Check for the status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql('success');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check for message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql('Specimen associations updated successful');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "57b5c567-922b-460f-a0da-42a618915f52",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"type\":\"methods\",\r\n            \"method_id\":\"64\",\r\n            \"listIds\":{\r\n                 \"83\":{\"id\":\"83\",\"method_id\":\"64\",\"score\":\"1\"}\r\n               \r\n}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "listIds[]",
+									"value": "25372",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Methods",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bc8b5723-fc47-48cb-a201-4ddb9ce13886",
+								"exec": [
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check for expected field values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"display_help\",\"method_id\",\"method_feature_id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=methods",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "methods"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Measurements",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Negative Put Measurements",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "212e6dfa-9901-49f8-ad43-55485013c69c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bdcc1b70-4b70-4d48-81ce-4348cbdb0d48",
+										"exec": [
+											"// This negative test is to edit a measurement giving missing parameters/ invalid data in the body and checking if the api adds the new/ edit a measuremnt.\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     console.log(jsonData)\r",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_manager_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"measurements\"}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=measurements",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "measurements"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Measurement Token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f0c68f09-7fde-4df6-90ea-a742e509a9b3",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "5213f2fe-2835-4ccc-85e7-466e26ba432d",
+										"exec": [
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Edit Measurement Token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"//check to see you get 403 status while editing by Dna Analyst and Isotope Analyst\r",
+											"pm.test(\"Status code is 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"    })\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"measurements\",\r\n\t\"listIds\": {\r\n\t\t\"1\":{\"id\":\"53\", \"measure\":\"391\"}     \r\n\t}\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=measurements",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "measurements"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit Measurement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "72251c43-1476-4c1e-a5f4-74c17a882eb9",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided keys\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"display_name\",\"display_order\",\"description\",\"min_value\",\"max_value\",\"step_value\",\"min_threshold\",\"max_threshold\",\"instrument\",\"comment\",\"display_help\",\"help_url\",\"measure\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id\r",
+									"    pm.collectionVariables.set(\"id\", id)\r",
+									"    var name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.set(\"name\",name)\r",
+									"    var display_name = jsonData.data[0].display_name\r",
+									"    pm.collectionVariables.set(\"display_name\",display_name)\r",
+									"    var display_order = jsonData.data[0].display_order\r",
+									"    pm.collectionVariables.set(\"display_order\",display_order)\r",
+									"    var min_value = jsonData.data[0].min_value\r",
+									"    pm.collectionVariables.set(\"min_value\",min_value)\r",
+									"    var max_value = jsonData.data[0].max_value\r",
+									"    pm.collectionVariables.set(\"max_value\",max_value)\r",
+									"    var min_threshold = jsonData.data[0].min_threshold\r",
+									"    pm.collectionVariables.set(\"min_threshold\",min_threshold)\r",
+									"    var max_threshold = jsonData.data[0].max_threshold\r",
+									"    pm.collectionVariables.set(\"max_threshold\",max_threshold)\r",
+									"    var instrument = jsonData.data[0].instrument\r",
+									"    pm.collectionVariables.set(\"instrument\",instrument)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);\r",
+									"    pm.expect(jsonData.data[0].display_name).to.eql(display_name);\r",
+									"    pm.expect(jsonData.data[0].display_order).to.eql(display_order);\r",
+									"     pm.expect(jsonData.data[0].min_value).to.eql(min_value);\r",
+									"    pm.expect(jsonData.data[0].max_value).to.eql(max_value);\r",
+									"    pm.expect(jsonData.data[0].min_threshold).to.eql(min_threshold);\r",
+									"    pm.expect(jsonData.data[0].max_threshold).to.eql(max_threshold);\r",
+									"    pm.expect(jsonData.data[0].instrument).to.eql(instrument);\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"type\": \"measurements\",\r\n\t\"listIds\": {\r\n\t\t\"1\":{\"id\":\"53\", \"measure\":\"391\"} \r\n\t}\r\n}\r\n\r\n",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=measurements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "measurements"
+								}
+							]
+						},
+						"description": "Specimen Put "
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fdd6c060-c943-412d-90d5-ae6f42cbe937",
+								"exec": [
+									"pm.test(\"Check response contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_order\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"description\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"min_value\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"max_value\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"step_value\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"min_threshold\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"max_threshold\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"instrument\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"comment\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_help\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"help_url\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"measure\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = pm.collectionVariables.get(\"id\")\r",
+									"    var name = pm.collectionVariables.get(\"name\")\r",
+									"    var display_name = pm.collectionVariables.get(\"display_name\")\r",
+									"    var display_order = pm.collectionVariables.get(\"display_order\")\r",
+									"    var min_value = pm.collectionVariables.get(\"min_value\")\r",
+									"    var max_value = pm.collectionVariables.get(\"max_value\")\r",
+									"    var min_threshold = pm.collectionVariables.get(\"min_threshold\")\r",
+									"    var max_threshold = pm.collectionVariables.get(\"max_threshold\")\r",
+									"    var instrument = pm.collectionVariables.get(\"instrument\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);\r",
+									"    pm.expect(jsonData.data[0].display_name).to.eql(display_name);\r",
+									"    pm.expect(jsonData.data[0].display_order).to.eql(display_order);\r",
+									"    pm.expect(jsonData.data[0].min_value).to.eql(min_value);\r",
+									"    pm.expect(jsonData.data[0].max_value).to.eql(max_value);\r",
+									"    pm.expect(jsonData.data[0].min_threshold).to.eql(min_threshold);\r",
+									"     pm.expect(jsonData.data[0].max_threshold).to.eql(max_threshold);\r",
+									"    pm.expect(jsonData.data[0].instrument).to.eql(instrument);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\", \"display_name\", \"description\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check for expected field values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"measured\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=measurements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "measurements"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Zones",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Negative Put Specimen Zones token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cb63804e-d669-4e7d-87a1-326940d46719",
+										"exec": [
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Put Specimen Zones token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "05963d3e-f1e7-4d5f-874a-4bff2ca7ca72",
+										"exec": [
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{per_page}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"zones\",\r\n\t\"listIds\": {\r\n\t\t\"1\":{\"id\":null,\"presence\":true}\r\n      \r\n\t}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=zones",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "zones"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Zone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f913f9ea-c389-48bd-b1f1-961bfa01a20e",
+										"exec": [
+											"// This negative test is to edit a zone giving missing parameters/ invalid data in the body and checking if the api adds the new/ edit a zone.\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     console.log(jsonData)\r",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_manager_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"zones\"\r\n\t\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=zones",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "zones"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Put Specimen Zones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7ee6faa6-a705-474c-b6ec-54ba1b5d59e9",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_order\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_help\");\r",
+									"     pm.expect(jsonData.data[0]).to.have.property(\"presence\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id;\r",
+									"    pm.collectionVariables.set(\"id\", id)\r",
+									"    var name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.set(\"name\",name)\r",
+									"    var display_name = jsonData.data[0].display_name\r",
+									"    pm.collectionVariables.set(\"display_name\",display_name)\r",
+									"    var display_order = jsonData.data[0].display_order\r",
+									"    pm.collectionVariables.set(\"display_order\",display_order)\r",
+									"    var description = jsonData.data[0].description\r",
+									"    pm.collectionVariables.set(\"description\",description)\r",
+									"    var presence = jsonData.data[0].presence\r",
+									"    pm.collectionVariables.set(\"presence\",presence)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);\r",
+									"    pm.expect(jsonData.data[0].display_name).to.eql(display_name); \r",
+									"    pm.expect(jsonData.data[0].display_order).to.eql(display_order); \r",
+									"    pm.expect(jsonData.data[0].description).to.eql(description); \r",
+									"    pm.expect(jsonData.data[0].presence).to.eql(presence); \r",
+									"     \r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"type\": \"zones\",\r\n\t\"listIds\": {\r\n\t\t\"1\":{\"id\":\"99\",\"presence\":true},\r\n        \"2\":{\"id\":\"100\",\"presence\":true},\r\n        \"3\":{\"id\":\"101\",\"presence\":true},\r\n        \"4\":{\"id\":\"102\",\"presence\":true}\r\n\t}\r\n}\r\n\r\n",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=zones",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "zones"
+								}
+							]
+						},
+						"description": "Specimen Put "
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specimen Zones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "52bfd93a-390a-41f6-90e9-98dbb578c941",
+								"exec": [
+									"pm.test(\"Check response contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_order\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"display_help\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"presence\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\", \"display_name\", \"display_order\", \"description\", \"display_help\", \"presence\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = JSON.parse(pm.collectionVariables.get(\"id\"))\r",
+									"    var name = pm.collectionVariables.get(\"name\")\r",
+									"    var display_name  = pm.collectionVariables.get(\"display_name\")\r",
+									"    var display_order  = pm.collectionVariables.get(\"display_order\")\r",
+									"    var description  = pm.collectionVariables.get(\"description\")\r",
+									"    var presence  = pm.collectionVariables.get(\"presence\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name); \r",
+									"    pm.expect(jsonData.data[0].display_name).to.eql(display_name);\r",
+									"    pm.expect(jsonData.data[0].display_order).to.eql(display_order);\r",
+									"    pm.expect(jsonData.data[0].description).to.eql(description);\r",
+									"    pm.expect(jsonData.data[0].presence).to.eql(presence);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=zones",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "zones"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Taphonomy",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Edit Taphonomy Token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "07e1ea11-514c-489a-a9c6-50c745d80fbe",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "f50f73a3-0d92-479c-b6da-8604552a2545",
+										"exec": [
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Edit Taphonomy Token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"// pm.test(\"Check unauthorized message\", function () {\r",
+											"//     var jsonData = pm.response.json();\r",
+											"//      pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"// });\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\":\"taphonomys\",\r\n    \"listIds\": [3]\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Taphonomy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c0998e36-3626-461c-989a-663374f7dfc2",
+										"exec": [
+											"// This negative test is to edit a taphonomy giving missing parameters/ invalid data in the body and checking if the api adds the new/ edit a taphonomy.\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     console.log(jsonData)\r",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=taphonomys",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "taphonomys"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit Taphonomys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "65477e10-f717-41aa-b702-d7c2df2f7be1",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(3);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(\"Adherent Materials-Barnacles\");    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id;\r",
+									"    pm.collectionVariables.set(\"id\", id)\r",
+									"    var name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.set(\"name\",name)\r",
+									"    var branch = jsonData.data[0].branch\r",
+									"    pm.collectionVariables.set(\"branch\",branch)\r",
+									"    var category = jsonData.data[0].category\r",
+									"    pm.collectionVariables.set(\"category\",category)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);\r",
+									"    pm.expect(jsonData.data[0].branch).to.eql(branch);\r",
+									"     pm.expect(jsonData.data[0].category).to.eql(category);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"taphonomys\",\r\n    \"listIds\": [3]\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Taphonomy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b8a3008c-5a15-4df1-9390-f0fb1abe3b4d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "aca52134-9b17-44d9-8e87-c61a89e5fd8b",
+								"exec": [
+									"\r",
+									"pm.test(\"Check response contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\", \"fullname\", \"branch\", \"category\", \"type\", \"subtype\", \"icon\", \"color\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = JSON.parse(pm.collectionVariables.get(\"id\"))\r",
+									"    var name = pm.collectionVariables.get(\"name\")\r",
+									"     var branch = pm.collectionVariables.get(\"branch\")\r",
+									"      var category = pm.collectionVariables.get(\"category\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name); \r",
+									"    pm.expect(jsonData.data[0].branch).to.eql(branch);\r",
+									"     pm.expect(jsonData.data[0].category).to.eql(category);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=taphonomys",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "taphonomys"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Associations",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Negative Edit Articulations invalid  id values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bc5c023d-3408-4434-acd4-13a48cf9f6a9",
+										"exec": [
+											"// This test attempts to add articulations with invalid articulation ids. \r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"// postman.setNextRequest(\"Negative Edit Articulations Invalid bone\")\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n\t{\r\n\t\"type\": \"articulations\",\r\n\t\"listIds\": [xxxx, 1abc, 1 bc, 0000, 99999, a%9!]\r\n    \r\n\r\n}   \r\n  \r\n\r\n      ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "articulations",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Negative tests for adding or updating articulations to a specimen."
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Articulations Invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c584db41-dd28-4b4c-a450-2680b9f1b395",
+										"exec": [
+											"// This test attempts to store an articulation for a specimen using an invalid user role and token. An isotope analyst is not allowed to store a specimen.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Edit Articulations Invalid token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"// postman.setNextRequest(\"Negative Get Articulations\")"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a12b2ac3-86b1-4379-8746-ec50fa798e3c",
+										"exec": [
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"articulations\",\r\n\t\"listIds\": [1748]\r\n    \r\n} ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								},
+								"description": "Test trying to store an articulation for a specimen using an invalid token/role."
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Morphology Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0dfecce3-de08-49d9-9c34-e7cf5712af51",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit Morphology. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.",
+											"",
+											"var token = pm.globals.get(\"token\");",
+											"",
+											"if (token.length > 0) {",
+											"    postman.setNextRequest(\"Negative Edit Morphology Token\")",
+											"",
+											"} else {",
+											"    pm.globals.unset(\"token\")",
+											"   ",
+											"}",
+											"",
+											"pm.test(\"Check unauthorized message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");",
+											"   ",
+											"});",
+											"",
+											"pm.test(\"Content-Type header is application/json\", () => {",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+											"});",
+											"",
+											"pm.test(\"response must be not valid and not have a body\", function () {",
+											"     pm.response.to.not.be.ok;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "be7a25da-8d73-4f00-8770-d84d0864d89a",
+										"exec": [
+											"var token = pm.globals.get(\"token\")",
+											"",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")",
+											"",
+											"if(!token){",
+											"     token = [dnatoken,isotopetoken];",
+											"}",
+											"",
+											"var currenttoken = token.shift();",
+											"",
+											"",
+											"pm.globals.set(\"itoken\", currenttoken);",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"morphologys\",\n\t\"listIds\": [1081]\n\n}  ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Morphology",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e4b3f54-fa90-448e-93f0-5e22c5a92fa3",
+										"exec": [
+											"// This negative test is to edit a Morphology giving missing parameters/ invalid data in the body and checking if the api adds the new/ edit a morphology.",
+											"",
+											"pm.test(\"Missing parameters\", function () {",
+											"    var jsonData = pm.response.json();",
+											"     console.log(jsonData)",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);",
+											"   ",
+											"});",
+											"",
+											"",
+											"pm.test(\"response must be not valid and not have a body\", function () {",
+											"     pm.response.to.not.be.ok;",
+											"});",
+											"",
+											"pm.test(\"Content-Type header is application/json\", () => {",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"morphologys\"\n\t\n\n}  ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=morphologys",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "morphologys"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Refits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cdae7b84-ff6f-458a-93bf-feacb8d62ff1",
+										"exec": [
+											"// This negative test is to edit a Refits giving missing parameters/ invalid data in the body and checking if the api adds the new/ edit a refit.",
+											"",
+											"pm.test(\"Missing parameters\", function () {",
+											"    var jsonData = pm.response.json();",
+											"     console.log(jsonData)",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);",
+											"   ",
+											"});",
+											"",
+											"",
+											"pm.test(\"response must be not valid and not have a body\", function () {",
+											"     pm.response.to.not.be.ok;",
+											"});",
+											"",
+											"pm.test(\"Content-Type header is application/json\", () => {",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"refits\"\n}   ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=refits",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "refits"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Refits Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f17728d9-fbd8-4bfc-9e5f-4259b33c559a",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit refits. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.",
+											"",
+											"var token = pm.globals.get(\"token\");",
+											"",
+											"if (token.length > 0) {",
+											"    postman.setNextRequest(\"Negative Edit Refits Token\")",
+											"",
+											"} else {",
+											"    pm.globals.unset(\"token\")",
+											"   ",
+											"}",
+											"",
+											"pm.test(\"Check unauthorized message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");",
+											"   ",
+											"});",
+											"",
+											"pm.test(\"Content-Type header is application/json\", () => {",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+											"});",
+											"",
+											"pm.test(\"response must be not valid and not have a body\", function () {",
+											"     pm.response.to.not.be.ok;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7365a8bf-5364-43e2-a7f6-92015214a838",
+										"exec": [
+											"var token = pm.globals.get(\"token\")",
+											"",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")",
+											"",
+											"if(!token){",
+											"     token = [dnatoken,isotopetoken];",
+											"}",
+											"",
+											"var currenttoken = token.shift();",
+											"",
+											"",
+											"pm.globals.set(\"itoken\", currenttoken);",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"refits\",\n\t\"listIds\": [1020]\n\n}   ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Pair Matching Wrong List ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c18c8f4-440a-43a9-89e3-42c9c152823d",
+										"exec": [
+											"//This test checks whether we get the correct responses when trying to insert an invalid pair match value.",
+											"",
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Check if object contains all provided properties\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"data\");",
+											"});",
+											"",
+											" pm.test(\"Check if correct values are returned\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(\"Specimens update unsuccessful.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"pairs\",\n\t\"listIds\":[123412341234]\n}      ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								},
+								"description": "Put for Pair Matching"
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Edit Pair Matching Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9ca68d5a-fb2a-4fdb-8fe3-c33aa89bfdc3",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit Pathology. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.",
+											"",
+											"var token = pm.globals.get(\"token\");",
+											"",
+											"if (token.length > 0) {",
+											"    postman.setNextRequest(\"Edit Pathology token\")",
+											"",
+											"} else {",
+											"    pm.globals.unset(\"token\")",
+											"   ",
+											"}",
+											"",
+											"pm.test(\"Check unauthorized message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");",
+											"   ",
+											"});",
+											"",
+											"pm.test(\"Content-Type header is application/json\", () => {",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+											"});",
+											"",
+											"pm.test(\"response must be not valid and not have a body\", function () {",
+											"     pm.response.to.not.be.ok;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "51bc293b-abdf-42f5-8439-e0969d1b8ca5",
+										"exec": [
+											"var token = pm.globals.get(\"token\")",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")",
+											"",
+											"if(!token){",
+											"     token = [dnatoken,isotopetoken];",
+											"}",
+											"",
+											"var currenttoken = token.shift();",
+											"",
+											"",
+											"",
+											"pm.globals.set(\"itoken\", currenttoken);",
+											"pm.globals.set(\"token\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"pairs\",\n\t\"listIds\":[1080]\n}      ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								},
+								"description": "Put for Pair Matching"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit Morphology",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9dfe742c-d6b2-417d-ba4e-c1571d667ea4",
+								"exec": [
+									"// This test check if the user is able to add a morphology to a specific speciemen. It also checks if the returned response is matches the body.",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"pm.response.to.be.ok;",
+									"pm.response.to.be.withBody;",
+									"pm.response.to.be.json;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if object contains all provided properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key_bone_side\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"model_class\");",
+									"});",
+									"",
+									"pm.test(\"Saving the returned values\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var morphology_id = jsonData.data[0].id;",
+									"    pm.collectionVariables.set(\"morphology_id\", morphology_id)",
+									"    var morphology_name = jsonData.data[0].name",
+									"    pm.collectionVariables.set(\"morphology_name\",morphology_name)",
+									"    var morphology_key = jsonData.data[0].key",
+									"    pm.collectionVariables.set(\"morphology_key\",morphology_key)",
+									"    //var key_bone_side = jsonData.data[0].key_bone_side",
+									"    //pm.collectionVariables.set(\"key_bone_side\",key_bone_side)",
+									"    pm.expect(jsonData.data[0].id).to.eql(morphology_id);",
+									"    pm.expect(jsonData.data[0].name).to.eql(morphology_name);",
+									"    pm.expect(jsonData.data[0].key).to.eql(morphology_key);",
+									"    //pm.expect(jsonData.data[0].key_bone_side).to.eql(key_bone_side);",
+									"",
+									"    pm.expect(jsonData.message).to.eql(\"Specimen associations updated successful\");",
+									"    });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"morphologys\",\n\t\"listIds\": [1081, 1092, 1113]\n\n}        ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "morphology",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Morphology",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1a5a075-c655-475a-b5d5-5374f68c4607",
+								"exec": [
+									"// This test check if the user is able to get a morphology to a specific speciemen.",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if object contains all provided properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Check response variables\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"key\",\"key_bone_side\",\"model_class\");",
+									"});",
+									"",
+									"pm.test(\"Check if correct values are returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var morphology_id = jsonData.data[0].id",
+									"    pm.collectionVariables.get(\"morphology_id\", morphology_id)",
+									"    var morphology_name = jsonData.data[0].name",
+									"    pm.collectionVariables.get(\"morphology_name\",morphology_name)",
+									"    var morphology_key = jsonData.data[0].key",
+									"    pm.collectionVariables.get(\"morphology_key\",morphology_key)",
+									"    // var mophology_key_bone_side = jsonData.data[0].key_bone_side",
+									"    // pm.collectionVariables.get(\"morphology_key_bone_side\")",
+									"    // var mophology_model_class = jsonData.data[0].model_class",
+									"    // pm.collectionVariables.get(\"morphology_model_class\")",
+									"    pm.expect(jsonData.data[0].id).to.eql(morphology_id);",
+									"    pm.expect(jsonData.data[0].name).to.eql(morphology_name);",
+									"    pm.expect(jsonData.data[0].key).to.eql(morphology_key); ",
+									"    // pm.expect(jsonData.data[0].key_bone_side).to.eql(morphology_key_bone_side);",
+									"    // pm.expect(jsonData.data[0].model_class).to.eql(morphology_model_class);  ",
+									"    pm.expect(jsonData.meta.total) >= 0; ",
+									"    pm.expect(jsonData.specimen.sb.articulated).to.eql(true); ",
+									"    pm.expect(jsonData.message).to.eql(\"Specimen associations get successful\"); ",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "721a5f7d-f544-4a33-ac72-9daf525329ee",
+								"exec": [
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=morphologys",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "morphologys"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Refits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "52c14aa6-86ee-4fe5-9f20-2a125aaa50cf",
+								"exec": [
+									"// This test check if the user is able to add a refits to a specific speciemen. It also checks if the returned response is matches the body.",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if object contains all provided properties\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+									"pm.expect(jsonData.data[0]).to.have.property(\"key\");",
+									"pm.expect(jsonData.data[0]).to.have.property(\"name\");",
+									"pm.expect(jsonData.data[0]).to.have.property(\"key_bone_side\");",
+									"pm.expect(jsonData.data[0]).to.have.property(\"model_class\");",
+									"});",
+									"",
+									"pm.test(\"Saving the returned values\", function () { ",
+									"    var jsonData = pm.response.json();",
+									"    var refits_id = jsonData.data[0].id;",
+									"    pm.collectionVariables.set(\"refits_id\", refits_id)",
+									"    var refits_name = jsonData.data[0].name",
+									"    pm.collectionVariables.set(\"refits_name\",refits_name)",
+									"    var refits_key = jsonData.data[0].key",
+									"    pm.collectionVariables.set(\"refits_key\",refits_key)",
+									"    //var key_bone_side = jsonData.data[0].key_bone_side",
+									"    //pm.collectionVariables.set(\"key_bone_side\",key_bone_side)",
+									"    pm.expect(jsonData.data[0].id).to.eql(refits_id);",
+									"    pm.expect(jsonData.data[0].name).to.eql(refits_name);",
+									"    pm.expect(jsonData.data[0].key).to.eql(refits_key);",
+									"    //pm.expect(jsonData.data[0].key_bone_side).to.eql(key_bone_side);",
+									"    pm.expect(jsonData.message).to.eql(\"Specimen associations updated successful\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"refits\",\n\t\"listIds\": [1020, 2020,3030]\n\n}   \n\n       ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=refits",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "refits"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Refits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5504e896-a091-47fa-98a7-e7720da33e36",
+								"exec": [
+									"// This test check if the user is able to get a morphology to a specific speciemen.",
+									"pm.test(\"Check if object contains all provided properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Check response variables\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"key\",\"key_bone_side\",\"model_class\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if correct values are returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var refits_id = jsonData.data[0].id",
+									"    pm.collectionVariables.get(\"refits_id\", refits_id)",
+									"    var refits_name = jsonData.data[0].name",
+									"    pm.collectionVariables.get(\"refits_name\",refits_name)",
+									"    var refits_key = jsonData.data[0].key",
+									"    pm.collectionVariables.get(\"refits_key\",refits_key)",
+									"    // var refits_key_bone_side = jsonData.data[0].key_bone_side",
+									"    // pm.collectionVariables.get(\"morphology_key_bone_side\")",
+									"    // var refits_model_class = jsonData.data[0].model_class",
+									"    // pm.collectionVariables.get(\"refits_model_class\")",
+									"    pm.expect(jsonData.data[0].id).to.eql(refits_id);",
+									"    pm.expect(jsonData.data[0].name).to.eql(refits_name);",
+									"    pm.expect(jsonData.data[0].key).to.eql(refits_key);",
+									"    // pm.expect(jsonData.data[0].key_bone_side).to.eql(refits_key_bone_side);",
+									"    // pm.expect(jsonData.data[0].model_class).to.eql(refits_model_class);",
+									"    pm.expect(jsonData.meta.total) >= 0;",
+									"    pm.expect(jsonData.specimen.sb.articulated).to.eql(true);",
+									"    pm.expect(jsonData.message).to.eql(\"Specimen associations get successful\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=refits",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "refits"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Pair Matching",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "08d0e941-1d2a-489e-9fcb-b38829e97dea",
+								"exec": [
+									"//This tests checks whether we are able to properly edit a pair match value as specified, and associating it with the correct values;",
+									"",
+									"pm.test(\"Attempt setting collection variables\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData)",
+									"    var pairmatch_idlocal = jsonData.data[0].id;",
+									"    pm.collectionVariables.set(\"pairmatch_id\", pairmatch_idlocal)",
+									"});",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Check if object contains all provided properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key_bone_side\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"model_class\");",
+									"});",
+									"",
+									" pm.test(\"Check if correct values are returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var pairmatch_idlocal = pm.collectionVariables.get(\"pairmatch_id\")",
+									"    pm.expect(jsonData.data[0].id).to.eql(pairmatch_idlocal);",
+									"    var pairmatch_name = pm.collectionVariables.get(\"pairmatch_name\")",
+									"    pm.expect(jsonData.data[0].name).to.eql(pairmatch_name);",
+									"    var pairmatch_keyboneside = pm.collectionVariables.get(\"pairmatch_keyboneside\")",
+									"    pm.expect(jsonData.data[0].key_bone_side).to.eql(pairmatch_keyboneside);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"pairs\",\n\t\"listIds\":[1080]\n}      ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							]
+						},
+						"description": "Put for Pair Matching"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pair Matching",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6200e713-5c82-418f-a471-3392cc7afea5",
+								"exec": [
+									"//This tests that we can get the data for the specified Pair Matching values detailed in \"edit pair mathching\" test",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Check if object contains all provided properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key_bone_side\");",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"model_class\");",
+									"});",
+									"",
+									"pm.test(\"Check response variables\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"key\",\"key_bone_side\",\"model_class\");",
+									"});",
+									"",
+									"pm.test(\"Check if correct values are returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var pairmatch_id = pm.collectionVariables.get(\"pairmatch_id\")",
+									"    pm.expect(jsonData.data[0].id).to.eql(pairmatch_id);",
+									"    console.log(pairmatch_id)",
+									"    var name = pm.collectionVariables.get(\"pairmatch_name\")",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);",
+									"    var keyboneside = pm.collectionVariables.get(\"pairmatch_keyboneside\")",
+									"    pm.expect(jsonData.data[0].key_bone_side).to.eql(keyboneside);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=pairs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "pairs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Articulations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "af093e8b-a329-42c5-9dc2-c6106a2fb959",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "13a37727-97cc-42c5-955a-f0e199cb4715",
+								"exec": [
+									"//This test checks if the user is able to add articulations to a specimen. It also checks if the returned response is matches the body.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"key_bone_side\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"model_class\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var art_id = jsonData.data[0].id\r",
+									"    pm.collectionVariables.set(\"art_id\", art_id)\r",
+									"    var art_name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.set(\"art_name\",art_name)\r",
+									"    var art_key = jsonData.data[0].key\r",
+									"    pm.collectionVariables.set(\"art_key\",art_key)\r",
+									"    // var art_key_bone_side = jsonData.data[0].key_bone_side\r",
+									"    // pm.collectionVariables.set(\"art_key_bone_side\")\r",
+									"    // var art_model_class = jsonData.data[0].model_class\r",
+									"    // pm.collectionVariables.set(\"art_model_class\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(art_id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(art_name);\r",
+									"    pm.expect(jsonData.data[0].key).to.eql(art_key); \r",
+									"    // pm.expect(jsonData.data[0].key_bone_side).to.eql(art_key_bone_side);\r",
+									"    // pm.expect(jsonData.data[0].model_class).to.eql(art_model_class); \r",
+									"    pm.expect(jsonData.message).to.eql(\"Specimen associations updated successful\");   \r",
+									"});\r",
+									"\r",
+									"\r",
+									"// postman.setNextRequest(\"Get Articulations\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"type\": \"articulations\",\r\n\t\"listIds\": [1021, 1034, 1748]\r\n\r\n}        ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "articulations",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Edit Artictulations for a specimen"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Articulations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "792ef6af-f56d-4b48-8964-42d307c503a4",
+								"exec": [
+									"// This test will get the articulations associated with a specimen and test if the response is coming back as required.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"key\",\"key_bone_side\",\"model_class\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var art_id = jsonData.data[0].id\r",
+									"    pm.collectionVariables.get(\"art_id\", art_id)\r",
+									"    var art_name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.get(\"art_name\",art_name)\r",
+									"    var art_key = jsonData.data[0].key\r",
+									"    pm.collectionVariables.get(\"art_key\",art_key)\r",
+									"    // var art_key_bone_side = jsonData.data[0].key_bone_side\r",
+									"    // pm.collectionVariables.get(\"art_key_bone_side\")\r",
+									"    // var art_model_class = jsonData.data[0].model_class\r",
+									"    // pm.collectionVariables.get(\"art_model_class\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(art_id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(art_name);\r",
+									"    pm.expect(jsonData.data[0].key).to.eql(art_key); \r",
+									"    // pm.expect(jsonData.data[0].key_bone_side).to.eql(art_key_bone_side);\r",
+									"    // pm.expect(jsonData.data[0].model_class).to.eql(art_model_class);  \r",
+									"    pm.expect(jsonData.meta.total) >= 0; \r",
+									"    pm.expect(jsonData.specimen.sb.articulated).to.eql(true); \r",
+									"    pm.expect(jsonData.message).to.eql(\"Specimen associations get successful\"); \r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "600b3b90-55a6-4d6a-8cf3-bb7f0270c8c2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=articulations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "articulations"
+								},
+								{
+									"key": "searchstring",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "searchby",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Retrieve Articulations for a specimen"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Pathology",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Edit Pathology token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "650edcf8-bfea-4e3b-83a0-1ff924823ab8",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit Pathology. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Edit Pathology token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "374cce65-01a1-4bc9-804c-929267586b23",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n            \"type\":\"pathologys\",\r\n            \"pathology_id\":\"20\",\r\n            \"listIds\": {\r\n\r\n                        \"null\":{\"zone_id\":null,\"pathology_id\":\"20\",\"additional_information\":\"Some new additional info via API\",\"abnormality_category\":\"\", \"characteristics\":\"\"}\r\n            }\r\n        \r\n}\r\n\r\n        \r\n\r\n             \r\n",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=pathologys",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "pathologys"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Pathology",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7d69eaab-dd30-410f-8b3c-0f5187fe02ab",
+										"exec": [
+											"// This negative test is to edit a pathology giving missing parameters/ invalid data in the body and checking if the api adds the new/ edit a pathology.\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     console.log(jsonData)\r",
+											"       pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\"]);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "36cd785f-6b57-4f9f-abc7-108306ad8cf3",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n            \"type\":\"pathologys\",\r\n            \"pathology_id\":\"20\"\r\n            \r\n        \r\n}\r\n\r\n        \r\n\r\n             \r\n",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=pathologys",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "pathologys"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put Trauma",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a2508cd3-1e8d-47a6-8557-753010fb6afc",
+										"exec": [
+											"// This negative test is to edit a trauma giving missing parameters/ invalid data in the body and checkinhg if the api add/edits the trauma.\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     console.log(jsonData)\r",
+											"      pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\",\"Specimens update unsuccessful.\"]);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n\t\"trauma_id\":\"2\",\r\n\t\"listIds\": {\r\n\t\t\"null\":{\"zone_id\":null,\"trauma_id\":\"2\",\"additional_information\":\"Some additional info via API\"}\r\n\t}\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put Trauma token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a6d5f6c8-76c2-4dc6-9c33-02a0e390a7d3",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit Trauma. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Put Trauma token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"    //pm.globals.set(\"type\", \"qwerty\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "158de63e-313c-45ec-8464-84692673b23c",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"traumas\",\r\n\t\"trauma_id\":\"2\",\r\n\t\"listIds\": {\r\n\t\t\"null\":{\"zone_id\":null,\"trauma_id\":\"2\",\"additional_information\":\"Some additional info via API\"}\r\n\t}\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put Anomaly token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1d3a9ad8-6df4-4fb9-bbb0-c38ec65df520",
+										"exec": [
+											"// This test is looping the diffrent token values of dna and isotope analyst who should not be able to create or edit Trauma. Here we will use postman setnextrequest function to call the same request multiple times. Note: Postman setnextrequest is a collection level command and you have to run the test in  runner for looping to work.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Put Anomaly token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"    //pm.globals.set(\"type\", \"qwerty\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.message).to.eql(\"This action is unauthorized.\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "90fae0fc-6107-4d93-8dda-f96825cc84ce",
+										"exec": [
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"var dnatoken = pm.environment.get(\"dna_analyst_token\")\r",
+											"var isotopetoken = pm.environment.get(\"isotope_analyst_token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [dnatoken,isotopetoken];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"itoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{itoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"anomalies\",\r\n\t\"listIds\": [53]\r\n}\r\n\r\n\r\n           ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put Anomaly neg",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "75bb1339-0b57-407b-923b-cfdbc64280e8",
+										"exec": [
+											"// This negative test is to edit a anomaly giving missing parameters/ invalid data in the body and checkinhg if the api add/edits the anomaly.\r",
+											"\r",
+											"//var listids = pm.globals.get(\"listids\");\r",
+											"\r",
+											"//if (listids.length > 0) {\r",
+											"  //  postman.setNextRequest(\"Put Anomaly neg\")\r",
+											"\r",
+											"//} else {\r",
+											"    //pm.globals.unset(\"listids\")\r",
+											"   \r",
+											"//}\r",
+											"\r",
+											"pm.test(\"Missing parameters\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     console.log(jsonData)\r",
+											"     pm.expect(jsonData.data).to.be.oneOf([\"Bad request: missing request parameters\",\"Bad request: unsupported association type\",\"Specimens update unsuccessful.\"]);\r",
+											"     \r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2ccf2a48-d455-438c-9c18-543c645656fa",
+										"exec": [
+											"//pm.globals.set(\"listids\", \"123\");\r",
+											"\r",
+											"\r",
+											"//var listids = pm.globals.get(\"listids\")\r",
+											"\r",
+											"//if(!listids){\r",
+											"    // listids = [\"x13\",\"xxx\"];\r",
+											"//}\r",
+											"\r",
+											"//var currentid = listids.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"//pm.globals.set(\"listids\", currentid);\r",
+											"//pm.globals.set(\"listids\", listids);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"anomalys\",\r\n\t\"listIds\": [5253]\r\n}\r\n\r\n\r\n           ",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get wrong association type",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ad5c9287-51f1-4e83-889c-ee193640b3f9",
+										"exec": [
+											"\r",
+											"var type = pm.globals.get(\"type\")\r",
+											"\r",
+											"if(!type){\r",
+											"     type = [\"1234\",\"path\",\"Xq \"];\r",
+											"}\r",
+											"\r",
+											"var currenttype = type.shift();\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"atype\", currenttype);\r",
+											"pm.globals.set(\"type\", type);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "fa8f445e-0610-44c3-87df-a4cec71f74de",
+										"exec": [
+											"// This negative test will change the association type with a few invalid type and check if the data is returning or not.\r",
+											"\r",
+											"var type = pm.globals.get(\"type\");\r",
+											"\r",
+											"if (type.length > 0) {\r",
+											"    postman.setNextRequest(\"Get wrong association type\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"type\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check unsupported association type\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.data).to.eql(\"Bad request: unsupported association type\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type={{atype}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"specimens",
+										"{{specimen}}",
+										"associations"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "{{atype}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit Pathology",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "459ad74c-8ff7-41dc-8856-3a960533e07e",
+								"exec": [
+									"// This test check if the user is able to add a pathology to a specific speciemen. It also checks if the returned response is matches the body.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"zone_id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id;\r",
+									"    pm.collectionVariables.set(\"id\", id)\r",
+									"    var name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.set(\"name\",name)\r",
+									"    var zoneid = jsonData.data[0].zone_id\r",
+									"    pm.collectionVariables.set(\"zoneid\",zoneid)\r",
+									"    var addinfo = jsonData.data[0].additional_information\r",
+									"    pm.collectionVariables.set(\"addinfo\",addinfo)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);\r",
+									"    pm.expect(jsonData.data[0].zone_id).to.eql(zoneid); \r",
+									"    pm.expect(jsonData.data[0].additional_information).to.eql(addinfo); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n            \"type\":\"pathologys\",\r\n            \"pathology_id\":\"20\",\r\n            \"listIds\": {\r\n\r\n                        \"1\":{\"zone_id\":99,\"pathology_id\":\"20\",\"additional_information\":\"Some new additional info via API\",\"abnormality_category\":\"\", \"characteristics\":\"\"},\r\n                        \"2\":{\"zone_id\":100,\"pathology_id\":\"20\",\"additional_information\":\"Some new additional info via API\",\"abnormality_category\":\"\", \"characteristics\":\"\"}\r\n            }\r\n        \r\n}\r\n\r\n        \r\n\r\n             \r\n",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=pathologys",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "pathologys"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pathology",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ecdca7e-2485-47c5-973e-bffe67108b3a",
+								"exec": [
+									"// This test will get the pathologys associated with given specimen and test if the response is coming back as required.\r",
+									"\r",
+									"pm.test(\"Check response contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"name\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"zone_id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"abnormality_category\",\"characteristics\",\"zone_id\",\"additional_information\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = JSON.parse(pm.collectionVariables.get(\"id\"))\r",
+									"    var name = pm.collectionVariables.get(\"name\")\r",
+									"    var zoneid =  pm.collectionVariables.get(\"zoneid\")\r",
+									"    var addinfo = pm.collectionVariables.get(\"addinfo\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name); \r",
+									"    pm.expect(jsonData.data[0].zone_id).to.eql(zoneid);\r",
+									"    pm.expect(jsonData.data[0].additional_information).to.eql(addinfo); \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=pathologys",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "pathologys"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Trauma",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2090b6e4-bc61-4c35-916c-844328df81f2",
+								"exec": [
+									"// This test check if the user is able to add a trauma to a specific speciemen. It also checks if the returned response is matches the body.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if object contains all provided properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.data[0]).to.have.property(\"zone_id\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id;\r",
+									"    pm.collectionVariables.set(\"id\", id)\r",
+									"    var name = jsonData.data[0].name\r",
+									"    pm.collectionVariables.set(\"name\",name)\r",
+									"    var zoneid = jsonData.data[0].zone_id\r",
+									"    pm.collectionVariables.set(\"zoneid\",zoneid)\r",
+									"    var timing = jsonData.data[0].timing\r",
+									"    pm.collectionVariables.set(\"timing\",timing)\r",
+									"     var type = jsonData.data[0].type\r",
+									"    pm.collectionVariables.set(\"type\",type)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name);\r",
+									"    pm.expect(jsonData.data[0].zone_id).to.eql(zoneid); \r",
+									"    pm.expect(jsonData.data[0].timing).to.eql(timing); \r",
+									"    pm.expect(jsonData.data[0].type).to.eql(type); \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"type\": \"traumas\",\r\n\t\"trauma_id\":\"2\",\r\n\t\"listIds\": {\r\n\t\t\"null\":{\"zone_id\":null,\"trauma_id\":\"2\",\"additional_information\":\"Some additional info via API\"}\r\n\t}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trauma",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aff58967-35cb-4980-9fb6-f29c78219212",
+								"exec": [
+									"// This test will get the traumas associated with given specimen and test if the response is coming back as required.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check for expected field values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"timing\",\"type\",\"zone_id\",\"additional_information\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = JSON.parse(pm.collectionVariables.get(\"id\"))\r",
+									"    var name = pm.collectionVariables.get(\"name\")\r",
+									"    var zoneid =  pm.collectionVariables.get(\"zoneid\")\r",
+									"    var type = pm.collectionVariables.get(\"type\")\r",
+									"    var timing = pm.collectionVariables.get(\"timing\")\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].name).to.eql(name); \r",
+									"    pm.expect(jsonData.data[0].zone_id).to.eql(zoneid);\r",
+									"    pm.expect(jsonData.data[0].type).to.eql(type); \r",
+									"     pm.expect(jsonData.data[0].timing).to.eql(timing);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=traumas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "traumas"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Anomaly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5841fce-7388-4b61-9c28-24dc54fd82d0",
+								"exec": [
+									"// This test check if the user is able to add a anomaly to a specific speciemen. It also checks if the returned response is matches the body.\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test on the response data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id\r",
+									"    var trait = jsonData.data[0].individuating_trait\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"   // pm.expect(jsonData.data[0].id).to.eql(52);\r",
+									"    pm.expect(jsonData.data[0].individuating_trait).to.eql(trait);\r",
+									"   \r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Saving the returned values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = jsonData.data[0].id;\r",
+									"    pm.collectionVariables.set(\"id\", id)\r",
+									"    var trait = jsonData.data[0].individuating_trait\r",
+									"    pm.collectionVariables.set(\"trait\",trait)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].individuating_trait).to.eql(trait); });\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    console.log(specimen)\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Testing the response fields\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\", \"individuating_trait\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6aa0e7a8-853d-4748-8241-59ed01047b3a",
+								"exec": [
+									"\r",
+									"\r",
+									"//var listid = pm.globals.get(\"listids\")\r",
+									"\r",
+									"//if(!listid){\r",
+									"  //   listid = [52,53,54];\r",
+									"//}\r",
+									"\r",
+									"//var currentid = listid.shift();\r",
+									"\r",
+									"\r",
+									"//pm.globals.set(\"listids\", currentid);\r",
+									"//pm.globals.set(\"listid\", listid);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"type\": \"anomalies\",\r\n\t\"listIds\": [52,53]\r\n}\r\n\r\n\r\n           ",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Anomaly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "42b311f0-0790-49ae-bfdb-e96a85f43f8f",
+								"exec": [
+									"// This test will get the anomaly associated with given specimen and test if the response is coming back as required.\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check for expected field values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\",\"individuating_trait\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if correct values are returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = JSON.parse(pm.collectionVariables.get(\"id\"))\r",
+									"    var trait = pm.collectionVariables.get(\"trait\")\r",
+									"    console.log(id)\r",
+									"    pm.expect(jsonData.data[0].id).to.eql(id);\r",
+									"    pm.expect(jsonData.data[0].individuating_trait).to.eql(trait); \r",
+									" \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test on specimen id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var specimen = JSON.parse(pm.globals.get(\"specimen\"))\r",
+									"    pm.expect(jsonData.specimen.id).to.eql(specimen);\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/specimens/{{specimen}}/associations?type=anomalys",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"specimens",
+								"{{specimen}}",
+								"associations"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "anomalys"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0783563f-3963-4790-95da-b0e94bd6a253",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d7d573a-faf6-47d9-a4fb-f7d237a7f136",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ae6ab6a6-37d6-412b-8804-c804f9a42bcd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c2bc7bc7-0a2b-4099-b4b2-cc61942751b3",
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"pm.test(\"Status Code\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,400,422,500]);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "b0747619-e19f-4f37-b4e9-9d81a3c3b17f",
+			"key": "listIds",
+			"value": "xxxx, 1abc, 1 bc, 0000, 99999, a%9!",
+			"disabled": true
+		},
+		{
+			"id": "ed02bfaf-64f7-489b-88e4-fd0395a273e7",
+			"key": "id",
+			"value": 3
+		},
+		{
+			"id": "31b21bc6-ee02-439f-9293-d8b352ef11e1",
+			"key": "name",
+			"value": "Adherent Materials-Barnacles"
+		},
+		{
+			"id": "0e0f4861-5a80-49ac-8119-bccadd37a851",
+			"key": "measure_id",
+			"value": "53"
+		},
+		{
+			"id": "51fa7517-17c6-4a1f-bd41-f91662c9519d",
+			"key": "measure_name",
+			"value": "Hum_01"
+		},
+		{
+			"id": "d28d2c03-4b33-4de7-aedb-e907d91ab8ee",
+			"key": "display_name",
+			"value": "Hum_01 Maximum Length"
+		},
+		{
+			"id": "9bb2fcc6-e2b0-40fb-9fcf-4ee8ac860514",
+			"key": "addinfo",
+			"value": ""
+		},
+		{
+			"id": "0ae7c6be-43a9-47a1-8525-cd7340189a92",
+			"key": "zoneid",
+			"value": ""
+		},
+		{
+			"id": "d485f724-f012-4251-bd61-0ff3c03f4d5c",
+			"key": "provenance1",
+			"value": ""
+		},
+		{
+			"id": "6f193063-1463-4f19-8da4-68f589103c3d",
+			"key": "provenance2",
+			"value": ""
+		},
+		{
+			"id": "f75cb4b1-db14-42bd-8459-0a080bfb54b5",
+			"key": "ct_scanned",
+			"value": ""
+		},
+		{
+			"id": "e5195663-c857-4a91-943a-19a0fc969f87",
+			"key": "ct_scanned_date",
+			"value": ""
+		},
+		{
+			"id": "df50e02f-de58-4285-a715-59647b142326",
+			"key": "dna_sampled",
+			"value": ""
+		},
+		{
+			"id": "80a376e7-2178-492a-a175-aeccc356b69f",
+			"key": "individual_number",
+			"value": ""
+		},
+		{
+			"id": "501d92cd-18c1-45cf-822e-8a7ecb083d73",
+			"key": "measured",
+			"value": ""
+		},
+		{
+			"id": "63bd740d-26b5-404b-ae72-93228a449d5b",
+			"key": "xray_scanned",
+			"value": ""
+		},
+		{
+			"id": "01046084-1495-40d6-b88b-6b189f0cd947",
+			"key": "xray_scanned_date",
+			"value": ""
+		},
+		{
+			"id": "dc3dca8a-c398-4938-ba30-846d9a36908f",
+			"key": "art_id",
+			"value": "1021"
+		},
+		{
+			"id": "7a2d730d-af39-4236-8369-39f0b6d06237",
+			"key": "art_name",
+			"value": "CIL 2003-116:G-13:X-299S:203"
+		},
+		{
+			"id": "0bcb900a-52de-477b-8c99-590f8dcd4897",
+			"key": "art_key",
+			"value": "CIL 2003-116:G-13:X-299S:203"
+		},
+		{
+			"id": "0fa95bdc-a686-414c-9ee0-b45dfa7b951b",
+			"key": "morphology_id",
+			"value": "1081"
+		},
+		{
+			"id": "ba8dc839-75e6-4ca9-9082-8a1f85ead2d5",
+			"key": "morphology_name",
+			"value": "CIL 2003-116:G-27:X-184F:604"
+		},
+		{
+			"id": "281f42e0-854c-421a-8df6-47c06106c3a8",
+			"key": "morphology_key",
+			"value": "CIL 2003-116:G-27:X-184F:604"
+		},
+		{
+			"id": "903ad8c5-258d-46fe-8554-b39118c3dd76",
+			"key": "pairmatch_id",
+			"value": "1080"
+		},
+		{
+			"id": "e5d7e99e-36e6-414a-b8e6-eccc9d361c7a",
+			"key": "pairmatch_name",
+			"value": "CIL 2003-116:G-27:X-184E:203"
+		},
+		{
+			"id": "20fb45af-1c2c-4cc0-aed0-55db7511c4b3",
+			"key": "pairmatch_keyboneside",
+			"value": "CIL 2003-116:G-27:X-184E:203 :: Humerus-Unsided"
+		},
+		{
+			"id": "03a4c85c-2219-4e15-ad68-1df434541d90",
+			"key": "listIds[]",
+			"value": "25732"
+		},
+		{
+			"id": "54016a13-4df0-4184-93ce-778145bd6458",
+			"key": "methodfeature_id",
+			"value": "75",
+			"disabled": true
+		},
+		{
+			"id": "c7663e6b-ec86-495c-9c9b-d7eb03b1352a",
+			"key": "method_feature_id",
+			"value": "75"
+		},
+		{
+			"id": "6228e8b8-0dcc-4fb1-bcd2-e581099f7452",
+			"key": "method_id",
+			"value": "29"
+		},
+		{
+			"id": "9a4f05b3-a6ab-4ff9-b406-c9b3b9c62ebd",
+			"key": "score",
+			"value": "D"
+		},
+		{
+			"id": "8749bdf0-7f32-4196-bfe3-607cff8b9f7b",
+			"key": "refits_id",
+			"value": ""
+		},
+		{
+			"id": "b02fed19-b414-4988-8fd3-1d0fa5ff4fc3",
+			"key": "refits_key",
+			"value": ""
+		},
+		{
+			"id": "493bbc6a-eb8d-4846-958c-3c742cb657ab",
+			"key": "refits_name",
+			"value": ""
+		},
+		{
+			"id": "5c88aa09-6146-4e09-9daa-13d10ee13cb5",
+			"key": "timing",
+			"value": ""
+		},
+		{
+			"id": "a7682e70-bc00-44f1-a063-8acf31e2c867",
+			"key": "type",
+			"value": ""
+		},
+		{
+			"id": "2986eb17-3a8b-48aa-b34a-1564b2a50d8d",
+			"key": "trait",
+			"value": ""
+		},
+		{
+			"id": "f0dc1bb6-e55d-4c20-ab01-1dc5e444d63f",
+			"key": "display_order",
+			"value": ""
+		},
+		{
+			"id": "bd51c033-21b7-47fe-ae4e-09d8076763a1",
+			"key": "instrument",
+			"value": ""
+		},
+		{
+			"id": "00ba94ec-0a0c-4076-be03-b413eec002b5",
+			"key": "max_threshold",
+			"value": ""
+		},
+		{
+			"id": "5bee99dd-4716-4f3a-b289-c2a1322a9fe0",
+			"key": "max_value",
+			"value": ""
+		},
+		{
+			"id": "cbb42859-a035-4f14-8357-011f6e7a0e6d",
+			"key": "min_threshold",
+			"value": ""
+		},
+		{
+			"id": "096d331c-0de2-4f3f-8e4f-b61165fa08ad",
+			"key": "min_value",
+			"value": ""
+		},
+		{
+			"id": "93448be2-4f03-4003-9aa0-5430f8c5f0f6",
+			"key": "branch",
+			"value": ""
+		},
+		{
+			"id": "815763a2-5f01-47d5-8d36-8ffe547037e8",
+			"key": "category",
+			"value": ""
+		},
+		{
+			"id": "90c58c4c-56cf-474b-9118-85361a48a309",
+			"key": "description",
+			"value": ""
+		},
+		{
+			"id": "fa1abdc2-9137-4c81-819b-7c5eac8a3ec5",
+			"key": "presence",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

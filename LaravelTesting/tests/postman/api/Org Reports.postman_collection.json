@@ -1,0 +1,1929 @@
+{
+	"info": {
+		"_postman_id": "d07f16b0-1504-46e3-b673-ab91facc09e4",
+		"name": "Org Reports",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DNA",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Org DNA Reports wrong project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e77a39cf-36f9-4f77-a9e5-443c011f166a",
+										"exec": [
+											"// This negative test will loop through diffrent unauthorized project values and checks if the data being returned or not. It will also check the unauthorized message.\r",
+											"\r",
+											"\r",
+											"var project = pm.globals.get(\"project\");\r",
+											"\r",
+											"if (project.length > 0) {\r",
+											"    postman.setNextRequest(\"Org DNA Reports wrong project\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"project\")\r",
+											"   \r",
+											"}\r",
+											"pm.test(\"Check unauthorized message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.data).to.include(\"Not Authorized to view Project data\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.globals.set(\"invalidproject\", [\"1\",\"4\",\"12\"]);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "473cb6c2-a004-48c5-97c2-df2846284a4e",
+										"exec": [
+											"\r",
+											"pm.globals.set(\"page\", \"1\");\r",
+											"\r",
+											"\r",
+											"var project = pm.globals.get(\"project\")\r",
+											"\r",
+											"if(!project){\r",
+											"     project = pm.globals.set(\"project\", [\"1\",\"4\",\"12\"]);\r",
+											"}\r",
+											"\r",
+											"var project = pm.globals.get(\"project\")\r",
+											"console.log(project)\r",
+											"\r",
+											"var currentproject = project.shift();\r",
+											"\r",
+											"pm.globals.set(\"projectid\", currentproject);\r",
+											"pm.globals.set(\"project\", project);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"mito\",\r\n    \"p1\": [\"G-01\"]\r\n   \r\n  \r\n    \r\n    \r\n  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/projects/{{projectid}}/dna?page={{page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"projects",
+										"{{projectid}}",
+										"dna"
+									],
+									"query": [
+										{
+											"key": "type[]",
+											"value": "mito",
+											"disabled": true
+										},
+										{
+											"key": "an[]",
+											"value": "CIL+2003-116",
+											"disabled": true
+										},
+										{
+											"key": "p1[]",
+											"value": "G-01",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "{{page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Org DNA Mito Report wrong criteria",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4842741b-1b34-416f-8c4e-56058bbddcb4",
+										"exec": [
+											"// This negative test is to pass invalid search criteria with inavlid charaters,numbers and check if the data is being returned or not. Response should not have any data.\r",
+											"\r",
+											"\r",
+											"pm.test(\"Data array is empty\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.length).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"count must be zero\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.count).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"mito\",\r\n    \"an\":[\"qwret\"]\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/dna",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"dna"
+									],
+									"query": [
+										{
+											"key": "type[]",
+											"value": "mito",
+											"disabled": true
+										},
+										{
+											"key": "an[]",
+											"value": "CIL+2003-116",
+											"disabled": true
+										},
+										{
+											"key": "p1[]",
+											"value": "G-01",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Org DNA Ystr Report wrong criteria",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4988e273-bc14-4d22-b749-39ce1a8fb4b1",
+										"exec": [
+											"// This negative test is to pass invalid search criteria with inavlid charaters,numbers and check if the data is being returned or not. Response should not have any data.\r",
+											"\r",
+											"\r",
+											"pm.test(\"Data array is empty\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.length).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"count must be zero\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.count).to.eql(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"ystr\",\r\n    \"an\": [\"116\"]\r\n\r\n \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/dna",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"dna"
+									],
+									"query": [
+										{
+											"key": "type[]",
+											"value": "ystr",
+											"disabled": true
+										},
+										{
+											"key": "an[]",
+											"value": "CIL+2003-116",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Org DNA Austr Report wrong criteria",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "856388f0-36da-42ed-a4d0-51bb3980e414",
+										"exec": [
+											"// This negative test is to pass invalid search criteria with inavlid charaters,numbers and check if the data is being returned or not. Response should not have any data.\r",
+											"\r",
+											"\r",
+											"pm.test(\"Data array is empty\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.length).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"count must be zero\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.count).to.eql(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"austr\",\r\n    \"p1\": [\"xxx\"]\r\n    \r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/dna",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"dna"
+									],
+									"query": [
+										{
+											"key": "type[]",
+											"value": "austr",
+											"disabled": true
+										},
+										{
+											"key": "an[]",
+											"value": "CIL+2003-116",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Org DNA  Reports wrong token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1cb09a60-b3b2-4c4c-8d96-18c45116d46f",
+										"exec": [
+											"\r",
+											"pm.globals.set(\"page\", \"1\");\r",
+											"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+											"pm.globals.set(\"atoken\", anthrotoken);\r",
+											"\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     JSON.stringify(pm.globals.set(\"token\", [\"1234we\",\"QWERTY\",\"xxxx\"]));\r",
+											"}\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"pm.globals.set(\"atoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "f5899b13-10c8-42dc-a5d5-5a0346f264d7",
+										"exec": [
+											"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Org DNA  Reports wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											" JSON.stringify(pm.globals.set(\"invalidtoken\", [\"1234we\",\"QWERTY\",\"xxxx\"]));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{atoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"type\": \"mito\",\r\n    \"an\": [\"CIL 2003-116\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/dna",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"dna"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Org DNA Mito Report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74941054-2c16-46b3-a830-3b38eeccd93b",
+								"exec": [
+									"// This request will check the data coming from Org DNA Mito report based on search criteria selected . This request also loops through all the available pages.\r",
+									"\r",
+									"pm.test(\"Display the selection criteria\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Criteria slection: \"  + jsonData.criteriaSelection] = true; \r",
+									" \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Total Count: \"  + jsonData.meta.total] = true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display current page of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    tests[\" From: \"  + jsonData.meta.from] = true;\r",
+									"    tests[\" To: \"  +jsonData.meta.to] = true;\r",
+									"    tests[\" Current Page: \"  + jsonData.meta.current_page] = true;\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									" \r",
+									"var response = JSON.parse(responseBody);\r",
+									"\r",
+									"if(response.links.next !== null) {\r",
+									"    var str = response.links.next\r",
+									"    console.log(str)\r",
+									"    pm.globals.set(\"page\", str.split('=', 2)[1]);\r",
+									"    postman.setNextRequest(\"Project DNA Mito Report\");}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e834fc3-2004-479d-9988-f825c8527e6e",
+								"exec": [
+									"pm.globals.set(\"page\",1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"mito\",\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-01\"],\r\n    \"p2\": [\"X-232C\", \"X-233E\"],\r\n    \"mito_sequence_number_list\": [1, 5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reports/orgs/2/dna?page={{page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"orgs",
+								"2",
+								"dna"
+							],
+							"query": [
+								{
+									"key": "type[]",
+									"value": "mito",
+									"disabled": true
+								},
+								{
+									"key": "an[]",
+									"value": "CIL+2003-116",
+									"disabled": true
+								},
+								{
+									"key": "p1[]",
+									"value": "G-01",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org DNA Ystr Report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd4ac6ae-022d-46d1-a9d4-7ca1f575819f",
+								"exec": [
+									"// This request will check the data coming from Org DNA Ystr report based on search criteria selected . This request also loops through all the available pages.\r",
+									"\r",
+									"\r",
+									"pm.test(\"Display the selection criteria\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Criteria slection: \"  + jsonData.criteriaSelection] = true;\r",
+									"   \r",
+									" \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Total Count: \"  + jsonData.meta.total] = true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display current page of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    tests[\" From: \"  + jsonData.meta.from] = true;\r",
+									"    tests[\" To: \"  +jsonData.meta.to] = true;\r",
+									"    tests[\" Current Page: \"  + jsonData.meta.current_page] = true;\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"// Loop through multiple pages\r",
+									"\r",
+									"var response = JSON.parse(responseBody);\r",
+									"if(response.links.next !== null) {\r",
+									"    var str = response.links.next\r",
+									"    console.log(str)\r",
+									"    pm.globals.set(\"page\", str.split('=', 2)[1]);\r",
+									"    postman.setNextRequest(\"Project DNA Ystr Report\");}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1d71ba4d-1182-4956-a0f0-3fcb8d24386b",
+								"exec": [
+									"pm.globals.set(\"page\",1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"ystr\",\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-02\"]\r\n\r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reports/orgs/2/dna?page={{page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"orgs",
+								"2",
+								"dna"
+							],
+							"query": [
+								{
+									"key": "type[]",
+									"value": "ystr",
+									"disabled": true
+								},
+								{
+									"key": "an[]",
+									"value": "CIL+2003-116",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Org DNA Austr Report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1099a33-8cbb-4b48-be30-b5059137f762",
+								"exec": [
+									"// This request will check the data coming from Org DNA Austr report based on search criteria selected . This request also loops through all the available pages..\r",
+									"\r",
+									"pm.test(\"Display the selection criteria\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Criteria slection: \"  + jsonData.criteriaSelection] = true;\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     tests[\" Total Count: \"  + jsonData.meta.total] = true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display current page of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    tests[\" From: \"  + jsonData.meta.from] = true;\r",
+									"    tests[\" To: \"  +jsonData.meta.to] = true;\r",
+									"    tests[\" Current Page: \"  + jsonData.meta.current_page] = true;\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"// Loop through multiple pages\r",
+									"var response = JSON.parse(responseBody);\r",
+									"if(response.links.next !== null) {\r",
+									"    var str = response.links.next\r",
+									"    console.log(str)\r",
+									"    pm.globals.set(\"page\", str.split('=', 2)[1]);\r",
+									"    postman.setNextRequest(\"Project DNA Austr Report\");}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "293e3f12-3478-4ec8-8f53-abf9d5d404e2",
+								"exec": [
+									"pm.globals.set(\"page\",1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"austr\",\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-01\"],\r\n    \"p2\": [\"X-232C\", \"X-233E\"]\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reports/orgs/2/dna?page={{page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"orgs",
+								"2",
+								"dna"
+							],
+							"query": [
+								{
+									"key": "type[]",
+									"value": "austr",
+									"disabled": true
+								},
+								{
+									"key": "an[]",
+									"value": "CIL+2003-116",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Isotope",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Negative Org Isotope Report invalid org ids",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "82e0fad5-ce8f-43d9-85a5-8509d70709d0",
+										"exec": [
+											"// This test tries to retrieve isotopes for invalid organizations.\r",
+											"//The org ids tested are retrieved from collection variables.\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"var arrayIdx = 0;\r",
+											"\r",
+											"var isoorg_id1 = pm.collectionVariables.get(\"isoorg_id1\");\r",
+											"var isoorg_id2 = pm.collectionVariables.get(\"isoorg_id2\");\r",
+											"var isoorg_id3 = pm.collectionVariables.get(\"isoorg_id3\");\r",
+											"var isoorgArray = [isoorg_id1, isoorg_id2, isoorg_id3];\r",
+											"var currentorg_id = 0;\r",
+											"\r",
+											"pm.test(\"Loop through org id values with invalid id values\", function () {\r",
+											"\r",
+											"for (arrayIdx = 0; arrayIdx <= 2; arrayIdx++)\r",
+											"   {\r",
+											"        console.log(\"arrayIdx =\",arrayIdx);\r",
+											"        current_org_id = isoorgArray[arrayIdx];\r",
+											"        console.log(\"current_org_id =\", current_org_id);\r",
+											"        console.log(\"isoorgArray.length =\", isoorgArray.length);\r",
+											"        if (isoorgArray.length > 0) {\r",
+											"          postman.setNextRequest(\"Negative Org Isotope Report invalid org ids\")\r",
+											"}       else {\r",
+											"          postman.setNextRequest(null);  \r",
+											"\r",
+											"        }\r",
+											"\r",
+											"    }\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{org_manager_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/current_org_id/isotopes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"current_org_id",
+										"isotopes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Org Isotope wrong token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bbbd9757-e570-4e1a-b5d9-3991e8dbff12",
+										"exec": [
+											"\r",
+											"pm.globals.set(\"page\", \"1\");\r",
+											"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+											"pm.globals.set(\"atoken\", anthrotoken);\r",
+											"\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     JSON.stringify(pm.globals.set(\"token\", [\"1234we\",\"QWERTY\",\"xxxx\"]));\r",
+											"}\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"pm.globals.set(\"atoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "5035d8cc-b70a-41f2-8148-24dffed78387",
+										"exec": [
+											"// This negative test will loop through diffrent invalid token values and check if the data is being returned or not. It will pass if there is no data being returned.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Org Isotope wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											" JSON.stringify(pm.globals.set(\"invalidtoken\", [\"1234we\",\"QWERTY\",\"xxxx\"]));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{atoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Length",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"project_id\": 2,\r\n    \"results_confidence\": [\"Pending\"]\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/isotopes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"isotopes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Org Isotope wrong search",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "c1a498e5-4d31-4115-8e33-09b73fb6c728",
+										"exec": [
+											"pm.globals.set(\"page\",1);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "d11aa8b1-4918-4a79-8284-8339d6542365",
+										"exec": [
+											"// This negative test is to pass invalid search criteria with invalid characters for the results_confidence.The test will check if the data is being returned or not. The response should not have any data, and the count should be 0.\r",
+											"\r",
+											"pm.test(\"Data array is empty\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.length).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"count must be zero\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.count).to.eql(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{isotope_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Length",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									},
+									{
+										"key": "accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n       \"results_confidence\":[\"abc\"]\r\n       \r\n  \r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/isotopes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"isotopes"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Org Isotope Reports",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a6ac260b-7e91-4780-ab57-2c8af3399765",
+								"exec": [
+									"//This test retrieves isotopes for all projects for a specific organization and checks that required fields in \r",
+									"//the response are present for each isotope returned.\r",
+									"\r",
+									"var body = JSON.parse(responseBody);\r",
+									"  tests[\" Total Count: \"  + body.meta.total] = true;\r",
+									"  tests[\"status =: \" + body.status] = \"success\";\r",
+									"  tests[\" From: \"  + body.meta.from] = true;\r",
+									"  tests[\" To: \"  + body.meta.to] = true;\r",
+									"  tests[\" Current Page: \"  + body.meta.current_page] = true;\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"project_id\", \"individual_number\", \"sb_id\", \"side\",\"sample_number\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reports/orgs/2/isotopes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"orgs",
+								"2",
+								"isotopes"
+							],
+							"query": [
+								{
+									"key": "resultsconfidence[]",
+									"value": "Reportable",
+									"disabled": true
+								},
+								{
+									"key": "resultsconfidence[]",
+									"value": "Pending",
+									"disabled": true
+								},
+								{
+									"key": "lab_id[]",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "lab_id[]",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "batch_id[]",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "batch_id[]",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "project_id[]",
+									"value": "12",
+									"disabled": true
+								},
+								{
+									"key": "weight_collagen_to[]",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "weight_collagen_from[]",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "c_percent_from[]",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "c_percent_to[]",
+									"value": "12",
+									"disabled": true
+								},
+								{
+									"key": "n_percent_from[]",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "n_percent_to[]",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "s_percent_from[]",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "s_percent_to[]",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "c_to_n_ratio_from[]",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "c_to_n_ratio_to[]",
+									"value": "15",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Individual Number Details",
+			"item": [
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "Negative Invalid Project Number",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "54751ca9-b388-4527-8d06-87fcc95eeba0",
+										"exec": [
+											"pm.globals.set(\"page\", \"1\");\r",
+											"\r",
+											"\r",
+											"var project = pm.globals.get(\"project\")\r",
+											"\r",
+											"if(!project){\r",
+											"     project = [999];\r",
+											"}\r",
+											"\r",
+											"var currentproject = project.shift();\r",
+											"pm.globals.set(\"projectid\", currentproject);\r",
+											"pm.globals.set(\"project\", project);\r",
+											"pm.globals.set(\"org_id\", 2);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "39215070-4094-4acd-8b08-85a686323def",
+										"exec": [
+											"// This test will attempt to retrieve data for a project id that doesn't have any data associated with it from the Individual Number Details API. \r",
+											"\r",
+											"var project = pm.globals.get(\"project\");\r",
+											"\r",
+											"if (project.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Invalid Project Number\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"project\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Check no data returned\", function () {\r",
+											"var body = JSON.parse(responseBody);\r",
+											"  tests[\" Total Count: \"  + body.meta.total] = true;\r",
+											"  tests[\"status =: \" + body.status] = \"success\";\r",
+											"   \r",
+											"});\r",
+											"   \r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/{{org_id}}/individualnumberdetails?sb_select[]={{bone}}&side_select[]={{bone_side}}&project_id[]={{projectid}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"{{org_id}}",
+										"individualnumberdetails"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "{{per_page}}",
+											"disabled": true
+										},
+										{
+											"key": "sb_select[]",
+											"value": "{{bone}}"
+										},
+										{
+											"key": "side_select[]",
+											"value": "{{bone_side}}"
+										},
+										{
+											"key": "project_id[]",
+											"value": "{{projectid}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative wrong search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "34146f54-2829-4662-8cb6-bb2ca79d3085",
+										"exec": [
+											"// This negative test is to pass invalid search criteria with inavlid charaters,numbers and check if the data is being returned or not. Response should not have any data.\r",
+											"\r",
+											"\r",
+											"pm.test(\"Data array is empty\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.length).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"count must be zero\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.count).to.eql(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {
+									"content-type": true,
+									"content-length": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Length",
+										"value": "<calculated when request is sent>",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"sb_select\": [99],\r\n    \"side_select\": [\"Right\"]\r\n\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/reports/orgs/2/individualnumberdetails?sb_select[]={{bone}}&side_select[]={{bone_side}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"orgs",
+										"2",
+										"individualnumberdetails"
+									],
+									"query": [
+										{
+											"key": "sb_select[]",
+											"value": "{{bone}}"
+										},
+										{
+											"key": "side_select[]",
+											"value": "{{bone_side}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Negative tests for Org Inum Details reports\r\n",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Org Individual Number Details all projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f48c18d3-718a-4c6d-8d80-e7e538808a1f",
+								"exec": [
+									"//This test retrieves specimens by individual number for a single project, multiple projects, or all projects\r",
+									"//for a single organization.\r",
+									"\r",
+									"var body = JSON.parse(responseBody);\r",
+									"  tests[\" Total Count: \"  + body.meta.total] = true;\r",
+									"  tests[\"status =: \" + body.status] = \"success\";\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\", \"individual_number\", \"sb_id\",\"side\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    tests[\" From: \"  + jsonData.meta.from] = true;\r",
+									"    tests[\" To: \"  +jsonData.meta.to] = true;\r",
+									"    tests[\" Current Page: \"  + jsonData.meta.current_page] = true;\r",
+									"   \r",
+									"});\r",
+									"\r",
+									" \r",
+									"var response = JSON.parse(responseBody);\r",
+									"\r",
+									"if(response.links.next !== null) {\r",
+									"    var str = response.links.next;\r",
+									"    console.log(\"str =\", str);\r",
+									"    pm.globals.set(\"page\", str.split('=', 2)[1]);\r",
+									"    postman.setNextRequest(\"Org Spec by Inum Details all projects\");}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9a77bd58-b738-43d7-9d46-9a660fdcaf4c",
+								"exec": [
+									"pm.globals.set(\"page\",1);\r",
+									"pm.globals.set(\"per_page\", 100);\r",
+									"pm.globals.set(\"bone\",37);\r",
+									"pm.globals.set(\"bone_side\",\"Right\");\r",
+									"pm.globals.set(\"inumber\", \"CIL 2003-116-I-143\");\r",
+									"pm.globals.set(\"project_id\",2);\r",
+									"pm.globals.set(\"org_id\",2);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reports/orgs/{{org_id}}/individualnumberdetails?sb_select[]={{bone}}&per_page={{per_page}}&side_select[]={{bone_side}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"orgs",
+								"{{org_id}}",
+								"individualnumberdetails"
+							],
+							"query": [
+								{
+									"key": "sb_select[]",
+									"value": "{{bone}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								},
+								{
+									"key": "side_select[]",
+									"value": "{{bone_side}}"
+								},
+								{
+									"key": "project_id[]",
+									"value": "{{project_id}}",
+									"disabled": true
+								},
+								{
+									"key": "individual_number[]",
+									"value": "{{inumber}}",
+									"disabled": true
+								},
+								{
+									"key": "searchstring",
+									"value": "{{bone}}",
+									"disabled": true
+								},
+								{
+									"key": "searchby",
+									"value": "{{searchby}}",
+									"disabled": true
+								},
+								{
+									"key": "org_id",
+									"value": "{{org_id}}",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Retrieve specimen data by individual number details for all projects (e.g., retrieve all Humerus Left for all projects)."
+					},
+					"response": []
+				},
+				{
+					"name": "Org Individual Number Details one project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "53bcffae-cea0-4b26-9fb2-bde11998f1bb",
+								"exec": [
+									"//This test retrieves specimens by individual number bone and side for a single project  \r",
+									"//for a single organization.\r",
+									"\r",
+									"var body = JSON.parse(responseBody);\r",
+									"  tests[\" Total Count: \"  + body.meta.total] = true;\r",
+									"  tests[\"status =: \" + body.status] = \"success\";\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check response variables\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\", \"individual_number\", \"sb_id\",\"side\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display count of records\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    tests[\" From: \"  + jsonData.meta.from] = true;\r",
+									"    tests[\" To: \"  +jsonData.meta.to] = true;\r",
+									"    tests[\" Current Page: \"  + jsonData.meta.current_page] = true;\r",
+									"   \r",
+									"});\r",
+									"\r",
+									" \r",
+									"var response = JSON.parse(responseBody);\r",
+									"\r",
+									"if(response.links.next !== null) {\r",
+									"    var str = response.links.next;\r",
+									"    console.log(\"str =\", str);\r",
+									"    pm.globals.set(\"page\", str.split('=', 2)[1]);\r",
+									"    postman.setNextRequest(\"Org Individual Number Details one project\");}\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "90b6d0bd-554a-43b9-a5ed-be1ee2236641",
+								"exec": [
+									"pm.globals.set(\"page\",1);\r",
+									"pm.globals.set(\"per_page\", 100);\r",
+									"pm.globals.set(\"bone\",37);\r",
+									"pm.globals.set(\"bone_side\",\"Right\");\r",
+									"pm.globals.set(\"inumber\", \"CIL 2003-116-I-143\");\r",
+									"pm.globals.set(\"project_id\",2);\r",
+									"pm.globals.set(\"org_id\",2);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{org_manager_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reports/orgs/{{org_id}}/individualnumberdetails?per_page={{per_page}}&sb_select[]={{bone}}&side_select[]={{bone_side}}&project_id[]={{project_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"orgs",
+								"{{org_id}}",
+								"individualnumberdetails"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{bone}}",
+									"disabled": true
+								},
+								{
+									"key": "searchby",
+									"value": "{{searchby}}",
+									"disabled": true
+								},
+								{
+									"key": "sb_select[]",
+									"value": "{{bone}}"
+								},
+								{
+									"key": "side_select[]",
+									"value": "{{bone_side}}"
+								},
+								{
+									"key": "individual_number[]",
+									"value": "{{inumber}}",
+									"disabled": true
+								},
+								{
+									"key": "project_id[]",
+									"value": "{{project_id}}"
+								},
+								{
+									"key": "org_id[]",
+									"value": "{{org_id}}",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Test to try to not use param values"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5d816506-f69d-4e6f-9881-117706697bba",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d0522978-3814-4e3c-a465-0310075c39ce",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status Code\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,500,400]);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "354bfef8-29eb-4433-a85a-19336fc42028",
+			"key": "isoorg_id1",
+			"value": "0"
+		},
+		{
+			"id": "279b3d41-c1cd-428b-be38-ffed3a86b97a",
+			"key": "isoorg_id2",
+			"value": "9999"
+		},
+		{
+			"id": "2bb492fe-77c9-4573-b604-cec9056c7ca6",
+			"key": "isoorg_id3",
+			"value": "5ax$"
+		},
+		{
+			"id": "fa69c002-0ded-456b-b353-3df5385f0616",
+			"key": "inum_searchby",
+			"value": "\"sb_id\""
+		},
+		{
+			"id": "198a5f31-c7ff-4e8c-9bc4-072a876290c3",
+			"key": "inum_bone",
+			"value": "37"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

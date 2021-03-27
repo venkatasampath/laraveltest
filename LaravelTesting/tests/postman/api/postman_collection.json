@@ -1,0 +1,4313 @@
+{
+	"info": {
+		"_postman_id": "ba5a0a1c-a643-4292-909c-d91afe56eae5",
+		"name": "API_TESTS",
+		"description": "API TESTING FOR CORA25",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "dashboard get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82288f54-43cb-44e7-8195-f4e6dc63abcc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"complete\", \"incomplete\", \"total\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/specimens/complete",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"specimens",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard DNA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5462446c-8199-44f0-98a2-e52087dccdcd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(  \"mito_results_reportable\",\"mito_results_inconclusive\", \"mito_results_unable_to_assign\",\"mito_results_cancelled\",\"mito_results_pending\", \"mito_results_total\",\"total\",\"last_updated_at\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/dnas/mito-results",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"dnas",
+						"mito-results"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Project Highlights",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5da9481-32b9-43b0-8653-c981cec5902d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the list of keys returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include( \"specimens\",\"accessions\",\"provenance1\",\"provenance2\",\"bone_groups\", \"individual_number\",\"last_updated_at\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/1/highlights",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"1",
+						"highlights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Measured Specimens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f03b7df1-7e3e-4dd8-81bf-5b7d9fcf7dc8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include( \"measured\",\"unmeasured\",\"total\",\"last_updated_at\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/specimens/measured",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"specimens",
+						"measured"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an isotope",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a020f079-7498-4ac1-ab14-44bb9fac8a05",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data values from the Response \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(2);",
+							"    pm.expect(jsonData.data.external_case_id).to.eql(\"2004H2020\");",
+							"    pm.expect(jsonData.data.weight_collagen).to.eql(\"10\");",
+							"});",
+							"",
+							"pm.test(\"Verify Updated date from the Response \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.updated_at).to.include(\"2020-04-22\");",
+							"});",
+							"",
+							"pm.test(\"Verify Updated by User from the Response \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.updated_by).to.eql(\"Anthro Analyst\");",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\",\"sb_id\",\"org_id\",\"project_id\",\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"deleted_at\",\"uuid\",\"user_id\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/isotopes/2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an isotope",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7ce31d3-3fc1-4e34-84f7-bc6114bb0237",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check specific isotope\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(9);",
+							"    pm.expect(jsonData.data.se_id).to.eql(27968);",
+							"    pm.expect(jsonData.data.sb_id).to.eql(37);",
+							"    pm.expect(jsonData.data.org_id).to.eql(2);",
+							"    pm.expect(jsonData.data.project_id).to.eql(2);",
+							"    pm.expect(jsonData.data.lab_id).to.eql(1);",
+							"    pm.expect(jsonData.data.sample_number).to.eql(\"02A\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check returned fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/isotopes/9",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Isotopes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cdeb9257-f8a9-4c5b-a0c7-14bf80656ee3",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"The response on the data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(47);",
+							"    pm.expect(jsonData.data[0].se_id).to.eql(27998);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].project_id).to.eql(12);",
+							"    pm.expect(jsonData.data[0].lab_id).to.eql(6);",
+							"    pm.expect(jsonData.data[0].batch_id).to.eql(6);",
+							"    pm.expect(jsonData.data[0].sample_number).to.eql(\"414253\");",
+							"});",
+							"",
+							"pm.test(\"Testing the response parameter\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\", \"n_delta\", \"o_delta\", \"o_delta\", \"c_percent\", \"n_percent\", \"n_percent\", \"s_percent\", \"c_to_n_ratio\", \"c_to_o_ratio\", \"created_by\", \"updated_by\", \"created_at\", \"updated_at\", \"deleted_at\", \"uuid\", \"user_id\", \"custom_field_1\", \"custom_field_2\", \"custom_field_3\" );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/isotopes/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an isotope based on specimen id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50ef5f56-67cb-4ffe-b0e4-4f61d7cd4314",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"pm.test(\"Check isotopes under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (var i=0;i<jsonData.data.length;i++){",
+							"        pm.expect(jsonData.data[i].id).to.be.oneOf([9, 10, 2, 50, 18, 8]);",
+							"        pm.expect(jsonData.data[i].se_id).to.eql(27968);",
+							"        pm.expect(jsonData.data[i].sb_id).to.eql(37);",
+							"        pm.expect(jsonData.data[i].org_id).to.eql(2);",
+							"        pm.expect(jsonData.data[i].project_id).to.be.oneOf([2, 12]);",
+							"        pm.expect(jsonData.data[i].lab_id).to.be.oneOf([1, 3, null]);",
+							"        pm.expect(jsonData.data[i].sample_number).to.be.oneOf([\"212A\", \"02A\"]);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Check returned fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/isotopes?se_id=27968",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes"
+					],
+					"query": [
+						{
+							"key": "se_id",
+							"value": "27968"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projects Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f3eb233-a4eb-4e45-a035-ab40fa2cf62a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check value of the first block\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(14);",
+							"    pm.expect(jsonData.data[0].manager_id).to.eql(12);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"description\",\"status_id\",\"public\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"geo_lat\",\"geo_long\",\"start_date\",\"allow_user_Accession_Create\",\"slack_channel\",\"uses_isotope_analysis\",\"zones_autocomplete\",\"latest_mcc_date\",\"uuid\",\"use_auto_increment_designator\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/projects",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Assigned userlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03671db5-b551-4637-9d3f-771d8b0837c7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check value of the first block\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(11);",
+							"    pm.expect(jsonData.data[0].role_id).to.eql(5);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].pivot.project_id).to.eql(13);",
+							"    pm.expect(jsonData.data[0].pivot.user_id).to.eql(11);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"email\",\"created_at\",\"updated_at\",\"active\",\"phone\",\"default_language\",\"default_country\",\"last_login_ip_Address\",\"last_login_device\",\"number_of_logins\",\"last_login_at\",\"expiration_at\",\"password_updated_at\",\"created_by\",\"updated_by\",\"deleted_at\",\"avatar\",\"settings\",\"cell_phone\",\"first_name\",\"last_name\",\"display_name\",\"default_timezone\",\"slack_channel\",\"api_token\",\"uuid\",\"pivot\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d03c1243-e7e1-451e-8ac9-8feeade73453",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(13);",
+							"    pm.expect(jsonData.data.org_id).to.eql(2);",
+							"    pm.expect(jsonData.data.status_id).to.eql(1);",
+							"    pm.expect(jsonData.data.manager_id).to.eql(12);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(  \"id\",\"org_id\",\"name\", \"description\", \"status_id\",\"public\",\"manager_id\",\"created_by\", \"updated_by\", \"created_at\",\"updated_at\",\"deleted_at\",\"geo_lat\",\"geo_long\",\"start_date\",\"allow_user_accession_create\",\"slack_channel\",\"uses_isotope_analysis\",\"zones_autocomplete\",\"latest_mcc_date\",\"uuid\",\"use_auto_increment_designator\",\"org\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/projects/13",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{DNA} GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddb1d530-3c01-47ae-8a2f-df46c7f9432b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"pm.test(\"Check of DNA ids\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(5642);",
+							"    pm.expect(jsonData.data.se_id).to.eql(27967);",
+							"    pm.expect(jsonData.data.org_id).to.eql(2);",
+							"    pm.expect(jsonData.data.project_id).to.eql(12);",
+							"    pm.expect(jsonData.data.lab_id).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\", \"org_id\", \"project_id\", \"lab_id\", \"external_case_id\", \"priority\", \"sample_number\", \"mito_sequence_number\", \"mito_sequence_subgroup\", \"mito_sequence_similar\", \"mito_match_count\", \"mito_total_count\", \"mito_receive_date\", \"mito_haplogroup_id\", \"created_by\", \"updated_by\", \"created_at\", \"updated_at\", \"deleted_at\", \"analysis_type_id\", \"mito_results_confidence\", \"mito_method\", \"external_sample_number\", \"dispostion_of_evidence\", \"mito_confirmed_regions\", \"mito_base_pairs\", \"locus\", \"mito_num_loci\", \"mito_mcc_date\", \"sb_id\", \"additional_testing\", \"priority_date\", \"btb_request_date\", \"btb_results_date\", \"disposition\", \"sample_condition\", \"weight_sample_remaining\", \"mito_request_date\", \"mito_polymorphisms\", \"mito_fasta_sequence\", \"mito_haplosubgroup\", \"austr_method\", \"austr_request_date\", \"austr_receive_date\", \"austr_results_confidence\", \"austr_sequence_number\", \"austr_sequence_subgroup\", \"austr_sequence_similar\", \"austr_match_count\", \"austr_total_count\", \"austr_num_loci\", \"austr_loci\", \"austr_mcc_date\", \"ystr_method\", \"ystr_request_date\", \"ystr_receive_date\", \"ystr_results_confidence\", \"ystr_sequence_number\", \"ystr_sequence_subgroup\", \"ystr_sequence_similar\", \"ystr_match_count\", \"ystr_total_count\", \"ystr_num_loci\", \"ystr_loci\", \"ystr_haplogroup\", \"ystr_haplosubgroup\", \"ystr_mcc_date\", \"resample_indicator\", \"notes\", \"uuid\", \"user_id\", \"custom_field_1\", \"custom_field_2\", \"custom_field_3\", \"se\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dnas/5642",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						"5642"
+					]
+				},
+				"description": "Individual DNA based on the ID of the DNA"
+			},
+			"response": []
+		},
+		{
+			"name": "DNA Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5a08956-efee-4ad9-ba2b-c23aff8908bb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check DNA id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(5642);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\", \"org_id\", \"project_id\", \"lab_id\", \"external_case_id\", \"priority\", \"sample_number\", \"mito_sequence_number\", \"mito_sequence_subgroup\", \"mito_sequence_similar\", \"mito_match_count\", \"mito_total_count\", \"mito_receive_date\", \"mito_haplogroup_id\", \"created_by\", \"updated_by\", \"created_at\", \"updated_at\", \"deleted_at\", \"analysis_type_id\", \"mito_results_confidence\", \"mito_method\", \"external_sample_number\", \"dispostion_of_evidence\", \"mito_confirmed_regions\", \"mito_base_pairs\", \"locus\", \"mito_num_loci\", \"mito_mcc_date\", \"sb_id\", \"additional_testing\", \"priority_date\", \"btb_request_date\", \"btb_results_date\", \"disposition\", \"sample_condition\", \"weight_sample_remaining\", \"mito_request_date\", \"mito_polymorphisms\", \"mito_fasta_sequence\", \"mito_haplosubgroup\", \"austr_method\", \"austr_request_date\", \"austr_receive_date\", \"austr_results_confidence\", \"austr_sequence_number\", \"austr_sequence_subgroup\", \"austr_sequence_similar\", \"austr_match_count\", \"austr_total_count\", \"austr_num_loci\", \"austr_loci\", \"austr_mcc_date\", \"ystr_method\", \"ystr_request_date\", \"ystr_receive_date\", \"ystr_results_confidence\", \"ystr_sequence_number\", \"ystr_sequence_subgroup\", \"ystr_sequence_similar\", \"ystr_match_count\", \"ystr_total_count\", \"ystr_num_loci\", \"ystr_loci\", \"ystr_haplogroup\", \"ystr_haplosubgroup\", \"ystr_mcc_date\", \"resample_indicator\", \"notes\", \"uuid\", \"user_id\", \"custom_field_1\", \"custom_field_2\", \"custom_field_3\", \"se\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/dnas/5642",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						"5642"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dna Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3315f11d-9986-4668-b9ec-b4efd106175d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check values for specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(7866);",
+							"    pm.expect(jsonData.data[0].se_id).to.eql(27967);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].project_id).to.eql(12);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\", \"org_id\", \"project_id\", \"lab_id\", \"external_case_id\", \"priority\", \"sample_number\", \"mito_sequence_number\", \"mito_sequence_subgroup\", \"mito_sequence_similar\", \"mito_match_count\", \"mito_total_count\", \"mito_receive_date\", \"mito_haplogroup_id\", \"created_by\", \"updated_by\", \"created_at\", \"updated_at\", \"deleted_at\", \"analysis_type_id\", \"mito_results_confidence\", \"mito_method\", \"external_sample_number\", \"dispostion_of_evidence\", \"mito_confirmed_regions\", \"mito_base_pairs\", \"locus\", \"mito_num_loci\", \"mito_mcc_date\", \"sb_id\", \"additional_testing\", \"priority_date\", \"btb_request_date\", \"btb_results_date\", \"disposition\", \"sample_condition\", \"weight_sample_remaining\", \"mito_request_date\", \"mito_polymorphisms\", \"mito_fasta_sequence\", \"mito_haplosubgroup\", \"austr_method\", \"austr_request_date\", \"austr_receive_date\", \"austr_results_confidence\", \"austr_sequence_number\", \"austr_sequence_subgroup\", \"austr_sequence_similar\", \"austr_match_count\", \"austr_total_count\", \"austr_num_loci\", \"austr_loci\", \"austr_mcc_date\", \"ystr_method\", \"ystr_request_date\", \"ystr_receive_date\", \"ystr_results_confidence\", \"ystr_sequence_number\", \"ystr_sequence_subgroup\", \"ystr_sequence_similar\", \"ystr_match_count\", \"ystr_total_count\", \"ystr_num_loci\", \"ystr_loci\", \"ystr_haplogroup\", \"ystr_haplosubgroup\", \"ystr_mcc_date\", \"resample_indicator\", \"notes\", \"uuid\", \"user_id\", \"custom_field_1\", \"custom_field_2\", \"custom_field_3\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/dnas/?se_id=27967",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						""
+					],
+					"query": [
+						{
+							"key": "se_id",
+							"value": "27967"
+						}
+					]
+				},
+				"description": "All the dna for the current project"
+			},
+			"response": []
+		},
+		{
+			"name": "Put Zones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7feebf10-d143-4fa9-846b-c14bbd4b5e51",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(97);",
+							"    pm.expect(jsonData.data[0].presence).to.eql(true);",
+							"    pm.expect(jsonData.data[0].help_url).to.include(\"https://cora-docs.readthedocs.io/en/latest/forensics-anthro-guide/zones/\");",
+							"    pm.expect(jsonData.specimen.sb.zones).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"display_name\",\"display_order\",\"description\",\"display_help\",\"help_url\",\"presence\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					]
+				},
+				"description": "This is the PUT request example"
+			},
+			"response": []
+		},
+		{
+			"name": "Put Articulations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ac54d93-b7d6-4943-b979-da672272b427",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(27960);",
+							"    pm.expect(jsonData.specimen.sb.articulated).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"key\",\"key_bone_side\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27967/associations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27967",
+						"associations"
+					]
+				},
+				"description": "Saving Articulations"
+			},
+			"response": []
+		},
+		{
+			"name": "Get MethodFeature by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fad1988d-f1a4-4196-a465-7f452ad92041",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].method_id).to.eql(301);",
+							"    pm.expect(jsonData.specimen.id).to.eql(27968);",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"feature\",\"display_name\",\"display_order\",\"display_values\",\"display_interval\",\"computed\",\"computed_rule\",\"groups\",\"display_help\",\"method_id\",\"method_feature_id\",\"score\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations?method_id=301&type=methodfeatures",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "method_id",
+							"value": "301"
+						},
+						{
+							"key": "type",
+							"value": "methodfeatures"
+						}
+					]
+				},
+				"description": "This is the API for methods"
+			},
+			"response": []
+		},
+		{
+			"name": "Get MethodFeature",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75a9c89d-4e3e-405b-8dba-bdc64431b71e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check id for specific specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.specimen.id).to.eql(27968);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"feature\",\"display_name\",\"display_order\",\"display_values\",\"display_interval\",\"computed\",\"computed_rule\",\"groups\",\"display_help\",\"method_id\",\"method_feature_id\",\"score\");",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations?&type=methodfeatures",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "type",
+							"value": "methodfeatures"
+						}
+					]
+				},
+				"description": "This is the API for methods"
+			},
+			"response": []
+		},
+		{
+			"name": "Measurements Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69cecce4-51f7-4aa2-a0f9-66d7bbcdc8cd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Measurement ID check\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (var i=0;i<jsonData.data.length;i++){",
+							"        pm.expect(jsonData.data[i].id).to.be.gte(53);",
+							"        pm.expect(jsonData.data[i].id).to.be.lte(61);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided keys\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"display_name\",\"display_order\",\"description\",\"min_value\",\"max_value\",\"step_value\",\"min_threshold\",\"max_threshold\",\"instrument\",\"comment\",\"display_help\",\"help_url\",\"measure\");",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"measure\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27988/associations?type=measurements",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27988",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "measurements"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pathology Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "997eb10d-fd2f-44ab-abe4-4c330b63a3fc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"zone_id\");",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided keys\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"abnormality_category\",\"characteristics\",\"zone_id\",\"additional_information\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations?type=pathologies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "pathologies"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trauma Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6950c2c6-7a20-4369-9012-87bea999813c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"timing\",\"type\",\"zone_id\",\"additional_information\");",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27971/associations?type=traumas",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27971",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "traumas"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Methods",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32b612f6-dbd2-441d-93a8-3814237aed48",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check id for specific specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (var i=0;i<jsonData.data.length;i++){",
+							"    pm.expect(jsonData.data[i].id).to.be.gte(64);",
+							"    pm.expect(jsonData.data[i].id).to.be.lte(301);",
+							"    }",
+							"    pm.expect(jsonData.specimen.id).to.eql(27968);",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"type\",\"reference\",\"submethod\",\"description\",\"uses_feature_score\",\"uses_composite_score\",\"feature_groups\",\"display_help\",\"help_url\");",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "QbUzD9OLwRwYXgZMuFQcUQLpkvpJBfTk3DkUQxGnxa0njBb67mJ69zBWI8hx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put MethodFeature",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "774f9637-78e2-4e5d-93cb-d93ee5f54c54",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Method ID Check\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].method_id).to.eql(64);",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"score\");",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided keys\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"feature\",\"display_name\",\"display_order\",\"display_values\",\"display_interval\",\"computed\",\"compute_rule\",\"groups\",\"display_help\",\"method_id\",\"method_feature_id\",\"score\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Pathology",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9068aeee-f4b1-4443-ac58-a6b397cdcb63",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Check if object contains all provided properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"id\");",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"zone_id\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Morphologies Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b2469f3-ee69-43af-af9a-b92c07f1f09a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check id for specific specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (var i=0;i<jsonData.data.length;i++){",
+							"    pm.expect(jsonData.data[i].id).to.be.gte(28036);",
+							"    pm.expect(jsonData.data[i].id).to.be.lte(28052);",
+							"    }",
+							"    pm.expect(jsonData.specimen.id).to.eql(27968);",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"key\",\"key_bone_side\");",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27968/associations?type=morphologies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27968",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "morphologies"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put anomaly",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aab0aadd-0fd1-4015-b51f-f2000d47ebb4",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Test on id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(3);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Test on individuating_trait\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].individuating_trait).to.eql(\"Bifurcate foramen transversarium\");",
+							"});",
+							"",
+							"pm.test(\"Test on specimen id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.specimen.id).to.eql(27987);",
+							"});",
+							"",
+							"pm.test(\"Testing the response parameter\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\", \"individuating_trait\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/{{specimen_id}}/associations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"{{specimen_id}}",
+						"associations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bone-in-group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df47201c-1378-4149-9429-cb0d5f27dd87",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Testing value of Sacrum\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.Sacrum).to.eql(\"Sacrum\");",
+							"});",
+							"",
+							"pm.test(\"Testing value of Coccyx\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.Coccyx).to.eql(\"Coccyx\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Testing the response parameter\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Sacrum\", \"Coccyx\", \"Os coxa - Left\", \"Os coxa - Right\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "QbUzD9OLwRwYXgZMuFQcUQLpkvpJBfTk3DkUQxGnxa0njBb67mJ69zBWI8hx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/base-data/bones/bones-in-group",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"base-data",
+						"bones",
+						"bones-in-group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "572dbde5-53a2-47db-a0c4-85963ddb8843",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check method id for specific specimen and type\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(64);",
+							"    pm.expect(jsonData.data[0].type).to.eql(\"Age\");",
+							"    pm.expect(jsonData.specimen.id).to.eql(27973);",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"type\",\"reference\",\"submethod\",\"description\",\"uses_feature_score\",\"uses_composite_score\",\"feature_groups\",\"display_help\",\"help_url\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/specimens/27973/associations?type=methods",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"27973",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "methods"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Zones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d397ea1e-fb63-4d09-a4fe-9eb5a3914835",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.bone.id).to.eql(38);",
+							"    pm.expect(jsonData.data[0].help_url).to.include(\"https://cora-docs.readthedocs.io/en/latest/forensics-anthro-guide/zones/\");",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"display_name\",\"display_order\",\"description\",\"display_help\",\"help_url\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/base-data/zones?list&id=38",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"base-data",
+						"zones"
+					],
+					"query": [
+						{
+							"key": "list",
+							"value": null
+						},
+						{
+							"key": "id",
+							"value": "38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List bones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c99cbca-2a5a-4c79-b5c5-d639a8df0d34",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"JSON value check on id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Testing the response parameter\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\", \"search_name\", \"category\", \"type\", \"group\", \"description\", \"paired\", \"articulated\", \"refit\", \"zones\", \"measurements\", \"dental\", \"countable”, “mni\", \"morphology\", \"methods\", \"middle\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/base-data/bones",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"base-data",
+						"bones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Articulations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ae77d14-0f3b-42d2-99a2-98a75a445638",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check Articulation id for specific speciman\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(28084);",
+							"    pm.expect(jsonData.data[0].name).to.eql(\"2017-095:X-60::001\");",
+							"    pm.expect(jsonData.specimen.id).to.eql(28054);",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"key\",\"key_bone_side\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/specimens/28054/associations?type=articulations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"28054",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "articulations"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Taphonomies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69fb45a7-d539-4fbc-aff0-e90d28fd3e36",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check Taphonomy id for specific speciman\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(4);",
+							"    pm.expect(jsonData.data[0].name).to.eql(\"Adherent Materials-Crystals\");",
+							"    pm.expect(jsonData.specimen.id).to.eql(28054);",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/specimens/28054/associations?type=taphonomys",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"specimens",
+						"28054",
+						"associations"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "taphonomys"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the review based on the type and the id of specimen",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37f08d7f-9c30-4438-9fcc-625042951992",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.specimenReview.id).to.eql(2007);",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"specimenReview\",\"original\",\"summary\",'specimen','articulations','dnas','status');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/review/27968",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"review",
+						"27968"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bea47d04-6fc6-414e-9a59-0820c3b36043",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(2022);",
+							"    pm.expect(jsonData.data[0].se_id).to.eql(27968);",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",'se_id','type','original',",
+							"    'review','created_by','updated_by','created_at','updated_at','deleted_at');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/review/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"review",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the list of measurements based on the SB_ID ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54afb9f4-c52c-43f3-8f56-236beaed283b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(53);",
+							"    pm.expect(jsonData.data[0].name).to.eql(\"Hum_01\");",
+							"    pm.expect(jsonData.data[1].name).to.eql(\"Hum_02\");",
+							"    pm.expect(jsonData.data[2].name).to.eql(\"Hum_03\");",
+							"    pm.expect(jsonData.data[3].name).to.eql(\"Hum_04\");",
+							"    pm.expect(jsonData.data[4].name).to.eql(\"Hum_05\");",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",'se_id','type','original',",
+							"    'review','created_by','updated_by','created_at','updated_at','deleted_at');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/base-data/measurements?list&id=37",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"base-data",
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "list",
+							"value": null
+						},
+						{
+							"key": "id",
+							"value": "37"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the list of zones based on the SB_ID ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d03ebb72-2c8c-4a4b-865f-2244e544cbb0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify data value from the Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].display_name).to.eql(53);",
+							"    pm.expect(jsonData.data[1].display_name).to.eql(\"1 - Greater and lesser tubercle\");",
+							"    pm.expect(jsonData.data[2].display_name).to.eql(\"2 - Caput\");",
+							"    pm.expect(jsonData.data[3].display_name).to.eql(\"3 - Lateral epicondyle\");",
+							"    pm.expect(jsonData.data[4].display_name).to.eql(\"4 - Medial epicondyle\");",
+							"    pm.expect(jsonData.data[5].display_name).to.eql(\"5 - Capitulum\");",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",'se_id','type','original',",
+							"    'review','created_by','updated_by','created_at','updated_at','deleted_at');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/base-data/zones?list&id=37",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"base-data",
+						"zones"
+					],
+					"query": [
+						{
+							"key": "list",
+							"value": null
+						},
+						{
+							"key": "id",
+							"value": "37"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DNA Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6386f40-bf64-4a8f-ad89-13b1ca6a67cc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});",
+							"pm.test(\"Check dnas under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.specimen.id).to.eql(27968);",
+							"    pm.expect(jsonData.data.specimen.sb_id).to.eql(37);",
+							"    pm.expect(jsonData.data.specimen.user_id).to.eql(102);",
+							"    pm.expect(jsonData.data.specimen.project_id).to.eql(12);",
+							"    pm.expect(jsonData.data.specimen.reviewer_id).to.eql(245);",
+							"    for (var i=0;i<jsonData.data.specimen.dnas.length;i++){",
+							"        pm.expect(jsonData.data.specimen.dnas[i].id).to.be.oneOf([7914, 7913, 7912, 7911, 7910, 7909,7908, 7907, 7906, 7905, 7896, 7892, 7890, 7887, 7886, 7885, 7865, 5641]);",
+							"        pm.expect(jsonData.data.specimen.dnas[i].se_id).to.eql(27968);",
+							"        pm.expect(jsonData.data.specimen.dnas[i].org_id).to.eql(2);",
+							"        pm.expect(jsonData.data.specimen.dnas[i].project_id).to.eql(12);",
+							"        pm.expect(jsonData.data.specimen.dnas[i].lab_id).to.eql(1);",
+							"        pm.expect(jsonData.data.specimen.dnas[i].sample_number).to.be.oneOf([\"02D\", \"02BC\", \"123456\", \"02s\", \"02B\", \"02C\", \"02A\"]);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Check returned dnas fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"external_case_id\",\"priority\",\"sample_number\",\"mito_sequence_number\",\"mito_sequence_subgroup\",\"mito_sequence_similar\",\"mito_match_count\",\"mito_total_count\",\"mito_receive_date\",\"mito_haplogroup_id\",\"analysis_type_id\",\"mito_results_confidence\",\"mito_method\",\"external_sample_number\",\"dispostion_of_evidence\",\"mito_confirmed_regions\",\"mito_base_pairs\",\"locus\",\"mito_num_loci\",\"mito_mcc_date\",\"additional_testing\",\"sb_id\",\"priority_date\",\"btb_request_date\",\"btb_results_date\",\"disposition\",\"sample_condition\",\"weight_sample_remaining\",\"mito_request_date\",\"mito_polymorphisms\",\"mito_fasta_sequence\",\"mito_haplosubgroup\",\"austr_method\",\"austr_request_date\",\"austr_receive_date\",\"austr_results_confidence\",\"austr_sequence_number\",\"austr_sequence_subgroup\",\"austr_sequence_similar\",\"austr_match_count\",\"austr_total_count\",\"austr_num_loci\",\"austr_loci\",\"austr_mcc_date\",\"ystr_method\",\"ystr_request_date\",\"ystr_receive_date\",\"ystr_results_confidence\",\"ystr_sequence_number\",\"ystr_sequence_subgroup\",\"ystr_sequence_similar\",\"ystr_match_count\",\"ystr_total_count\",\"ystr_num_loci\",\"ystr_loci\",\"ystr_haplogroup\",\"ystr_haplosubgroup\",\"ystr_mcc_date\",\"resample_indicator\",\"notes\",\"uuid\",\"user_id\",\"custom_field_1\",\"custom_field_2\",\"custom_field_3\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/review/27968",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"review",
+						"27968"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Measurement Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5daead5-0258-41dc-8f8e-4a4a480579e1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});",
+							"pm.test(\"Check measurements under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.specimen.id).to.eql(27988);",
+							"    pm.expect(jsonData.data.specimen.sb_id).to.eql(37);",
+							"    pm.expect(jsonData.data.specimen.user_id).to.eql(102);",
+							"    pm.expect(jsonData.data.specimen.org_id).to.eql(2);",
+							"    pm.expect(jsonData.data.specimen.project_id).to.eql(12);",
+							"    pm.expect(jsonData.data.specimen.reviewer_id).to.eql(102);",
+							"    for (var i=0;i<jsonData.data.specimen.measurements.length;i++){",
+							"        pm.expect(jsonData.data.specimen.measurements[i].id).to.be.oneOf([53, 54, 55, 56]);",
+							"        pm.expect(jsonData.data.specimen.measurements[i].sb_id).to.eql(37);",
+							"    }",
+							"});",
+							"pm.test(\"Check returned measurements fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"display_name\",\"display_order\",\"description\",\"display_help\",\"comment\",\"instrument\",\"min_value\",\"max_value\",\"step_value\",\"min_threshold\",\"max_threshold\",\"stature\",\"sex\",\"help_url\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/review/27988",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"review",
+						"27988"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get arituclations based on the SB_ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "982ea01d-342b-4cee-8586-a112b7e5667e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"pm.test(\"Check measurements under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].name).to.eql(\"Accessory rib\");",
+							"    pm.expect(jsonData.data[1].name).to.eql(\"Anterior Tooth\");",
+							"    pm.expect(jsonData.data[2].name).to.eql(\"Calcaneus\");",
+							"    pm.expect(jsonData.data[3].name).to.eql(\"Canine\");",
+							"    pm.expect(jsonData.data[4].name).to.eql(\"Capitate\");",
+							"    pm.expect(jsonData.data[5].name).to.eql(\"Cervical vertebra 1\");",
+							"    pm.expect(jsonData.data[6].name).to.eql(\"Cervical vertebra 2\");",
+							"    pm.expect(jsonData.data[7].name).to.eql(\"Cervical vertebra 3\");",
+							"    pm.expect(jsonData.data[8].name).to.eql(\"Cervical vertebra 4\");",
+							"    pm.expect(jsonData.data[9].name).to.eql(\"Cervical vertebra 5\");",
+							"    pm.expect(jsonData.data[10].name).to.eql(\"Cervical vertebra 6\");",
+							"    pm.expect(jsonData.data[11].name).to.eql(\"Cervical vertebra 6/7\");",
+							"    pm.expect(jsonData.data[12].name).to.eql(\"Cervical vertebra 7\");",
+							"    pm.expect(jsonData.data[13].name).to.eql(\"Clavicle\");",
+							"    pm.expect(jsonData.data[14].name).to.eql(\"Coccygeal vertebra 1\");",
+							"    pm.expect(jsonData.data[15].name).to.eql(\"Coccygeal vertebra 2\");",
+							"    ",
+							"});",
+							"pm.test(\"Check returned measurements fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"middle\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/base-data/bones/articulations?list&id=37",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"base-data",
+						"bones",
+						"articulations"
+					],
+					"query": [
+						{
+							"key": "list",
+							"value": null
+						},
+						{
+							"key": "id",
+							"value": "37"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Load list values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57ffe2cd-7fec-4ab5-99cd-bc8ea0e01981",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check measurements under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"50606\"]).to.eql(\"2016-231:::17 :: Ulna-Middle\");",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/review/27968/list-associationdata",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"review",
+						"27968",
+						"list-associationdata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DNA based on Specimen ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbdcc8e3-4801-4c6f-b6da-b69d826aae61",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check measurements under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(7892);",
+							"    pm.expect(jsonData.data[0].se_id).to.eql(27968);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].lab_id).to.eql(1);",
+							"",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check returned measurements fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"se_id\",\"org_id\",\"project_id\",\"lab_id\",\"external_case_id\",\"priority\",\"sample_number\",\"mito_sequence_numner\",\"mito_sequence_subgroup\",\"mito_sequence_similar\",\"mito_match_count\", \"mito_total_count\", \"mito_receive_date\",\"mito_haplogroup_id\", \"created_by\", \"updated_by\", \"created_at\",",
+							"            \"updated_at\",\"deleted_at\",\"analysis_type_id\", \"mito_results_confidence\", \"mito_method\", \"external_sample_number\",\"dispostion_of_evidence\",\"mito_confirmed_regions\",\"mito_base_pairs\", \"locus\",",
+							"            \"mito_num_loci\",\"mito_mcc_date\",\"sb_id\", \"additional_testing\",\"priority_date\",",
+							"            \"btb_request_date\",\"btb_results_date\",\"disposition\", \"sample_condition\",\"weight_sample_remaining\", \"mito_request_date\",",
+							"            \"mito_polymorphisms\",",
+							"            \"mito_fasta_sequence\",",
+							"            \"mito_haplosubgroup\",",
+							"            \"austr_method\",",
+							"            \"austr_request_date\",",
+							"            \"austr_receive_date\",",
+							"            \"austr_results_confidence\",",
+							"            \"austr_sequence_number\",",
+							"            \"austr_sequence_subgroup\",",
+							"            \"austr_sequence_similar\",",
+							"            \"austr_match_count\",",
+							"            \"austr_total_count\",",
+							"            \"austr_num_loci\",",
+							"            \"austr_loci\",",
+							"            \"austr_mcc_date\",",
+							"            \"ystr_method\",",
+							"            \"ystr_request_date\",\"ystr_receive_date\",\"ystr_results_confidence\",\"ystr_sequence_number\", \"ystr_sequence_subgroup\",\"ystr_sequence_similar\",\"ystr_match_count\", \"ystr_total_count\", \"ystr_num_loci\", \"ystr_loci\", \"ystr_haplogroup\", \"ystr_haplosubgroup\",\"ystr_mcc_date\",\"resample_indicator\",\"notes\",\"uuid\",\"user_id\",\"custom_field_1\",\"custom_field_2\",\"custom_field_3\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/dnas/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dnas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bda0c55-770c-40de-acdc-e4d5467326e5",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"data\",\"Tag add unsuccessful.\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tags",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a Tag",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"ApiTestingTag2\",\n\t\"description\": \"This tag was created for API testing\",\n\t\"org_id\": \"1\",\n\t\"project_id\": \"2\",\n\t\"type\": \"Test\",\n\t\"color\": \"#FFA726FF\",\n\t\"icon\": \"mdi-help\"\n}"
+						},
+						"url": {
+							"raw": "cora25.test/api/tags",
+							"host": [
+								"cora25",
+								"test"
+							],
+							"path": [
+								"api",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.15.8"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 25 Apr 2020 01:57:29 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self' http://fonts.gstatic.com http://cdnjs.cloudflare.com http://use.fontawesome.com data: https:; form-action 'self'; frame-ancestors 'self'; frame-src 'self' http://cora-docs.readthedocs.io http://www.youtube.com http://content.googleapis.com http://accounts.google.com; img-src 'self' http://maps.gstatic.com http://developers.google.com http://maps.googleapis.com http://www.google-analytics.com http://www.googletagmanager.com http://chart.googleapis.com http://spawaskar-cora.s3.us-west-2.amazonaws.com http://spawaskar-cora-cat.s3.us-west-2.amazonaws.com data: https:; manifest-src 'none'; media-src http://www.youtube.com http://m.youtube.com http://youtubei.googleapis.com http://youtube.googleapis.com http://www.youtube-nocookie.com; object-src http://cora-docs.readthedocs.io; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://ajax.googleapis.com http://maps.googleapis.com http://developers.google.com http://code.jquery.com http://www.googletagmanager.com http://www.google-analytics.com http://tagmanager.google.com http://stackpath.bootstrapcdn.com http://cdnjs.cloudflare.com http://cdn.datatables.net http://s3.amazonaws.com http://www.youtube.com http://d3js.org http://vizjs.org https:; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com http://developers.google.com http://stackpath.bootstrapcdn.com http://cdnjs.cloudflare.com http://cdn.datatables.net http://use.fontawesome.com https:; worker-src 'none'; report-uri https://spawaskar.report-uri.com/r/d/csp/enforce"
+						},
+						{
+							"key": "Feature-Policy",
+							"value": "accelerometer 'self'; ambient-light-sensor 'self'; camera 'self'; fullscreen 'self'; geolocation 'self'; gyroscope 'self'; magnetometer 'self'; microphone 'self'; midi 'self'; payment 'self'; speaker 'self'; usb 'self'; vr 'self'"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Download-Options",
+							"value": "noopen"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "sameorigin"
+						},
+						{
+							"key": "X-Permitted-Cross-Domain-Policies",
+							"value": "none"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"name\": \"ApiTestingTag2\",\n        \"description\": \"This tag was created for API testing\",\n        \"org_id\": \"1\",\n        \"project_id\": \"2\",\n        \"type\": \"Test\",\n        \"color\": \"#FFA726FF\",\n        \"icon\": \"mdi-help\",\n        \"updated_at\": \"2020-04-25 01:57:28\",\n        \"created_at\": \"2020-04-25 01:57:28\",\n        \"id\": 36\n    },\n    \"status\": \"success\",\n    \"meta\": {\n        \"app\": \"CoRA-2\",\n        \"app_version\": \"1.2.0\",\n        \"api_version\": \"1.0\",\n        \"author\": \"Sachin Pawaskar\",\n        \"copyright\": \"Copyright © 2016 - 2020 Sachin Pawaskar. All Rights Reserved.\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Tags",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84cfefd4-cbda-4992-8198-beaf0757a897",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check Tag id for specific Tag\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(27);",
+							"    pm.expect(jsonData.data[0].name).to.eql(\"TestTag30\");",
+							"    pm.expect(jsonData.data[0].type).to.eql(\"Specimen\");",
+							"});",
+							"",
+							"pm.test(\"Check for expected field values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"created_at\",\"updated_at\",\"deleted_at\",\"org_id\",\"project_id\",\"category\",\"description\",\"color\",\"type\",\"icon\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tags",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Tags",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/tags",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.15.8"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 25 Apr 2020 01:55:24 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self' http://fonts.gstatic.com http://cdnjs.cloudflare.com http://use.fontawesome.com data: https:; form-action 'self'; frame-ancestors 'self'; frame-src 'self' http://cora-docs.readthedocs.io http://www.youtube.com http://content.googleapis.com http://accounts.google.com; img-src 'self' http://maps.gstatic.com http://developers.google.com http://maps.googleapis.com http://www.google-analytics.com http://www.googletagmanager.com http://chart.googleapis.com http://spawaskar-cora.s3.us-west-2.amazonaws.com http://spawaskar-cora-cat.s3.us-west-2.amazonaws.com data: https:; manifest-src 'none'; media-src http://www.youtube.com http://m.youtube.com http://youtubei.googleapis.com http://youtube.googleapis.com http://www.youtube-nocookie.com; object-src http://cora-docs.readthedocs.io; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://ajax.googleapis.com http://maps.googleapis.com http://developers.google.com http://code.jquery.com http://www.googletagmanager.com http://www.google-analytics.com http://tagmanager.google.com http://stackpath.bootstrapcdn.com http://cdnjs.cloudflare.com http://cdn.datatables.net http://s3.amazonaws.com http://www.youtube.com http://d3js.org http://vizjs.org https:; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com http://developers.google.com http://stackpath.bootstrapcdn.com http://cdnjs.cloudflare.com http://cdn.datatables.net http://use.fontawesome.com https:; worker-src 'none'; report-uri https://spawaskar.report-uri.com/r/d/csp/enforce"
+						},
+						{
+							"key": "Feature-Policy",
+							"value": "accelerometer 'self'; ambient-light-sensor 'self'; camera 'self'; fullscreen 'self'; geolocation 'self'; gyroscope 'self'; magnetometer 'self'; microphone 'self'; midi 'self'; payment 'self'; speaker 'self'; usb 'self'; vr 'self'"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Download-Options",
+							"value": "noopen"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "sameorigin"
+						},
+						{
+							"key": "X-Permitted-Cross-Domain-Policies",
+							"value": "none"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "strict-origin-when-cross-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": 27,\n            \"name\": \"TestTag30\",\n            \"created_at\": \"2020-04-22 00:24:33\",\n            \"updated_at\": \"2020-04-22 00:38:07\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"this is for test\",\n            \"color\": \"#4A148CFF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Inventoried\",\n            \"created_at\": \"2018-04-29 18:35:07\",\n            \"updated_at\": \"2020-04-22 00:39:37\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"These specimens are in inventory test\",\n            \"color\": \"#1976D2FF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Testtag3\",\n            \"created_at\": \"2018-04-29 18:35:07\",\n            \"updated_at\": \"2020-03-03 17:03:17\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"This is a test Tag\",\n            \"color\": \"#9C26B0\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Reviewed\",\n            \"created_at\": \"2018-04-29 18:35:07\",\n            \"updated_at\": \"2020-03-03 22:58:34\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"These specimens have been reviewed\",\n            \"color\": \"#4CAF50FF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 5,\n            \"name\": \"testtag\",\n            \"created_at\": \"2020-03-02 04:50:11\",\n            \"updated_at\": \"2020-03-02 04:50:11\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"This is the test tag\",\n            \"color\": \"#A88732\",\n            \"type\": \"Media\",\n            \"icon\": null\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Review\",\n            \"created_at\": \"2020-02-29 18:58:06\",\n            \"updated_at\": \"2020-02-29 18:58:06\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"This is the test tag\",\n            \"color\": \"#A84632\",\n            \"type\": \"Media\",\n            \"icon\": null\n        },\n        {\n            \"id\": 6,\n            \"name\": \"testtag2\",\n            \"created_at\": \"2020-03-03 03:52:44\",\n            \"updated_at\": \"2020-03-03 03:52:44\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"This is the test tag 2\",\n            \"color\": \"#329DA8\",\n            \"type\": \"Media\",\n            \"icon\": null\n        },\n        {\n            \"id\": 8,\n            \"name\": \"testtag4\",\n            \"created_at\": \"2020-03-04 00:45:31\",\n            \"updated_at\": \"2020-03-04 00:47:05\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"this is test tag 4\",\n            \"color\": \"#FFEB3BFF\",\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 34,\n            \"name\": \"TestTag62\",\n            \"created_at\": \"2020-04-24 15:09:14\",\n            \"updated_at\": \"2020-04-24 15:16:25\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": 12,\n            \"category\": null,\n            \"description\": \"this is a test tags\",\n            \"color\": \"#673AB7FF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 12,\n            \"name\": \"specimenTestTag\",\n            \"created_at\": \"2020-03-12 23:39:20\",\n            \"updated_at\": \"2020-03-12 23:39:20\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"this is a description\",\n            \"color\": \"#81C784FF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 13,\n            \"name\": \"TestnewTag\",\n            \"created_at\": \"2020-03-14 15:32:09\",\n            \"updated_at\": \"2020-03-14 15:32:09\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"this is a description\",\n            \"color\": \"#81C784FF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 14,\n            \"name\": \"TestTag5\",\n            \"created_at\": \"2020-03-21 05:43:42\",\n            \"updated_at\": \"2020-03-21 05:43:42\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"This is test description\",\n            \"color\": \"#608B87FF\",\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 15,\n            \"name\": \"CORAcreateTest\",\n            \"created_at\": \"2020-03-24 02:56:50\",\n            \"updated_at\": \"2020-03-24 02:56:50\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 17,\n            \"name\": \"CORAcreateTest\",\n            \"created_at\": \"2020-03-24 03:04:06\",\n            \"updated_at\": \"2020-03-24 03:04:06\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 18,\n            \"name\": \"CORAcreateTest\",\n            \"created_at\": \"2020-03-24 03:05:28\",\n            \"updated_at\": \"2020-03-24 03:05:28\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 19,\n            \"name\": \"CORAcreateTest\",\n            \"created_at\": \"2020-03-24 03:08:50\",\n            \"updated_at\": \"2020-03-24 03:08:50\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 20,\n            \"name\": \"CORAcreateTest\",\n            \"created_at\": \"2020-03-24 03:14:22\",\n            \"updated_at\": \"2020-03-24 03:14:22\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 21,\n            \"name\": \"CORATestAPI\",\n            \"created_at\": \"2020-03-24 03:18:29\",\n            \"updated_at\": \"2020-03-24 03:18:29\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 22,\n            \"name\": \"CORATestAPI2\",\n            \"created_at\": \"2020-03-24 03:28:31\",\n            \"updated_at\": \"2020-03-24 03:28:31\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": null,\n            \"category\": null,\n            \"description\": \"WWII 92nd Inf Division Italy\",\n            \"color\": null,\n            \"type\": null,\n            \"icon\": null\n        },\n        {\n            \"id\": 33,\n            \"name\": \"TestTag61\",\n            \"created_at\": \"2020-04-24 15:01:31\",\n            \"updated_at\": \"2020-04-24 15:54:48\",\n            \"deleted_at\": null,\n            \"org_id\": null,\n            \"project_id\": 2,\n            \"category\": null,\n            \"description\": \"This is a test tagg\",\n            \"color\": \"#F44336FF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        },\n        {\n            \"id\": 35,\n            \"name\": \"TestTag65\",\n            \"created_at\": \"2020-04-24 16:01:53\",\n            \"updated_at\": \"2020-04-24 16:01:53\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": 12,\n            \"category\": null,\n            \"description\": \"test tag\",\n            \"color\": \"#1B5E20FF\",\n            \"type\": \"DNA\",\n            \"icon\": null\n        },\n        {\n            \"id\": 30,\n            \"name\": \"TestTag50\",\n            \"created_at\": \"2020-04-22 02:32:55\",\n            \"updated_at\": \"2020-04-24 16:12:29\",\n            \"deleted_at\": null,\n            \"org_id\": 2,\n            \"project_id\": 12,\n            \"category\": null,\n            \"description\": \"this is a test tag\",\n            \"color\": \"#607D8BFF\",\n            \"type\": \"Specimen\",\n            \"icon\": null\n        }\n    ],\n    \"links\": {\n        \"first\": \"http://cora25.test/api/tags?page=1\",\n        \"last\": \"http://cora25.test/api/tags?page=1\",\n        \"prev\": null,\n        \"next\": null\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 1,\n        \"path\": \"http://cora25.test/api/tags\",\n        \"per_page\": 250,\n        \"to\": 22,\n        \"total\": 22,\n        \"app\": \"CoRA-2\",\n        \"app_version\": \"1.2.0\",\n        \"api_version\": \"1.0\",\n        \"author\": \"Sachin Pawaskar\",\n        \"copyright\": \"Copyright © 2016 - 2020 Sachin Pawaskar. All Rights Reserved.\"\n    },\n    \"status\": \"success\"\n}"
+				}
+			]
+		},
+		{
+			"name": "dashboard get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b340b38-d472-44c3-b47f-8adb20c00a3c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"complete\", \"incomplete\", \"total\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/specimens/complete",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"specimens",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard DNA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c3bf72c3-2e2f-48f0-998d-a4cf480eb7a0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(  \"mito_results_reportable\",\"mito_results_inconclusive\", \"mito_results_unable_to_assign\",\"mito_results_cancelled\",\"mito_results_pending\", \"mito_results_total\",\"total\",\"last_updated_at\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/dnas/mito-results",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"dnas",
+						"mito-results"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Project Highlights",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5617a086-5305-4da3-b19e-83c5c153822f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the list of keys returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include( \"specimens\",\"accessions\",\"provenance1\",\"provenance2\",\"bone_groups\", \"individual_number\",\"last_updated_at\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/1/highlights",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"1",
+						"highlights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Measured Specimens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91f5620f-5380-486b-bf3c-43e24c1abe8c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include( \"measured\",\"unmeasured\",\"total\",\"last_updated_at\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/dashboard/projects/specimens/measured",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"dashboard",
+						"projects",
+						"specimens",
+						"measured"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an isotope",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dabc92a-0a4f-409d-83e7-228b55e5b1f9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Verify Response status as Success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"success\");",
+							"});",
+							"",
+							"pm.test(\"Verify List of Keys in the Response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"org_id\",\"project_id\",\"sb_id\",\"se_id\",\"lab_id\",\"sample_number\",\"external_case_id\",\"updated_at\",\"created_at\",\"id\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/isotopes/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Isotopes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75fb424c-406d-4154-bb9b-c6db4c194905",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"The response on the data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(47);",
+							"    pm.expect(jsonData.data[0].se_id).to.eql(27998);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].project_id).to.eql(12);",
+							"    pm.expect(jsonData.data[0].lab_id).to.eql(6);",
+							"    pm.expect(jsonData.data[0].batch_id).to.eql(6);",
+							"    pm.expect(jsonData.data[0].sample_number).to.eql(\"414253\");",
+							"});",
+							"",
+							"pm.test(\"Testing the response parameter\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\", \"n_delta\", \"o_delta\", \"o_delta\", \"c_percent\", \"n_percent\", \"n_percent\", \"s_percent\", \"c_to_n_ratio\", \"c_to_o_ratio\", \"created_by\", \"updated_by\", \"created_at\", \"updated_at\", \"deleted_at\", \"uuid\", \"user_id\", \"custom_field_1\", \"custom_field_2\", \"custom_field_3\" );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/isotopes/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an isotope",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5673dcc1-2f97-4061-9da6-32a964efc793",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check specific isotope\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(9);",
+							"    pm.expect(jsonData.data.se_id).to.eql(27968);",
+							"    pm.expect(jsonData.data.sb_id).to.eql(37);",
+							"    pm.expect(jsonData.data.org_id).to.eql(2);",
+							"    pm.expect(jsonData.data.project_id).to.eql(2);",
+							"    pm.expect(jsonData.data.lab_id).to.eql(1);",
+							"    pm.expect(jsonData.data.sample_number).to.eql(\"02A\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check returned fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/isotopes/9",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an isotope based on specimen id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6d358c5-03df-472f-ae55-5cefc3616ddf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"pm.test(\"Check isotopes under one specimen\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    for (var i=0;i<jsonData.data.length;i++){",
+							"        pm.expect(jsonData.data[i].id).to.be.oneOf([9, 10, 2, 50, 18, 8]);",
+							"        pm.expect(jsonData.data[i].se_id).to.eql(27968);",
+							"        pm.expect(jsonData.data[i].sb_id).to.eql(37);",
+							"        pm.expect(jsonData.data[i].org_id).to.eql(2);",
+							"        pm.expect(jsonData.data[i].project_id).to.be.oneOf([2, 12]);",
+							"        pm.expect(jsonData.data[i].lab_id).to.be.oneOf([1, 3, null]);",
+							"        pm.expect(jsonData.data[i].sample_number).to.be.oneOf([\"212A\", \"02A\"]);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Check returned fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"lab_id\",\"batch_id\",\"sample_number\",\"external_case_id\",\"results_confidence\",\"weight_sample_cleaned\",\"weight_vial_lid\",\"weight_sample_vial_lid\",\"weight_collagen\",\"yield_collagen\",\"demineralizing_start_date\",\"demineralizing_end_date\",\"analysis_requested\",\"well_location\",\"collagen_weight_used_for_analysis\",\"c_weight\",\"n_weight\",\"o_weight\",\"s_weight\",\"c_delta\",\"n_delta\",\"o_delta\",\"s_delta\",\"c_percent\",\"n_percent\",\"o_percent\",\"s_percent\",\"c_to_n_ratio\",\"c_to_o_ratio\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/isotopes?se_id=27968",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"isotopes"
+					],
+					"query": [
+						{
+							"key": "se_id",
+							"value": "27968"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projects Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6725999a-8471-4389-9838-bdd0ac6de051",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check value of the first block\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(14);",
+							"    pm.expect(jsonData.data[0].manager_id).to.eql(12);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"description\",\"status_id\",\"public\",\"created_by\",\"updated_by\",\"created_at\",\"updated_at\",\"geo_lat\",\"geo_long\",\"start_date\",\"allow_user_Accession_Create\",\"slack_channel\",\"uses_isotope_analysis\",\"zones_autocomplete\",\"latest_mcc_date\",\"uuid\",\"use_auto_increment_designator\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/projects",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Assigned userlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "76683477-5dcb-45e2-8294-86354cbf51cc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check value of the first block\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(11);",
+							"    pm.expect(jsonData.data[0].role_id).to.eql(5);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].pivot.project_id).to.eql(13);",
+							"    pm.expect(jsonData.data[0].pivot.user_id).to.eql(11);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"email\",\"created_at\",\"updated_at\",\"active\",\"phone\",\"default_language\",\"default_country\",\"last_login_ip_Address\",\"last_login_device\",\"number_of_logins\",\"last_login_at\",\"expiration_at\",\"password_updated_at\",\"created_by\",\"updated_by\",\"deleted_at\",\"avatar\",\"settings\",\"cell_phone\",\"first_name\",\"last_name\",\"display_name\",\"default_timezone\",\"slack_channel\",\"api_token\",\"uuid\",\"pivot\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Specimen Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "880d22b8-e6b4-488a-94af-112a5b7bd807",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"response contains the required variables\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"sb_id\", \"user_id\", \"org_id\",\"project_id\",\"reviewer_id\",\"accession_number\",\"provenance1\",\"provenance2\",\"designator\", \"side\",\"completeness\",\"measured\",\"dna_sampled\", \"ct_scanned\", \"xray_scanned\",\"clavicle_triage\", \"inventoried\",\"reviewed\",\"external_id\",\"individual_number\",\"inventoried_at\",\"reviewed_at\", \"created_by\",\"updated_by\", \"created_at\",\"updated_at\",\"deleted_at\",\"consolidated_an\", \"isotope_sampled\",\"count\", \"mass\",\"bone_group\",\"bone_group_id\",\"inventoried_by_id\",\"remains_status\", \"remains_release_date\",\"identification_date\",\"3D_scanned\",\"notes\",\"uuid\",\"ct_scanned_date\",\"xray_scanned_date\",\"3D_scanned_date\",\"pairs_count\", \"articulations_count\",\"refits_count\",\"morphologys_count\", \"mito_sequence_number\", \"key\",\"key_bone_side\",\"dnas\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://cora25.test/api/projects/3/specimens/search?searchby=SB&searchstring=Humerus",
+					"protocol": "http",
+					"host": [
+						"cora25",
+						"test"
+					],
+					"path": [
+						"api",
+						"projects",
+						"3",
+						"specimens",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchby",
+							"value": "SB"
+						},
+						{
+							"key": "searchstring",
+							"value": "Humerus"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7d72972-69a2-4052-9979-3efe8aa60b90",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(13);",
+							"    pm.expect(jsonData.data.org_id).to.eql(2);",
+							"    pm.expect(jsonData.data.status_id).to.eql(1);",
+							"    pm.expect(jsonData.data.manager_id).to.eql(12);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(  \"id\",\"org_id\",\"name\", \"description\", \"status_id\",\"public\",\"manager_id\",\"created_by\", \"updated_by\", \"created_at\",\"updated_at\",\"deleted_at\",\"geo_lat\",\"geo_long\",\"start_date\",\"allow_user_accession_create\",\"slack_channel\",\"uses_isotope_analysis\",\"zones_autocomplete\",\"latest_mcc_date\",\"uuid\",\"use_auto_increment_designator\",\"org\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/projects/13",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DNA Analyst Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ff90dfa-03fd-4d07-aebc-6a87c4d9a228",
+						"exec": [
+							"//DNA analyst roles shouldn't be authorized to see the user list",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{dna_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org Admin Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02ef8441-909f-4a3c-ae35-61bb34d7c304",
+						"exec": [
+							"//org admin should be able to view user lists",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"Check value of the first block\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(11);",
+							"    pm.expect(jsonData.data[0].role_id).to.eql(5);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].pivot.project_id).to.eql(13);",
+							"    pm.expect(jsonData.data[0].pivot.user_id).to.eql(11);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"email\",\"created_at\",\"updated_at\",\"active\",\"phone\",\"default_language\",\"default_country\",\"last_login_ip_Address\",\"last_login_device\",\"number_of_logins\",\"last_login_at\",\"expiration_at\",\"password_updated_at\",\"created_by\",\"updated_by\",\"deleted_at\",\"avatar\",\"settings\",\"cell_phone\",\"first_name\",\"last_name\",\"display_name\",\"default_timezone\",\"slack_channel\",\"api_token\",\"uuid\",\"pivot\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Isotope Analysts Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c097a6da-2ba0-4b65-b729-83b5c54bc2bb",
+						"exec": [
+							"// Isotope Analysts shouldn't be able to view user lists",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{isotope_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org Manager Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12099a16-d999-4ba3-b31e-88b59fa24abc",
+						"exec": [
+							"// Org manager roles should be able to view user lists",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 60s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(60000);",
+							"});",
+							"",
+							"pm.test(\"Check value of the first block\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[0].id).to.eql(11);",
+							"    pm.expect(jsonData.data[0].role_id).to.eql(5);",
+							"    pm.expect(jsonData.data[0].org_id).to.eql(2);",
+							"    pm.expect(jsonData.data[0].pivot.project_id).to.eql(13);",
+							"    pm.expect(jsonData.data[0].pivot.user_id).to.eql(11);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\",\"email\",\"created_at\",\"updated_at\",\"active\",\"phone\",\"default_language\",\"default_country\",\"last_login_ip_Address\",\"last_login_device\",\"number_of_logins\",\"last_login_at\",\"expiration_at\",\"password_updated_at\",\"created_by\",\"updated_by\",\"deleted_at\",\"avatar\",\"settings\",\"cell_phone\",\"first_name\",\"last_name\",\"display_name\",\"default_timezone\",\"slack_channel\",\"api_token\",\"uuid\",\"pivot\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_manager_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Project Leader Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f491b2a3-80bb-48dc-a495-2b2d1f7923f2",
+						"exec": [
+							"// Isotope Analysts shouldn't be able to view user lists",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{project_leader_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/projects/13/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"projects",
+						"13",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

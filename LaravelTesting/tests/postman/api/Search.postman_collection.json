@@ -1,0 +1,3751 @@
+{
+	"info": {
+		"_postman_id": "f53d4070-851d-44b4-ac2e-dab41d5b02fe",
+		"name": "Search",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Specimen Search",
+			"item": [
+				{
+					"name": "Specimen search by Bone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f82d384-9f2e-41eb-abc9-57e6409bd1a4",
+								"exec": [
+									"\r",
+									"//Looping through diffrent bones\r",
+									"\r",
+									"var bones = pm.globals.get(\"bones\");\r",
+									"\r",
+									"if (bones.length > 0) {\r",
+									"    postman.setNextRequest(\"Specimen search by Bone\")\r",
+									"\r",
+									"} else {\r",
+									"\r",
+									"    pm.globals.unset(\"bones\")\r",
+									"   \r",
+									"\r",
+									"\r",
+									"}\r",
+									"\r",
+									"\r",
+									"  \r",
+									"pm.test(\"Count per page should be 100\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"100\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5637eab3-d4d7-4389-93e9-5e3a20ab7acb",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"SB\");\r",
+									"pm.globals.set(\"per_page\", \"100\");\r",
+									"\r",
+									"var bones = pm.globals.get(\"bones\")\r",
+									"\r",
+									"if(!bones){\r",
+									"     bones = [\"Humerus\",\"Cranium\",\"Femur\",\"Tibia\",\"Os coxa\"];\r",
+									"}\r",
+									"\r",
+									"var currentbone = bones.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentbone);\r",
+									"pm.globals.set(\"bones\", bones);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search/?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specimen search by composite keys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b727a2a6-a8eb-4fb2-897e-212915e689a9",
+								"exec": [
+									"\r",
+									"//Looping through diffrent bones\r",
+									"\r",
+									"var composite_keys = pm.globals.get(\"composite_keys\");\r",
+									"\r",
+									"if (composite_keys.length > 0) {\r",
+									"    postman.setNextRequest(\"Specimen search by composite keys\")\r",
+									"\r",
+									"} else {\r",
+									" \r",
+									"    pm.globals.unset(\"composite_keys\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 5\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"5\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "57087fdd-136a-4c71-a6a2-9f644d83886c",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"CK\");\r",
+									"pm.globals.set(\"per_page\", \"5\");\r",
+									"\r",
+									"var composite_keys = pm.globals.get(\"composite_keys\")\r",
+									"\r",
+									"if(!composite_keys){\r",
+									"     composite_keys = [\"CIL 2003-116:G-13:X-299S:402\",\"CIL 2003-116:G-01:X-232C:706\",\"CIL 2003-116:G-01:None:2\",\"CIL 2003-116:G-01:X-234A:702\",\"CIL 2003-116:G-01:X-234A:904\"];\r",
+									"}\r",
+									"\r",
+									"var currentcompositekey = composite_keys.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentcompositekey);\r",
+									"pm.globals.set(\"composite_keys\", composite_keys);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specimen search by Accession",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f4bdca53-e627-478f-b190-22da3ffdc706",
+								"exec": [
+									"\r",
+									"//Looping through different bones\r",
+									"\r",
+									"var Accession = pm.globals.get(\"Accession\");\r",
+									"\r",
+									"if (Accession.length > 0) {\r",
+									"    postman.setNextRequest(\"Specimen search by Accession\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"Specimen Search by Provenance 1\")\r",
+									"    pm.globals.unset(\"Accession\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 20\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"20\");\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ebf1e8e4-0af8-41c0-b100-01306e99b16f",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"AN\");\r",
+									"pm.globals.set(\"per_page\", \"20\");\r",
+									"\r",
+									"\r",
+									"var Accession = pm.globals.get(\"Accession\")\r",
+									"\r",
+									"if(!Accession){\r",
+									"     Accession = [\"CIL 2003-116\", \"CIL 2018-337 \"];\r",
+									"}\r",
+									"\r",
+									"var currentAccession = Accession.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentAccession);\r",
+									"pm.globals.set(\"Accession\", Accession);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specimen Search by Provenance 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1b45da5f-85f4-4ffb-ae45-7c639a010f26",
+								"exec": [
+									"\r",
+									"var provenance1 = pm.globals.get(\"provenance1\");\r",
+									"\r",
+									"if (provenance1.length > 0) {\r",
+									"postman.setNextRequest(\"Specimen Search by Provenance 1\")\r",
+									"\r",
+									"} else {\r",
+									"postman.setNextRequest(\"Specimen search by Provenance 1\")\r",
+									"pm.globals.unset(\"provenance1\");\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Count per page should be 50\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"50\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e4774f18-4a63-4eb2-96a3-83b5d5edd12a",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"P1\");\r",
+									"pm.globals.set(\"per_page\", \"50\");\r",
+									"var provenance1 = pm.globals.get(\"provenance1\")\r",
+									"\r",
+									"if(!provenance1){\r",
+									"    provenance1 = [\"G-01\",\"G-02\",\"G-03\",\"G-04\",\"G-05\"];\r",
+									"}\r",
+									"\r",
+									"var currentprovenance1 = provenance1.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentprovenance1);\r",
+									"pm.globals.set(\"provenance1\", provenance1 );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specimen search by Provenance 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b216d4b-1ad0-47c3-ae12-50b9901171c9",
+								"exec": [
+									"\r",
+									"\r",
+									"//Looping through different bones. \r",
+									"\r",
+									"var p2 = pm.globals.get(\"p2\");\r",
+									"\r",
+									"if (p2.length > 0) {\r",
+									"    postman.setNextRequest(\"Specimen search by Provenance 2\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"Specimen Search by Individual Number\")\r",
+									"    pm.globals.unset(\"p2\")\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Count per page should be 30\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"30\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "abcc9c8e-9d8f-49a0-adcb-3dd007929ed5",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"P2\");\r",
+									"\r",
+									"pm.globals.set(\"per_page\", \"30\");\r",
+									"\r",
+									"\r",
+									"var p2 = pm.globals.get(\"p2\")\r",
+									"\r",
+									"// Retrieve five specimens by provenance 2 valid values.\r",
+									"if(!p2){\r",
+									"     p2 = [\"X-100\",\"X-13A\", \"X-184A\", \"X-216A\", \"X-244A\"];\r",
+									"}\r",
+									"\r",
+									"var currentp2 = p2.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentp2);\r",
+									"pm.globals.set(\"p2\", p2);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specimen Search by Individual Number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "eb7737a3-fa8b-4c97-b361-8e28cfcda855",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"IN\");",
+									"pm.globals.set(\"per_page\", \"10\");",
+									"",
+									"var IN = pm.globals.get(\"IN\")",
+									"",
+									"if(!IN){",
+									"     IN = [\"CIL 2003-116-G-01\",\"CIL 2003-113-I-247\",\"CIL 2003-116-G-09\",\"CIL 2003-116-I-09.1\",\"CIL 2003-116-I-125\"];",
+									"}",
+									"",
+									"var currentIN = IN.shift();",
+									"",
+									"pm.globals.set(\"searchstring\", currentIN);",
+									"pm.globals.set(\"IN\", IN);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "49747442-6077-484c-92b7-297b62d03efe",
+								"exec": [
+									"//This test is to test whether we are able to get correct data when searching by a specific Individual Number",
+									"",
+									"//Looping through different bones",
+									"",
+									"var IN = pm.globals.get(\"IN\");",
+									"",
+									"if (IN.length > 0) {",
+									"    postman.setNextRequest(\"Specimen Search by Individual Number\")",
+									"",
+									"} else {",
+									"    postman.setNextRequest(\"Specimen Search by Individual Number\")",
+									"    pm.globals.unset(\"IN\")",
+									"}",
+									"",
+									"pm.test(\"Count per page should be 10\", function () {",
+									"   var body = JSON.parse(responseBody);",
+									"    pm.expect(body.meta.per_page).to.eql(\"10\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specimen Search by Individual Number_old",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09997cab-fd6c-4f3f-9194-2fda450e15ce",
+								"exec": [
+									"",
+									"//Looping through different bones",
+									"",
+									"var IN = pm.globals.get(\"IN\");",
+									"",
+									"if (IN.length > 0) {",
+									"    postman.setNextRequest(\"Specimen Search by Individual Number\")",
+									"",
+									"} else {",
+									"    postman.setNextRequest(\"Specimen Search by Designator\")",
+									"    pm.globals.unset(\"IN\")",
+									"}",
+									"",
+									"pm.test(\"Count per page should be 10\", function () {",
+									"   var body = JSON.parse(responseBody);",
+									"    pm.expect(body.meta.per_page).to.eql(\"10\");",
+									"",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "aeb2ed0e-1580-4d16-a1b3-0bd647c21e25",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"IN\");",
+									"pm.globals.set(\"per_page\", \"10\");",
+									"",
+									"var IN = pm.globals.get(\"IN\")",
+									"",
+									"if(!IN){",
+									"     IN = [\"CIL 2003-116-G-01\",\"CIL 2003-113-I-247\",\"CIL 2003-116-G-09\",\"CIL 2003-116-I-09.1\",\"CIL 2003-116-I-125\"];",
+									"}",
+									"",
+									"var currentIN = IN.shift();",
+									"",
+									"pm.globals.set(\"searchstring\", currentIN);",
+									"pm.globals.set(\"IN\", IN);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "88c99413-b468-4b09-bedd-b76f534e216e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "39ea9091-220c-459d-a182-4d9bb2c0d89c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"response contains the required variables\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"sb_id\", \"user_id\", \"org_id\",\"project_id\",\"reviewer_id\",\"accession_number\",\"provenance1\",\"provenance2\",\"designator\", \"side\",\"completeness\",\"measured\",\"dna_sampled\", \"ct_scanned\", \"xray_scanned\",\"clavicle_triage\", \"inventoried\",\"reviewed\",\"external_id\",\"individual_number\",\"inventoried_at\",\"reviewed_at\", \"created_by\",\"updated_by\", \"created_at\",\"updated_at\",\"deleted_at\",\"consolidated_an\", \"isotope_sampled\",\"count\", \"mass\",\"bone_group\",\"bone_group_id\",\"inventoried_by_id\",\"remains_status\", \"remains_release_date\",\"identification_date\",\"3D_scanned\",\"notes\",\"uuid\",\"ct_scanned_date\",\"xray_scanned_date\",\"3D_scanned_date\",\"pairs_count\", \"articulations_count\",\"refits_count\",\"morphologys_count\", \"mito_sequence_number\", \"key\",\"key_bone_side\",\"dnas\")",
+							"});",
+							"",
+							"pm.test(\"Required fields test\", () => {",
+							"  var body = JSON.parse(responseBody);",
+							"for (var i=0; i<body.data.length;i++){",
+							"  pm.expect(body.data[i].accession_number).not.equal(null);",
+							"  pm.expect(body.data[i].designator).not.equal(null); ",
+							"  pm.expect(body.data[i].side).to.be.oneOf(['Left', 'Right', 'Middle','Unsided']);",
+							"  pm.expect(body.data[i].completeness).to.be.oneOf(['Complete', 'Incomplete']);",
+							"  pm.expect(body.data[i].remains_status).to.be.oneOf([null,'In Lab', 'Released']);",
+							"}",
+							"});",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"  tests[\" Total Count: \"  + body.meta.total] = true;",
+							"",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"  tests[\" Count Per Page: \"  + body.meta.per_page] = true;"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DNA Search",
+			"item": [
+				{
+					"name": "DNA search  by Bone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b3c5b74-4bd1-4648-9360-9ba33f3dbabb",
+								"exec": [
+									"\r",
+									"//Looping through diffrent bones\r",
+									"\r",
+									"var bonesdna = pm.globals.get(\"bonesdna\");\r",
+									"\r",
+									"if (bonesdna.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA search  by Bone\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"DNA Search by Composite key\")\r",
+									"    pm.globals.unset(\"bonesdna\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 100\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"100\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"  \r",
+									"var response = JSON.parse(responseBody);\r",
+									"\r",
+									"\r",
+									"\r",
+									"if(response.links.next !== null) {\r",
+									"    var str = response.links.next\r",
+									"    pm.globals.set(\"page\", str.split('=', 2)[1]);\r",
+									"    postman.setNextRequest(\"DNA search  by Bone\");}\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "16dce005-49c2-4809-bec7-b0627338fc3f",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"SB\");\r",
+									"//pm.globals.set(\"per_page\", \"100\");\r",
+									"\r",
+									"var bonesdna = pm.globals.get(\"bonesdna\")\r",
+									"\r",
+									"if(!bonesdna){\r",
+									"     bonesdna = [\"Humerus\",\"Cranium\",\"Femur\",\"Tibia\",\"Os coxa\"];\r",
+									"}\r",
+									"\r",
+									"var currentbonedna = bonesdna.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentbonedna);\r",
+									"pm.globals.set(\"bonesdna\", bonesdna);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}&page={{page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA Search by Composite key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb707cec-cde2-46db-bfa2-150a78ac129e",
+								"exec": [
+									"\r",
+									"var composite_keys = pm.globals.get(\"composite_keys\");\r",
+									"\r",
+									"if (composite_keys.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA Search by Composite key\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"DNA search by Accession\")\r",
+									"    pm.globals.unset(\"composite_keys\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 1\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"1\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9b02336f-9028-4cfc-8b60-749caab56584",
+								"exec": [
+									"pm.globals.set(\"per_page\", \"1\");\r",
+									"pm.globals.set(\"searchby\", \"CK\");\r",
+									"\r",
+									"var composite_keys = pm.globals.get(\"composite_keys\")\r",
+									"\r",
+									"if(!composite_keys){\r",
+									"     composite_keys = [\"CIL 2003-116:G-13:X-299S:402\",\"CIL 2003-116:G-01:X-232C:706\",\"CIL 2003-116:G-01:None:2\",\"CIL 2003-116:G-01:X-234A:202\",\"CIL 2003-116:G-01:X-233E:201\"];\r",
+									"}\r",
+									"\r",
+									"var currentcompositekey = composite_keys.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentcompositekey);\r",
+									"pm.globals.set(\"composite_keys\", composite_keys);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA search by Accession",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8bdfbfc-92c6-4267-9818-9bacb7dd8085",
+								"exec": [
+									"var Accession = pm.globals.get(\"Accession\");\r",
+									"\r",
+									"if (Accession.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA search by Accession\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"DNA Search by Provenance1\")\r",
+									"    pm.globals.unset(\"Accession\")\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Count per page should be 50\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"50\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"    \r",
+									"  \r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b2d18e12-167e-40ca-a308-e4f1403c1ae4",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"AN\");\r",
+									"pm.globals.set(\"per_page\", \"50\");\r",
+									"\r",
+									"var Accession = pm.globals.get(\"Accession\")\r",
+									"\r",
+									"if(!Accession){\r",
+									"     Accession = [\"CIL 2003-116\",\"CIL 2018-337\"];\r",
+									"}\r",
+									"\r",
+									"var currentaccession = Accession.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentaccession);\r",
+									"pm.globals.set(\"Accession\", Accession);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA Search by Provenance1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7df013f5-8b1c-49de-bee4-6f7a997ee634",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"P1\");\r",
+									"pm.globals.set(\"per_page\", \"30\");\r",
+									"\r",
+									"var P1 = pm.globals.get(\"P1\")\r",
+									"\r",
+									"if(!P1){\r",
+									"     P1 = [\"G-01\",\"G-02\",\"G-03\",\"G-04\",\"G-05\"];\r",
+									"}\r",
+									"\r",
+									"var currentP1 = P1.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentP1);\r",
+									"pm.globals.set(\"P1\", P1);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8123c6ce-243e-44de-8036-2fbf33a87f7b",
+								"exec": [
+									"var P1 = pm.globals.get(\"P1\");\r",
+									"\r",
+									"if (P1.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA Search by Provenance1\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"DNA search by Provenance2\")\r",
+									"    pm.globals.unset(\"P1\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 30\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"30\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}",
+									"description": "Provenance1"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}",
+									"description": "Fill option"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA search by Provenance2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c7e991a5-3c40-4c6a-aa9b-c5b6c4590dd9",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"P2\");",
+									"pm.globals.set(\"per_page\", \"40\");",
+									"",
+									"",
+									"var provenance2 = pm.globals.get(\"provenance2\")",
+									"",
+									"if(!provenance2){",
+									"    provenance2 = [\"X-100\",\"X-13D\",\"X-251E\",\"X-252G\",\"X-97\"];",
+									"}",
+									"",
+									"var currentprovenance2 = provenance2.shift();",
+									"",
+									"pm.globals.set(\"searchstring\", currentprovenance2);",
+									"pm.globals.set(\"provenance2\", provenance2 );"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3075941-52c6-4ddb-a1f8-2cfd0560a790",
+								"exec": [
+									"",
+									"//Looping through diffrent provenance2",
+									"",
+									"var provenance2 = pm.globals.get(\"provenance2\");",
+									"",
+									"if (provenance2.length > 0) {",
+									"postman.setNextRequest(\"DNA search by Provenance2\")",
+									"",
+									"} else {",
+									"postman.setNextRequest(\"DNA Search by Designator\")",
+									"pm.globals.unset(\"provenance2\");",
+									"}",
+									"",
+									"pm.test(\"Count per page should be 40\", function () {",
+									"   var body = JSON.parse(responseBody);",
+									"    pm.expect(body.meta.per_page).to.eql(\"40\");",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "DNA search by Provenance 2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/dnas/search?searchby=P2&searchstring=X-100",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchby",
+											"value": "P2"
+										},
+										{
+											"key": "searchstring",
+											"value": "X-100"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Oct 2020 01:21:40 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-Ratelimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-Ratelimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com https://use.fontawesome.com data: https:; form-action 'self'; frame-ancestors 'self'; frame-src 'self' https://cora-docs.readthedocs.io https://www.youtube.com https://content.googleapis.com https://accounts.google.com; img-src 'self' https://maps.gstatic.com https://developers.google.com https://maps.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com https://chart.googleapis.com https://spawaskar-cora.s3.us-west-2.amazonaws.com https://spawaskar-cora-cat.s3.us-west-2.amazonaws.com data: https:; manifest-src 'none'; media-src https://www.youtube.com https://m.youtube.com https://youtubei.googleapis.com https://youtube.googleapis.com https://www.youtube-nocookie.com; object-src https://cora-docs.readthedocs.io; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com https://maps.googleapis.com https://developers.google.com https://code.jquery.com https://www.googletagmanager.com https://www.google-analytics.com https://tagmanager.google.com https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com https://cdn.datatables.net https://s3.amazonaws.com https://www.youtube.com https://d3js.org https://vizjs.org https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://developers.google.com https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com https://cdn.datatables.net https://use.fontawesome.com https:; worker-src 'none'; report-uri https://spawaskar.report-uri.com/r/d/csp/enforce"
+								},
+								{
+									"key": "Feature-Policy",
+									"value": "accelerometer 'self'; ambient-light-sensor 'self'; camera 'self'; fullscreen 'self'; geolocation 'self'; gyroscope 'self'; magnetometer 'self'; microphone 'self'; midi 'self'; payment 'self'; speaker 'self'; usb 'self'; vr 'self'"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains; preload"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "sameorigin"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Authorization"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=UTF-8"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"robots\" content=\"noindex,nofollow\" />\n        <style>            body { background-color: #F9F9F9; color: #222; font: 14px/1.4 Helvetica, Arial, sans-serif; margin: 0; padding-bottom: 45px; }\n\n            a { cursor: pointer; text-decoration: none; }\n            a:hover { text-decoration: underline; }\n            abbr[title] { border-bottom: none; cursor: help; text-decoration: none; }\n\n            code, pre { font: 13px/1.5 Consolas, Monaco, Menlo, \"Ubuntu Mono\", \"Liberation Mono\", monospace; }\n\n            table, tr, th, td { background: #FFF; border-collapse: collapse; vertical-align: top; }\n            table { background: #FFF; border: 1px solid #E0E0E0; box-shadow: 0px 0px 1px rgba(128, 128, 128, .2); margin: 1em 0; width: 100%; }\n            table th, table td { border: solid #E0E0E0; border-width: 1px 0; padding: 8px 10px; }\n            table th { background-color: #E0E0E0; font-weight: bold; text-align: left; }\n\n            .hidden-xs-down { display: none; }\n            .block { display: block; }\n            .break-long-words { -ms-word-break: break-all; word-break: break-all; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; }\n            .text-muted { color: #999; }\n\n            .container { max-width: 1024px; margin: 0 auto; padding: 0 15px; }\n            .container::after { content: \"\"; display: table; clear: both; }\n\n            .exception-summary { background: #B0413E; border-bottom: 2px solid rgba(0, 0, 0, 0.1); border-top: 1px solid rgba(0, 0, 0, .3); flex: 0 0 auto; margin-bottom: 30px; }\n\n            .exception-message-wrapper { display: flex; align-items: center; min-height: 70px; }\n            .exception-message { flex-grow: 1; padding: 30px 0; }\n            .exception-message, .exception-message a { color: #FFF; font-size: 21px; font-weight: 400; margin: 0; }\n            .exception-message.long { font-size: 18px; }\n            .exception-message a { border-bottom: 1px solid rgba(255, 255, 255, 0.5); font-size: inherit; text-decoration: none; }\n            .exception-message a:hover { border-bottom-color: #ffffff; }\n\n            .exception-illustration { flex-basis: 111px; flex-shrink: 0; height: 66px; margin-left: 15px; opacity: .7; }\n\n            .trace + .trace { margin-top: 30px; }\n            .trace-head .trace-class { color: #222; font-size: 18px; font-weight: bold; line-height: 1.3; margin: 0; position: relative; }\n\n            .trace-message { font-size: 14px; font-weight: normal; margin: .5em 0 0; }\n\n            .trace-file-path, .trace-file-path a { color: #222; margin-top: 3px; font-size: 13px; }\n            .trace-class { color: #B0413E; }\n            .trace-type { padding: 0 2px; }\n            .trace-method { color: #B0413E; font-weight: bold; }\n            .trace-arguments { color: #777; font-weight: normal; padding-left: 2px; }\n\n            @media (min-width: 575px) {\n                .hidden-xs-down { display: initial; }\n            }</style>\n    </head>\n    <body>\n        <div class=\"exception-summary\">\n            <div class=\"container\">\n                <div class=\"exception-message-wrapper\">\n                    <h1 class=\"break-long-words exception-message\">Call to a member function paginate() on null</h1>\n                    <div class=\"exception-illustration hidden-xs-down\">\n                        <svg viewBox=\"0 0 136 81\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" stroke-linejoin=\"round\" stroke-miterlimit=\"1.4\">\n                            <path d=\"M92.4 20.4a23.2 23.2 0 0 1 9 1.9 23.7 23.7 0 0 1 5.2 3 24.3 24.3 0 0 1 3.4 3.4 24.8 24.8 0 0 1 5 9.4c.5 1.7.8 3.4 1 5.2v14.5h.4l.5.2a7.4 7.4 0 0 0 2.5.2l.2-.2.6-.8.8-1.3-.2-.1a5.5 5.5 0 0 1-.8-.3 5.6 5.6 0 0 1-2.3-1.8 5.7 5.7 0 0 1-.9-1.6 6.5 6.5 0 0 1-.2-2.8 7.3 7.3 0 0 1 .5-2l.3-.3.8-.9.3-.3c.2-.2.5-.3.8-.3H120.7c.2 0 .3-.1.4 0h.4l.2.1.3.2.2-.4.3-.4.1-.1 1.2-1 .3-.2.4-.1.4-.1h.3l1.5.1.4.1.8.5.1.2 1 1.1v.2H129.4l.4-.2 1.4-.5h1.1c.3 0 .7.2 1 .4.2 0 .3.2.5.3l.2.2.5.3.4.6.1.3.4 1.4.1.4v.6a7.8 7.8 0 0 1-.1.6 9.9 9.9 0 0 1-.8 2.4 7.8 7.8 0 0 1-3 3.3 6.4 6.4 0 0 1-1 .5 6.1 6.1 0 0 1-.6.2l-.7.1h-.1a23.4 23.4 0 0 1-.2 1.7 14.3 14.3 0 0 1-.6 2.1l-.8 2a9.2 9.2 0 0 1-.4.6l-.7 1a9.1 9.1 0 0 1-2.3 2.2c-.9.5-2 .6-3 .7l-1.4.1h-.5l-.4.1a15.8 15.8 0 0 1-2.8-.1v4.2a9.7 9.7 0 0 1-.7 3.5 9.6 9.6 0 0 1-1.7 2.8 9.3 9.3 0 0 1-3 2.3 9 9 0 0 1-5.4.7 9 9 0 0 1-3-1 9.4 9.4 0 0 1-2.7-2.5 10 10 0 0 1-1 1.2 9.3 9.3 0 0 1-2 1.3 9 9 0 0 1-2.4 1 9 9 0 0 1-6.5-1.1A9.4 9.4 0 0 1 85 77V77a10.9 10.9 0 0 1-.6.6 9.3 9.3 0 0 1-2.7 2 9 9 0 0 1-6 .8 9 9 0 0 1-2.4-1 9.3 9.3 0 0 1-2.3-1.7 9.6 9.6 0 0 1-1.8-2.8 9.7 9.7 0 0 1-.8-3.7v-4a18.5 18.5 0 0 1-2.9.2l-1.2-.1c-1.9-.3-3.7-1-5.1-2.1A8.2 8.2 0 0 1 58 64a10.2 10.2 0 0 1-.9-1.2 15.3 15.3 0 0 1-.7-1.3 20.8 20.8 0 0 1-1.9-6.2v-.2a6.5 6.5 0 0 1-1-.3 6.1 6.1 0 0 1-.6-.3 6.6 6.6 0 0 1-.9-.5 8.2 8.2 0 0 1-2.7-3.8 10 10 0 0 1-.3-1 10.3 10.3 0 0 1-.3-1.9V47v-.4l.1-.4.6-1.4.1-.2a2 2 0 0 1 .8-.8l.3-.2.3-.2a3.2 3.2 0 0 1 1.8-.5h.4l.3.2 1.4.6.2.2.4.3.3.4.7-.7.2-.2.4-.2.6-.2h2.1l.4.2.4.2.3.2.8 1 .2-.1h.1v-.1H63l1.1.1h.3l.8.5.3.4.7 1 .2.3.1.5a11 11 0 0 1 .2 1.5c0 .8 0 1.6-.3 2.3a6 6 0 0 1-.5 1.2 5.5 5.5 0 0 1-3.3 2.5 12.3 12.3 0 0 0 1.4 3h.1l.2.1 1 .2h1.5l.5-.2H67.8l.5-.2h.1V44v-.4a26.7 26.7 0 0 1 .3-2.3 24.7 24.7 0 0 1 5.7-12.5 24.2 24.2 0 0 1 3.5-3.3 23.7 23.7 0 0 1 4.9-3 23.2 23.2 0 0 1 5.6-1.7 23.7 23.7 0 0 1 4-.3zm-.3 2a21.2 21.2 0 0 0-8 1.7 21.6 21.6 0 0 0-4.8 2.7 22.2 22.2 0 0 0-3.2 3 22.7 22.7 0 0 0-5 9.2 23.4 23.4 0 0 0-.7 4.9v15.7l-.5.1a34.3 34.3 0 0 1-1.5.3h-.2l-.4.1h-.4l-.9.2a10 10 0 0 1-1.9 0c-.5 0-1-.2-1.5-.4a1.8 1.8 0 0 1-.3-.2 2 2 0 0 1-.3-.3 5.2 5.2 0 0 1-.1-.2 9 9 0 0 1-.6-.9 13.8 13.8 0 0 1-1-2 14.3 14.3 0 0 1-.6-2 14 14 0 0 1-.1-.8v-.2h.3a12.8 12.8 0 0 0 1.4-.2 4.4 4.4 0 0 0 .3 0 3.6 3.6 0 0 0 1.1-.7 3.4 3.4 0 0 0 1.2-1.7l.2-1.2a5.1 5.1 0 0 0 0-.8 7.2 7.2 0 0 0-.1-.8l-.7-1-1.2-.2-1 .7-.1 1.3a5 5 0 0 1 .1.4v.6a1 1 0 0 1 0 .3c-.1.3-.4.4-.7.5l-1.2.4v-.7A9.9 9.9 0 0 1 60 49l.3-.6v-.2l.1-.1v-1.6l-1-1.2h-1.5l-1 1.1v.4a5.3 5.3 0 0 0-.2.6 5.5 5.5 0 0 0 0 .5c0 .7 0 1.4.3 2 0 .4.2.8.4 1.2L57 51a9.5 9.5 0 0 1-1.1-.5h-.2a2 2 0 0 1-.4-.3c-.4-.4-.5-1-.6-1.6a5.6 5.6 0 0 1 0-.5v-.5-.5l-.6-1.5-1.4-.6-.9.3s-.2 0-.3.2a2 2 0 0 1-.1 0l-.6 1.4v.7a8.5 8.5 0 0 0 .5 2c.4 1.1 1 2.1 2 2.8a4.7 4.7 0 0 0 2.1.9h1a22.8 22.8 0 0 0 .1 1 18.1 18.1 0 0 0 .8 3.8 18.2 18.2 0 0 0 1.6 3.7l1 1.3c1 1 2.3 1.6 3.7 2a11.7 11.7 0 0 0 4.8 0h.4l.5-.2.5-.1.6-.2v6.6a8 8 0 0 0 .1 1.3 7.5 7.5 0 0 0 2.4 4.3 7.2 7.2 0 0 0 2.3 1.3 7 7 0 0 0 7-1.1 7.5 7.5 0 0 0 2-2.6A7.7 7.7 0 0 0 85 72V71a8.2 8.2 0 0 0 .2 1.3c0 .7.3 1.4.6 2a7.5 7.5 0 0 0 1.7 2.3 7.3 7.3 0 0 0 2.2 1.4 7.1 7.1 0 0 0 4.6.2 7.2 7.2 0 0 0 2.4-1.2 7.5 7.5 0 0 0 2.1-2.7 7.8 7.8 0 0 0 .7-2.4V71a9.3 9.3 0 0 0 .1.6 7.6 7.6 0 0 0 .6 2.5 7.5 7.5 0 0 0 2.4 3 7.1 7.1 0 0 0 7 .8 7.3 7.3 0 0 0 2.3-1.5 7.5 7.5 0 0 0 1.6-2.3 7.6 7.6 0 0 0 .5-2l.1-1.1v-6.7l.4.1a12.2 12.2 0 0 0 2 .5 11.1 11.1 0 0 0 2.5 0h.8l1.2-.1a9.5 9.5 0 0 0 1.4-.2l.9-.3a3.5 3.5 0 0 0 .6-.4l1.2-1.4a12.2 12.2 0 0 0 .8-1.2c0-.3.2-.5.3-.7a15.9 15.9 0 0 0 .7-2l.3-1.6v-1.3l.2-.9V54.6a15.5 15.5 0 0 0 1.8 0 4.5 4.5 0 0 0 1.4-.5 5.7 5.7 0 0 0 2.5-3.2 7.6 7.6 0 0 0 .4-1.5v-.3l-.4-1.4a5.2 5.2 0 0 1-.2-.1l-.4-.4a3.8 3.8 0 0 0-.2 0 1.4 1.4 0 0 0-.5-.2l-1.4.4-.7 1.3v.7a5.7 5.7 0 0 1-.1.8l-.7 1.4a1.9 1.9 0 0 1-.5.3h-.3a9.6 9.6 0 0 1-.8.3 8.8 8.8 0 0 1-.6 0l.2-.4.2-.5.2-.3v-.4l.1-.2V50l.1-1 .1-.6v-.6a4.8 4.8 0 0 0 0-.8v-.2l-1-1.1-1.5-.2-1.1 1-.2 1.4v.1l.2.4.2.3v.4l.1 1.1v.3l.1.5v.8a9.6 9.6 0 0 1-.8-.3l-.2-.1h-.3l-.8-.1h-.2a1.6 1.6 0 0 1-.2-.2.9.9 0 0 1-.2-.2 1 1 0 0 1-.1-.5l.2-.9v-1.2l-.9-.8h-1.2l-.8.9v.3a4.8 4.8 0 0 0-.3 2l.3.9a3.5 3.5 0 0 0 1.2 1.6l1 .5.8.2 1.4.1h.4l.2.1a12.1 12.1 0 0 1-1 2.6 13.2 13.2 0 0 1-.8 1.5 9.5 9.5 0 0 1-1 1.2l-.2.3a1.7 1.7 0 0 1-.4.3 2.4 2.4 0 0 1-.7.2h-2.5a7.8 7.8 0 0 1-.6-.2l-.7-.2h-.2a14.8 14.8 0 0 1-.6-.2 23.4 23.4 0 0 1-.4-.1l-.4-.1-.3-.1V43.9a34.6 34.6 0 0 0 0-.6 23.6 23.6 0 0 0-.4-3 22.7 22.7 0 0 0-1.5-4.7 22.6 22.6 0 0 0-4.6-6.7 21.9 21.9 0 0 0-6.9-4.7 21.2 21.2 0 0 0-8.1-1.8H92zm9.1 33.7l.3.1a1 1 0 0 1 .6.8v.4a8.4 8.4 0 0 1 0 .5 8.8 8.8 0 0 1-1.6 4.2l-1 1.3A10 10 0 0 1 95 66c-1.3.3-2.7.4-4 .3a10.4 10.4 0 0 1-2.7-.8 10 10 0 0 1-3.6-2.5 9.3 9.3 0 0 1-.8-1 9 9 0 0 1-.7-1.2 8.6 8.6 0 0 1-.8-3.4V57a1 1 0 0 1 .3-.6 1 1 0 0 1 1.3-.2 1 1 0 0 1 .4.8v.4a6.5 6.5 0 0 0 .5 2.2 7 7 0 0 0 2.1 2.8l1 .6c2.6 1.6 6 1.6 8.5 0a8 8 0 0 0 1.1-.6 7.6 7.6 0 0 0 1.2-1.2 7 7 0 0 0 1-1.7 6.5 6.5 0 0 0 .4-2.5 1 1 0 0 1 .7-1h.4zM30.7 43.7c-15.5 1-28.5-6-30.1-16.4C-1.2 15.7 11.6 4 29 1.3 46.6-1.7 62.3 5.5 64 17.1c1.6 10.4-8.7 21-23.7 25a31.2 31.2 0 0 0 0 .9v.3a19 19 0 0 0 .1 1l.1.4.1.9a4.7 4.7 0 0 0 .5 1l.7 1a9.2 9.2 0 0 0 1.2 1l1.5.8.6.8-.7.6-1.1.3a11.2 11.2 0 0 1-2.6.4 8.6 8.6 0 0 1-3-.5 8.5 8.5 0 0 1-1-.4 11.2 11.2 0 0 1-1.8-1.2 13.3 13.3 0 0 1-1-1 18 18 0 0 1-.7-.6l-.4-.4a23.4 23.4 0 0 1-1.3-1.8l-.1-.1-.3-.5V45l-.3-.6v-.7zM83.1 36c3.6 0 6.5 3.2 6.5 7.1 0 4-3 7.2-6.5 7.2S76.7 47 76.7 43 79.6 36 83 36zm18 0c3.6 0 6.5 3.2 6.5 7.1 0 4-2.9 7.2-6.4 7.2S94.7 47 94.7 43s3-7.1 6.5-7.1zm-18 6.1c2 0 3.5 1.6 3.5 3.6S85 49.2 83 49.2s-3.4-1.6-3.4-3.6S81.2 42 83 42zm17.9 0c1.9 0 3.4 1.6 3.4 3.6s-1.5 3.6-3.4 3.6c-2 0-3.5-1.6-3.5-3.6S99.1 42 101 42zM17 28c-.3 1.6-1.8 5-5.2 5.8-2.5.6-4.1-.8-4.5-2.6-.4-1.9.7-3.5 2.1-4.5A3.5 3.5 0 0 1 8 24.6c-.4-2 .8-3.7 3.2-4.2 1.9-.5 3.1.2 3.4 1.5.3 1.1-.5 2.2-1.8 2.5-.9.3-1.6 0-1.7-.6a1.4 1.4 0 0 1 0-.7s.3.2 1 0c.7-.1 1-.7.9-1.2-.2-.6-1-.8-1.8-.6-1 .2-2 1-1.7 2.6.3 1 .9 1.6 1.5 1.8l.7-.2c1-.2 1.5 0 1.6.5 0 .4-.2 1-1.2 1.2a3.3 3.3 0 0 1-1.5 0c-.9.7-1.6 1.9-1.3 3.2.3 1.3 1.3 2.2 3 1.8 2.5-.7 3.8-3.7 4.2-5-.3-.5-.6-1-.7-1.6-.1-.5.1-1 .9-1.2.4 0 .7.2.8.8a2.8 2.8 0 0 1 0 1l.7 1c.6-2 1.4-4 1.7-4 .6-.2 1.5.6 1.5.6-.8.7-1.7 2.4-2.3 4.2.8.6 1.6 1 2.1 1 .5-.1.8-.6 1-1.2-.3-2.2 1-4.3 2.3-4.6.7-.2 1.3.2 1.4.8.1.5 0 1.3-.9 1.7-.2-1-.6-1.3-1-1.3-.4.1-.7 1.4-.4 2.8.2 1 .7 1.5 1.3 1.4.8-.2 1.3-1.2 1.7-2.1-.3-2.1.9-4.2 2.2-4.5.7-.2 1.2.1 1.4 1 .4 1.4-1 2.8-2.2 3.4.3.7.7 1 1.3.9 1-.3 1.6-1.5 2-2.5l-.5-3v-.3s1.6-.3 1.8.6v.1c.2-.6.7-1.2 1.3-1.4.8-.1 1.5.6 1.7 1.6.5 2.2-.5 4.4-1.8 4.7H33a31.9 31.9 0 0 0 1 5.2c-.4.1-1.8.4-2-.4l-.5-5.6c-.5 1-1.3 2.2-2.5 2.4-1 .3-1.6-.3-2-1.1-.5 1-1.3 2.1-2.4 2.4-.8.2-1.5-.1-2-1-.3.8-.9 1.5-1.5 1.7-.7.1-1.5-.3-2.4-1-.3.8-.4 1.6-.4 2.2 0 0-.7 0-.8-.4-.1-.5 0-1.5.3-2.7a10.3 10.3 0 0 1-.7-.8zm38.2-17.8l.2.9c.5 1.9.4 4.4.8 6.4 0 .6-.4 3-1.4 3.3-.2 0-.3 0-.4-.4-.1-.7 0-1.6-.3-2.6-.2-1.1-.8-1.6-1.5-1.5-.8.2-1.3 1-1.6 2l-.1-.5c-.2-1-1.8-.6-1.8-.6a6.2 6.2 0 0 1 .4 1.3l.2 1c-.2.5-.6 1-1.2 1l-.2.1a7 7 0 0 0-.1-.8c-.3-1.1-1-2-1.6-1.8a.7.7 0 0 0-.4.3c-1.3.3-2.4 2-2.1 3.9-.2.9-.6 1.7-1 1.9-.5 0-.8-.5-1.1-1.8l-.1-1.2a4 4 0 0 0 0-1.7c0-.4-.4-.7-.8-.6-.7.2-.9 1.7-.5 3.8-.2 1-.6 2-1.3 2-.4.2-.8-.2-1-1l-.2-3c1.2-.5 2-1 1.8-1.7-.1-.5-.8-.7-.8-.7s0 .7-1 1.2l-.2-1.4c-.1-.6-.4-1-1.7-.6l.4 1 .2 1.5h-1v.8c0 .3.4.3 1 .2 0 1.3 0 2.7.2 3.6.3 1.4 1.2 2 2 1.7 1-.2 1.6-1.3 2-2.3.3 1.2 1 2 1.9 1.7.7-.2 1.2-1.1 1.6-2.2.4.8 1.1 1.1 2 1 1.2-.4 1.7-1.6 1.8-2.8h.2c.6-.2 1-.6 1.3-1 0 .8 0 1.5.2 2.1.1.5.3.7.6.6.5-.1 1-.9 1-.9a4 4 0 0 1-.3-1c-.3-1.3.3-3.6 1-3.7.2 0 .3.2.5.7v.8l.2 1.5v.7c.2.7.7 1.3 1.5 1 1.3-.2 2-2.6 2.1-3.9.3.2.6.2 1 .1-.6-2.2 0-6.1-.3-7.9-.1-.4-1-.5-1.7-.5h-.4zm-21.5 12c.4 0 .7.3 1 1.1.2 1.3-.3 2.6-.9 2.8-.2 0-.7 0-1-1.2v-.4c0-1.3.4-2 1-2.2zm-5.2 1c.3 0 .6.2.6.5.2.6-.3 1.3-1.2 2-.3-1.4.1-2.3.6-2.5zm18-.4c-.5.2-1-.4-1.2-1.2-.2-1 0-2.1.7-2.5v.5c.2.7.6 1.5 1.3 1.9 0 .7-.2 1.2-.7 1.3zm10-1.6c0 .5.4.7 1 .6.8-.2 1-1 .8-1.6 0-.5-.4-1-1-.8-.5.1-1 .9-.8 1.8zm-14.3-5.5c0-.4-.5-.7-1-.5-.8.2-1 1-.9 1.5.2.6.5 1 1 .8.5 0 1.1-1 1-1.8z\" fill=\"#fff\" fill-opacity=\".6\"/>\n                        </svg>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"container\">\n            <div class=\"trace trace-as-html\">\n                <table class=\"trace-details\">\n                    <thead class=\"trace-head\">\n                        <tr>\n                            <th>\n                                <h3 class=\"trace-class\">\n                                    <span class=\"text-muted\">(1/1)</span>\n                                    <span class=\"exception_title\">\n                                        <abbr title=\"Error\">Error</abbr>\n                                    </span>\n                                </h3>\n                                <p class=\"break-long-words trace-message\">Call to a member function paginate() on null</p>\n                            </th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td>\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/app/Http/Controllers/Api/ProjectsController.php line 961\">\n                                        <strong>ProjectsController.php</strong> line 961\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"App\\Http\\Controllers\\Api\\ProjectsController\">ProjectsController</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">searchDnas</span>(\n                                <span class=\"trace-arguments\"></span>)\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"\"></abbr>\n                                </span>\n                                <span class=\"trace-type\"></span>\n                                <span class=\"trace-method\">call_user_func_array</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Controller.php line 54\">\n                                        <strong>Controller.php</strong> line 54\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Controller\">Controller</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">callAction</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php line 45\">\n                                        <strong>ControllerDispatcher.php</strong> line 45\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\ControllerDispatcher\">ControllerDispatcher</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">dispatch</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php line 219\">\n                                        <strong>Route.php</strong> line 219\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Route\">Route</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">runController</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php line 176\">\n                                        <strong>Route.php</strong> line 176\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Route\">Route</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">run</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php line 681\">\n                                        <strong>Router.php</strong> line 681\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Router\">Router</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Routing\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 130\">\n                                        <strong>Pipeline.php</strong> line 130\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/app/Http/Controllers/Controller.php line 54\">\n                                        <strong>Controller.php</strong> line 54\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"App\\Http\\Controllers\\Controller\">Controller</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">App\\Http\\Controllers\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 153\">\n                                        <strong>Pipeline.php</strong> line 153\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php line 41\">\n                                        <strong>SubstituteBindings.php</strong> line 41\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Middleware\\SubstituteBindings\">SubstituteBindings</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php line 43\">\n                                        <strong>Authenticate.php</strong> line 43\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Auth\\Middleware\\Authenticate\">Authenticate</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php line 43\">\n                                        <strong>Authenticate.php</strong> line 43\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Auth\\Middleware\\Authenticate\">Authenticate</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php line 59\">\n                                        <strong>ThrottleRequests.php</strong> line 59\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Middleware\\ThrottleRequests\">ThrottleRequests</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 105\">\n                                        <strong>Pipeline.php</strong> line 105\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">then</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php line 683\">\n                                        <strong>Router.php</strong> line 683\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Router\">Router</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">runRouteWithinStack</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php line 658\">\n                                        <strong>Router.php</strong> line 658\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Router\">Router</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">runRoute</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php line 624\">\n                                        <strong>Router.php</strong> line 624\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Router\">Router</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">dispatchToRoute</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php line 613\">\n                                        <strong>Router.php</strong> line 613\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Routing\\Router\">Router</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">dispatch</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php line 170\">\n                                        <strong>Kernel.php</strong> line 170\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Kernel\">Kernel</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Foundation\\Http\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 130\">\n                                        <strong>Pipeline.php</strong> line 130\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/bepsvpt/secure-headers/src/SecureHeadersMiddleware.php line 21\">\n                                        <strong>SecureHeadersMiddleware.php</strong> line 21\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Bepsvpt\\SecureHeaders\\SecureHeadersMiddleware\">SecureHeadersMiddleware</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/app/Http/Middleware/ForceHttps.php line 42\">\n                                        <strong>ForceHttps.php</strong> line 42\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"App\\Http\\Middleware\\ForceHttps\">ForceHttps</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/fideloper/proxy/src/TrustProxies.php line 57\">\n                                        <strong>TrustProxies.php</strong> line 57\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Fideloper\\Proxy\\TrustProxies\">TrustProxies</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php line 21\">\n                                        <strong>TransformsRequest.php</strong> line 21\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest\">TransformsRequest</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php line 21\">\n                                        <strong>TransformsRequest.php</strong> line 21\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest\">TransformsRequest</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php line 27\">\n                                        <strong>ValidatePostSize.php</strong> line 27\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize\">ValidatePostSize</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php line 63\">\n                                        <strong>CheckForMaintenanceMode.php</strong> line 63\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode\">CheckForMaintenanceMode</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 171\">\n                                        <strong>Pipeline.php</strong> line 171\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">Illuminate\\Pipeline\\{closure}</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php line 105\">\n                                        <strong>Pipeline.php</strong> line 105\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Pipeline\\Pipeline\">Pipeline</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">then</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php line 145\">\n                                        <strong>Kernel.php</strong> line 145\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Kernel\">Kernel</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">sendRequestThroughRouter</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php line 110\">\n                                        <strong>Kernel.php</strong> line 110\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>at \n                                <span class=\"trace-class\">\n                                    <abbr title=\"Illuminate\\Foundation\\Http\\Kernel\">Kernel</abbr>\n                                </span>\n                                <span class=\"trace-type\">-></span>\n                                <span class=\"trace-method\">handle</span>(\n                                <span class=\"trace-arguments\"></span>)\n                                <span class=\"block trace-file-path\">in \n                                    <span title=\"/app/public/index.php line 55\">\n                                        <strong>index.php</strong> line 55\n                                    </span>\n                                </span>\n                            </td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n        </div>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "DNA Search by Designator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44813df7-7069-4826-be97-09fd94eca0fc",
+								"exec": [
+									"\r",
+									"var dn = pm.globals.get(\"dn\");\r",
+									"\r",
+									"if (dn.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA Search by Designator\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(\"DNA Search by Mito Sequence Number\")\r",
+									"    pm.globals.unset(\"dn\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 50\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"50\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "355bc373-fba3-4223-863a-16e48754756f",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"DN\");\r",
+									"pm.globals.set(\"per_page\", \"50\");\r",
+									"\r",
+									"var dn = pm.globals.get(\"dn\")\r",
+									"\r",
+									"if(!dn){\r",
+									"     dn = [201,202,301,401,402];\r",
+									"}\r",
+									"\r",
+									"var currentdn = dn.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentdn);\r",
+									"pm.globals.set(\"dn\", dn);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/specimens/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"specimens",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA Search by Mito Sequence Number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d5f01915-69e7-4504-88ea-4b78f5fc3330",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"MS\");\r",
+									"pm.globals.set(\"per_page\", \"20\");\r",
+									"\r",
+									"var msn = pm.globals.get(\"msn\")\r",
+									"\r",
+									"if(!msn){\r",
+									"     msn = [27,10,76,106,118];\r",
+									"}\r",
+									"\r",
+									"\r",
+									"var currentmsn = msn.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentmsn);\r",
+									"pm.globals.set(\"msn\", msn);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e57ade8a-f6a2-49b6-981f-4fb254c6a240",
+								"exec": [
+									"\r",
+									"\r",
+									"//Looping \r",
+									"\r",
+									"var msn = pm.globals.get(\"msn\");\r",
+									"\r",
+									"if (msn.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA Search by Mito Sequence Number\")\r",
+									"\r",
+									"} else{\r",
+									"    postman.setNextRequest(\"DNA search by Sample Number\");\r",
+									"    pm.globals.unset(\"msn\")\r",
+									"\r",
+									"\r",
+									"\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 20\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"20\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Required fields test DNAs\", () => {\r",
+									"  var body = JSON.parse(responseBody);\r",
+									"for (var i=0; i<body.data.length;i++){\r",
+									"  pm.expect(body.data[i].sample_number).not.equal(null);\r",
+									"  pm.expect(body.data[i].disposition).to.be.oneOf([null,'Stored', 'Consumed', 'Returned']);\r",
+									"  pm.expect(body.data[i].sample_condition).to.be.oneOf([null,'Stored', 'Consumed', 'Returned']);\r",
+									"  pm.expect(body.data[i].mito_method).to.be.oneOf([null,\"NGS\",\"Sanger\"]);\r",
+									"  pm.expect(body.data[i].mito_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"  pm.expect(body.data[i].austr_method).to.be.oneOf([null,\"AmpFLSTR Minifiler\",\"Power Plex Fusion\"]);\r",
+									"  pm.expect(body.data[i].austr_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"  pm.expect(body.data[i].ystr_method).to.be.oneOf([null,\"Y filer\"]);\r",
+									"  pm.expect(body.data[i].ystr_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"\r",
+									"}\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search/?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA search by Sample Number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "784d6d5d-37c0-4e43-934f-3833411e6856",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"SN\");\r",
+									"pm.globals.set(\"per_page\", \"5\");\r",
+									"\r",
+									"var sn = pm.globals.get(\"sn\")\r",
+									"\r",
+									"if(!sn){\r",
+									"     sn = [\"1831A\",\"1149A\",\"1748A\",\"4242A\",\"952A\"];\r",
+									"}\r",
+									"\r",
+									"\r",
+									"var currentsn = sn.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentsn);\r",
+									"pm.globals.set(\"sn\", sn);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7f17f78-d4c7-4d9a-a98e-fad16ee392ac",
+								"exec": [
+									"\r",
+									"//Looping through diffrent bones\r",
+									"\r",
+									"var sn = pm.globals.get(\"sn\");\r",
+									"\r",
+									"if (sn.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA search by Sample Number\")\r",
+									"\r",
+									"} else{\r",
+									"    postman.setNextRequest(\"DNA search by External ID\");\r",
+									"    pm.globals.unset(\"sn\")\r",
+									"\r",
+									"\r",
+									"\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 5\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"5\");\r",
+									"\r",
+									"});\r",
+									"  \r",
+									"\r",
+									"pm.test(\"Required fields test DNAs\", () => {\r",
+									"  var body = JSON.parse(responseBody);\r",
+									"for (var i=0; i<body.data.length;i++){\r",
+									"  pm.expect(body.data[i].sample_number).not.equal(null);\r",
+									"  pm.expect(body.data[i].disposition).to.be.oneOf([null,'Stored', 'Consumed', 'Returned']);\r",
+									"  pm.expect(body.data[i].sample_condition).to.be.oneOf([null,'Stored', 'Consumed', 'Returned']);\r",
+									"  pm.expect(body.data[i].mito_method).to.be.oneOf([null,\"NGS\",\"Sanger\"]);\r",
+									"  pm.expect(body.data[i].mito_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"  pm.expect(body.data[i].austr_method).to.be.oneOf([null,\"AmpFLSTR Minifiler\",\"Power Plex Fusion\"]);\r",
+									"  pm.expect(body.data[i].austr_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"  pm.expect(body.data[i].ystr_method).to.be.oneOf([null,\"Y filer\"]);\r",
+									"  pm.expect(body.data[i].ystr_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"\r",
+									"}\r",
+									"});\r",
+									"\r",
+									" \r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search/?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA search by External ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a8c4cf84-9b7c-42ba-9057-953da0e55f14",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"EN\");\r",
+									"pm.globals.set(\"per_page\", \"70\");\r",
+									"\r",
+									"var Eid = pm.globals.get(\"Eid\")\r",
+									"\r",
+									"if(!Eid){\r",
+									"     Eid = [\"2004H0114\",\"2015H0860\",\"2015H0915\",\"2004H0114\",\"2015H0981\"];\r",
+									"}\r",
+									"\r",
+									"var currentEid = Eid.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentEid);\r",
+									"pm.globals.set(\"Eid\", Eid);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "595982a5-3d2e-4df3-9905-401f5eb2df99",
+								"exec": [
+									"\r",
+									"var Eid = pm.globals.get(\"Eid\");\r",
+									"\r",
+									"if (Eid.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA search by External ID\")\r",
+									"\r",
+									"} else{\r",
+									"    postman.setNextRequest(\"DNA Search by Individual Number\");\r",
+									"    pm.globals.unset(\"Eid\")\r",
+									"\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 70\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"70\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Required fields test DNAs\", () => {\r",
+									"  var body = JSON.parse(responseBody);\r",
+									"for (var i=0; i<body.data.length;i++){\r",
+									"  pm.expect(body.data[i].sample_number).not.equal(null);\r",
+									"  pm.expect(body.data[i].disposition).to.be.oneOf([null,'Stored', 'Consumed', 'Returned']);\r",
+									"  pm.expect(body.data[i].sample_condition).to.be.oneOf([null,'Stored', 'Consumed', 'Returned']);\r",
+									"  pm.expect(body.data[i].mito_method).to.be.oneOf([null,\"NGS\",\"Sanger\"]);\r",
+									"  pm.expect(body.data[i].mito_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"  pm.expect(body.data[i].austr_method).to.be.oneOf([null,\"AmpFLSTR Minifiler\",\"Power Plex Fusion\"]);\r",
+									"  pm.expect(body.data[i].austr_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"  pm.expect(body.data[i].ystr_method).to.be.oneOf([null,\"Y filer\"]);\r",
+									"  pm.expect(body.data[i].ystr_results_confidence).to.be.oneOf([null,'Pending', 'Reportable', 'Inconclusive', 'Unable to Assign', 'Cancelled', 'No Results']);\r",
+									"\r",
+									"}\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search/?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNA Search by Individual Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44813df7-7069-4826-be97-09fd94eca0fc",
+								"exec": [
+									"\r",
+									"\r",
+									"var IN = pm.globals.get(\"IN\");\r",
+									"\r",
+									"if (IN.length > 0) {\r",
+									"    postman.setNextRequest(\"DNA Search by Individual Number\")\r",
+									"\r",
+									"} else {\r",
+									"    postman.setNextRequest(null)\r",
+									"    pm.globals.unset(\"IN\")\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Count per page should be 50\", function () {\r",
+									"   var body = JSON.parse(responseBody);\r",
+									"    pm.expect(body.meta.per_page).to.eql(\"50\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "355bc373-fba3-4223-863a-16e48754756f",
+								"exec": [
+									"pm.globals.set(\"searchby\", \"IN\");\r",
+									"pm.globals.set(\"per_page\", \"50\");\r",
+									"\r",
+									"var IN = pm.globals.get(\"IN\")\r",
+									"\r",
+									"if(!IN){\r",
+									"     IN = [\"CIL 2003-116-I-217\",\"CIL 2003-116-I-333\",\"CIL 2003-116-I-48.1\",\"CIL 2003-116-I-136\", \"CIL 2003-116-I-240\"];\r",
+									"}\r",
+									"\r",
+									"var currentIN = IN.shift();\r",
+									"\r",
+									"pm.globals.set(\"searchstring\", currentIN);\r",
+									"pm.globals.set(\"IN\", IN);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"dnas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchby",
+									"value": "{{searchby}}"
+								},
+								{
+									"key": "searchstring",
+									"value": "{{searchstring}}"
+								},
+								{
+									"key": "per_page",
+									"value": "{{per_page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4dd7fc17-5cb9-4c09-a14c-ffdbeae5e0c3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "35683732-2ddf-400f-a26b-3de09e20a153",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check returned dnas fields\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"se_id\",\"org_id\",\"project_id\",\"lab_id\",\"external_case_id\",\"priority\",\"sample_number\",\"mito_sequence_number\",\"mito_sequence_subgroup\",\"mito_sequence_similar\",\"mito_match_count\",\"mito_total_count\",\"mito_receive_date\",\"mito_haplogroup_id\",\"analysis_type_id\",\"mito_results_confidence\",\"mito_method\",\"external_sample_number\",\"dispostion_of_evidence\",\"mito_confirmed_regions\",\"mito_base_pairs\",\"locus\",\"mito_num_loci\",\"mito_mcc_date\",\"additional_testing\",\"sb_id\",\"priority_date\",\"btb_request_date\",\"btb_results_date\",\"disposition\",\"sample_condition\",\"weight_sample_remaining\",\"mito_request_date\",\"mito_polymorphisms\",\"mito_fasta_sequence\",\"mito_haplosubgroup\",\"austr_method\",\"austr_request_date\",\"austr_receive_date\",\"austr_results_confidence\",\"austr_sequence_number\",\"austr_sequence_subgroup\",\"austr_sequence_similar\",\"austr_match_count\",\"austr_total_count\",\"austr_num_loci\",\"austr_loci\",\"austr_mcc_date\",\"ystr_method\",\"ystr_request_date\",\"ystr_receive_date\",\"ystr_results_confidence\",\"ystr_sequence_number\",\"ystr_sequence_subgroup\",\"ystr_sequence_similar\",\"ystr_match_count\",\"ystr_total_count\",\"ystr_num_loci\",\"ystr_loci\",\"ystr_haplogroup\",\"ystr_haplosubgroup\",\"ystr_mcc_date\",\"resample_indicator\",\"notes\",\"uuid\",\"user_id\",\"custom_field_1\",\"custom_field_2\",\"custom_field_3\");",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"  tests[\" Total Count: \"  + body.meta.total] = true;",
+							"",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"  tests[\" Count Per Page: \"  + body.meta.per_page] = true;"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "Specimen Search",
+					"item": [
+						{
+							"name": "Specimen Search wrong search by",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e756b802-397a-45ca-b859-080ede60a4a6",
+										"exec": [
+											"// This negative test will loop through diffrent invalid searchby and checks if the data being returned or not.It will pass if there is no data being returned.\r",
+											"\r",
+											"var search = pm.globals.get(\"search\");\r",
+											"\r",
+											"console.log(search)\r",
+											"\r",
+											"if (search.length > 0) {\r",
+											"    postman.setNextRequest(\"Specimen Search wrong search by\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"search\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"    })\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "27c1eb3c-8c71-4f2e-8de8-48faf748ff28",
+										"exec": [
+											"//pm.globals.set(\"atoken\",\"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"searchby\", \"S1B\");\r",
+											"//pm.globals.set(\"per_page\", \"100\");\r",
+											"\r",
+											"\r",
+											"\r",
+											"var search = pm.globals.get(\"search\")\r",
+											"\r",
+											"if(!search){\r",
+											"     search = [\"SB1\",\"123\",\"XZX\"];\r",
+											"}\r",
+											"\r",
+											"var currentsearch = search.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchby\", currentsearch);\r",
+											"pm.globals.set(\"search\", search);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Specimen Search wrong search string",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e756b802-397a-45ca-b859-080ede60a4a6",
+										"exec": [
+											"// This negative test will loop through diffrent invalid search strings and checks if the data being returned or not.It will pass if there is no data being returned.\r",
+											"\r",
+											"\r",
+											"var searchs = pm.globals.get(\"searchs\");\r",
+											"\r",
+											"if (searchs.length > 0) {\r",
+											"    postman.setNextRequest(\"Specimen Search wrong search string\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"searchs\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check invalid message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData.data).to.eql(\"Invalid or missing search parameters\");\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "27c1eb3c-8c71-4f2e-8de8-48faf748ff28",
+										"exec": [
+											"//pm.globals.set(\"atoken\",\"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"//pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"//pm.globals.set(\"per_page\", \"100\");\r",
+											"\r",
+											"var searchs = pm.globals.get(\"searchs\")\r",
+											"\r",
+											"if(!searchs){\r",
+											"     searchs = [\"xxxx\",\"Tibiaaaa\",\"1234\"];\r",
+											"}\r",
+											"\r",
+											"var currentsearchs = searchs.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentsearchs);\r",
+											"pm.globals.set(\"searchs\", searchs);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Specimen wrong Per page",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "beffb5a3-9026-4c59-86b0-256db2a8e0c6",
+										"exec": [
+											"//pm.globals.set(\"atoken\",\"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"//pm.globals.set(\"per_page\", \"100\");\r",
+											"\r",
+											"//pm.globals.set(\"searchby\", \"SB\");\r",
+											"\r",
+											"var perpage = pm.globals.get(\"perpage\")\r",
+											"\r",
+											"if(!perpage){\r",
+											"     perpage = [\"xx\",\"x13\"];\r",
+											"}\r",
+											"\r",
+											"var currentpage = perpage.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"per_page\", currentpage);\r",
+											"pm.globals.set(\"perpage\", perpage);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "05de9df3-89dc-4b75-957f-75a11e650a11",
+										"exec": [
+											"// This negative test will loop through diffrent invalid per page values and checks if the data being returned or not.It will pass if there is no data being returned.\r",
+											"\r",
+											"var perpage = pm.globals.get(\"perpage\");\r",
+											"\r",
+											"if (perpage.length > 0) {\r",
+											"    postman.setNextRequest(\"Specimen wrong Per page\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"perpage\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"    })\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"    // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Specimen Search wrong token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc9de598-8906-4a91-83f8-1e27fbf58070",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"per_page\", \"10\");\r",
+											"pm.globals.set(\"atoken\", \"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [\"1234we\",\"QWERTY\",\"xxxx\"];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"atoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c2f6fd59-664f-4fc5-8db2-b990e3004782",
+										"exec": [
+											"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"Specimen Search wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{atoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Specimen Search by Individual Number",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "683e59cb-4052-4b92-8536-6d575184b163",
+										"exec": [
+											"//Looping through different bones",
+											"var IN = pm.globals.get(\"IN\");",
+											"console.log(\"IN is .......... \", IN.get)",
+											"",
+											"if (IN.length > 0) {",
+											"    postman.setNextRequest(\"Negative Specimen Search by Individual Number\")",
+											"",
+											"} else {",
+											"    postman.setNextRequest(\"\")",
+											"    pm.globals.unset(\"IN\")",
+											"}",
+											"",
+											"pm.test(\"Count per page should be 10\", function () {",
+											"   var body = JSON.parse(responseBody);",
+											"    if (body.data != \"Invalid or missing search parameters\"){",
+											"        pm.expect(body.meta.per_page).to.eql(\"10\");",
+											"    }",
+											"});",
+											"",
+											"",
+											"pm.test(\"Data body should be empty or have invalid/missing search paramaters \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    console.log(\"Body is .......... \",body)",
+											"",
+											"    if (body.data == \"Invalid or missing search parameters\"){",
+											"            pm.expect(body.data).to.eql(\"Invalid or missing search parameters\");",
+											"    }",
+											"    else{",
+											"        pm.expect(body.data).to.be.empty ",
+											"    }",
+											"});",
+											"",
+											"",
+											"// pm.test(\"response must be not valid and not have a body\", function () {",
+											"//     pm.response.to.not.be.ok;",
+											"//     pm.response.to.not.be.body;",
+											"//     console.log(pm.response);",
+											"//     //  pm.response.to.not.be.json;",
+											"// });"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f16d1ae3-b717-4ce8-aa9d-7462534aab86",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"IN\");",
+											"pm.globals.set(\"per_page\", \"10\");",
+											"var IN = pm.globals.get(\"IN\")",
+											"",
+											"if(!IN){",
+											"     IN = [\"asdf\",\"1234\",\"#$@!%$\",\"hel-lo\",\"   \",\"this is a test\"]",
+											"}",
+											"",
+											"var currentIN = IN.shift();",
+											"",
+											"pm.globals.set(\"searchstring\", currentIN);",
+											"pm.globals.set(\"IN\", IN);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Specimen Search by Composite Key",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b18cfbd8-037c-487a-aaff-97a3e2fd3e4d",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"CK\");\r",
+											"pm.globals.set(\"per_page\", \"5\");\r",
+											"\r",
+											"var composite_keys = pm.globals.get(\"composite_keys\")\r",
+											"\r",
+											"if(!composite_keys){\r",
+											"     composite_keys = [\"@#$%\", \"    \",\"12345\", \"CLi-2020-123\", \"abc\"];\r",
+											"}\r",
+											"\r",
+											"var currentcompositekey = composite_keys.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentcompositekey);\r",
+											"pm.globals.set(\"composite_keys\", composite_keys);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "17ccd598-bbd0-4b0d-b925-a8cd2a9c8f98",
+										"exec": [
+											"\r",
+											"//Looping through diffrent bones\r",
+											"\r",
+											"var composite_keys = pm.globals.get(\"composite_keys\");\r",
+											"\r",
+											"if (composite_keys.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Specimen Search by Composite Key\")\r",
+											"\r",
+											"} else {\r",
+											" \r",
+											"    pm.globals.unset(\"composite_keys\")\r",
+											"}\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchby={{searchby}}&searchstring={{searchstring}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Specimen search by P2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "273d8689-341a-4567-8dc3-cd82b33163c2",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"P2\");\r",
+											"\r",
+											"pm.globals.set(\"per_page\", \"30\");\r",
+											"\r",
+											"\r",
+											"var p2 = pm.globals.get(\"p2\");\r",
+											"\r",
+											"console.log(p2);\r",
+											"if(!p2){\r",
+											"     p2 = [\"X-XXX\",\"1234\", \"X-1 555\", \"adfk;kj$!klerofobooomghpe111\", \"X-9999\", \"    \"];\r",
+											"\r",
+											"}\r",
+											"\r",
+											"var currentp2 = p2.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentp2);\r",
+											"pm.globals.set(\"p2\", p2);\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "5e7ec64f-8c6c-4886-b671-9bab12a49515",
+										"exec": [
+											"\r",
+											"\r",
+											"//Looping through different bones\r",
+											"\r",
+											"var p2 = pm.globals.get(\"p2\");\r",
+											"console.log(\"p2 length before test loop if check\");\r",
+											"console.log(p2.length);\r",
+											"\r",
+											"if (p2.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Specimen search by P2\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"p2\")\r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"Count per page should be 30\", function () {\r",
+											"   var body = JSON.parse(responseBody);\r",
+											"    pm.expect(body.meta.per_page).to.eql(\"30\");\r",
+											"\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [],
+									"options": {
+										"formdata": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}\n",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}\n"
+										}
+									]
+								},
+								"description": "Negative tests for Speciment search by P2. "
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Specimen Search by Provenance 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1e2a5e91-e84a-44bc-8dc3-1eb4df3ea6a6",
+										"exec": [
+											"var p2 = pm.globals.get(\"p1\");\r",
+											"console.log(\"p1 length before test loop if check\");\r",
+											"console.log(p1.length);\r",
+											"\r",
+											"if (p1.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Specimen search by Provenance 1\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"p1\")\r",
+											"    }\r",
+											"\r",
+											"pm.test(\"Count per page should be 30\", function () {\r",
+											"   var body = JSON.parse(responseBody);\r",
+											"    pm.expect(body.meta.per_page).to.eql(\"30\");\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "21056480-8c9a-4901-85e6-30691e69533d",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"P1\");\r",
+											"\r",
+											"pm.globals.set(\"per_page\", \"30\");\r",
+											"\r",
+											"\r",
+											"var p1 = pm.globals.get(\"p1\");\r",
+											"\r",
+											"console.log(p1);\r",
+											"if(!p1){\r",
+											"     p1 = [\"X-XXX\",\"1234\", \"X-1 555\", \"adfk;kj$!klerofobooomghpe111\", \"X-9999\", \"    \"];\r",
+											"\r",
+											"}\r",
+											"\r",
+											"var currentp1 = p1.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentp1);\r",
+											"pm.globals.set(\"p1\", p1);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}\n",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}\n"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Specimen search by Accession",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "47df7aaa-5ffa-4be6-a604-aab3a6beb4aa",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"Accession\");\r",
+											"\r",
+											"pm.globals.set(\"per_page\", \"30\");\r",
+											"\r",
+											"\r",
+											"var Accession = pm.globals.get(\"Accession\");\r",
+											"\r",
+											"console.log(Accession);\r",
+											"if(!Accession){\r",
+											"     Accession = [\"CIL 2003-000\", \"CIL COVID-2019 \", \"    \"];\r",
+											"\r",
+											"}\r",
+											"\r",
+											"var currentAccession = Accession.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentAccession);\r",
+											"pm.globals.set(\"Accession\", Accession);\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "111bf6f5-2108-4331-b3a9-f6b62814b5c7",
+										"exec": [
+											"\r",
+											"\r",
+											"//Looping through different Accession keys\r",
+											"\r",
+											"var Accession = pm.globals.get(\"Accession\");\r",
+											"console.log(\"Accession length before test loop if check\");\r",
+											"console.log(Accession.length);\r",
+											"\r",
+											"if (Accession.length > 0) {\r",
+											"    postman.setNextRequest(\"Negative Specimen search by Accession\")\r",
+											"\r",
+											"} else {\r",
+											"   \r",
+											"    pm.globals.unset(\"Accession\")\r",
+											"}\r",
+											"\r",
+											"\r",
+											"// pm.test(\"Count per page should be 100\", function () {\r",
+											"//    var body = JSON.parse(responseBody);\r",
+											"//     pm.expect(body.meta.per_page).to.eql(\"100\");\r",
+											"\r",
+											"// });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/specimens/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}\n",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"specimens",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}\n"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "DNA Search",
+					"item": [
+						{
+							"name": "DNA  Search wrong Per page",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2b7d57ca-d6c8-40d9-a412-ee49c97048bd",
+										"exec": [
+											"//pm.globals.set(\"atoken\",\"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"//pm.globals.set(\"per_page\", \"100\");\r",
+											"\r",
+											"//pm.globals.set(\"searchby\", \"SB\");\r",
+											"\r",
+											"var perpage = pm.globals.get(\"perpage\")\r",
+											"\r",
+											"if(!perpage){\r",
+											"     perpage = [\"xx\",\"x13\"];\r",
+											"}\r",
+											"\r",
+											"var currentpage = perpage.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"per_page\", currentpage);\r",
+											"pm.globals.set(\"perpage\", perpage);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "7689e704-eea5-4368-aff6-274e0b975888",
+										"exec": [
+											"// This negative test will loop through diffrent invalid per page values and checks if the data being returned or not.It will pass if there is no data being returned.\r",
+											"\r",
+											"var perpage = pm.globals.get(\"perpage\");\r",
+											"\r",
+											"if (perpage.length > 0) {\r",
+											"    postman.setNextRequest(\"DNA  Search wrong Per page\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"perpage\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"    })\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"    // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/dnas/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DNA Search wrong token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "107ceceb-9cfa-4d57-92de-a772d93402ee",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"per_page\", \"10\");\r",
+											"pm.globals.set(\"atoken\", \"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [\"1234we\",\"QWERTY\",\"xxxx\"];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"atoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "e1949d7d-06ca-4155-a6b4-7c6cfb251cba",
+										"exec": [
+											"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"DNA Search wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{atoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/dnas/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DNA Search wrong project",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "690122a5-9a2d-416e-8b40-78cef7995570",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"per_page\", \"10\");\r",
+											"pm.globals.set(\"project\", 12);\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"\r",
+											"\r",
+											"var token = pm.globals.get(\"token\")\r",
+											"\r",
+											"if(!token){\r",
+											"     token = [\"1234we\",\"QWERTY\",\"xxxx\"];\r",
+											"}\r",
+											"\r",
+											"var currenttoken = token.shift();\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.globals.set(\"atoken\", currenttoken);\r",
+											"pm.globals.set(\"token\", token);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8ee89f79-b26c-4b83-8ab0-b8d4b126273b",
+										"exec": [
+											"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+											"\r",
+											"var token = pm.globals.get(\"token\");\r",
+											"\r",
+											"if (token.length > 0) {\r",
+											"    postman.setNextRequest(\"DNA Search wrong token\")\r",
+											"\r",
+											"} else {\r",
+											"    pm.globals.unset(\"token\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/{{project}}/dnas/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"{{project}}",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DNA Search wrong search by",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "08e1e719-08a0-42cd-8cd8-a5ac071fd94f",
+										"exec": [
+											"// This negative test will loop through diffrent invalid searchby and checks if the data being returned or not.It will pass if there is no data being returned.\r",
+											"\r",
+											"var search = pm.globals.get(\"search\");\r",
+											"\r",
+											"console.log(search)\r",
+											"\r",
+											"if (search.length > 0) {\r",
+											"    postman.setNextRequest(\"DNA Search wrong search by\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"search\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"\r",
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"    })\r",
+											"\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"   // pm.response.to.not.be.Body;\r",
+											"     pm.response.to.not.be.json;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7217cb74-12ee-4bf0-8663-b609c7f09910",
+										"exec": [
+											"//pm.globals.set(\"atoken\",\"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"searchby\", \"S1B\");\r",
+											"//pm.globals.set(\"per_page\", \"100\");\r",
+											"\r",
+											"\r",
+											"\r",
+											"var search = pm.globals.get(\"search\")\r",
+											"\r",
+											"if(!search){\r",
+											"     search = [\"SB1\",\"123\",\"XZX\"];\r",
+											"}\r",
+											"\r",
+											"var currentsearch = search.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchby\", currentsearch);\r",
+											"pm.globals.set(\"search\", search);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/dnas/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DNA Search wrong search string",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ca5753b9-91b0-46f8-99cb-acd29d01b085",
+										"exec": [
+											"// This negative test will loop through diffrent invalid search strings and checks if the data being returned or not.It will pass if there is no data being returned.\r",
+											"\r",
+											"\r",
+											"var searchs = pm.globals.get(\"searchs\");\r",
+											"\r",
+											"if (searchs.length > 0) {\r",
+											"    postman.setNextRequest(\"DNA Search wrong search string\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(\"\")\r",
+											"    pm.globals.unset(\"searchs\")\r",
+											"   \r",
+											"}\r",
+											"\r",
+											"pm.test(\"response must be not valid and not have a body\", function () {\r",
+											"     pm.response.to.not.be.ok;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7695b9c0-7516-4349-8412-8e1a9c35a412",
+										"exec": [
+											"//pm.globals.set(\"atoken\",\"zijaNN5p3v250jSlA4XN9BpeRawTYXcT93kGgkptQMxGLamGwdDFyEGD3P5M\");\r",
+											"//pm.globals.set(\"searchstring\", \"Tibia\");\r",
+											"pm.globals.set(\"searchby\", \"SB\");\r",
+											"//pm.globals.set(\"per_page\", \"100\");\r",
+											"\r",
+											"var searchs = pm.globals.get(\"searchs\")\r",
+											"\r",
+											"if(!searchs){\r",
+											"     searchs = [\"xxxx\",\"Tibiaaaa\",\"1234\"];\r",
+											"}\r",
+											"\r",
+											"var currentsearchs = searchs.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentsearchs);\r",
+											"pm.globals.set(\"searchs\", searchs);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anthro_analyst_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/dnas/search?searchstring={{searchstring}}&searchby={{searchby}}&per_page={{per_page}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										},
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "per_page",
+											"value": "{{per_page}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative DNA Search Individual Number",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3f2f2df8-3cfb-495c-9fcd-8031a1a16f18",
+										"exec": [
+											"pm.globals.set(\"searchby\", \"IN\");\r",
+											"\r",
+											"var IN = pm.globals.get(\"IN\")\r",
+											"\r",
+											"if(!IN){\r",
+											"     IN = [\"a;ofijweoijf\",\"\",\"fakeCIL\",\"        \", \"CIL test-116-I-240\"];\r",
+											"}\r",
+											"\r",
+											"var currentIN = IN.shift();\r",
+											"\r",
+											"pm.globals.set(\"searchstring\", currentIN);\r",
+											"pm.globals.set(\"IN\", IN);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "aa52cdb2-d2cb-4195-9d38-9072e066f253",
+										"exec": [
+											"var IN = pm.globals.get(\"IN\");\r",
+											"\r",
+											"if (IN.length > 0) {\r",
+											"    postman.setNextRequest(\"DNA Search by Individual Number\")\r",
+											"\r",
+											"} else {\r",
+											"    postman.setNextRequest(null)\r",
+											"    pm.globals.unset(\"IN\")\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projects/2/dnas/search?searchby={{searchby}}&searchstring={{searchstring}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"2",
+										"dnas",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchby",
+											"value": "{{searchby}}"
+										},
+										{
+											"key": "searchstring",
+											"value": "{{searchstring}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "77e812fa-3242-4872-8f2c-daf64502821b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6d40300-9100-4d3d-b4e3-25ab91fea595",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status Code\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,400,422,500,404]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

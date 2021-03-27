@@ -1,0 +1,42 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/php:7.1-node-browsers
+        setup: php -d memory_limit=-1
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mysql:9.4
+
+    working_directory: ~/LaravelTesting
+
+    environment:
+      COMPOSER_MEMORY_LIMIT: -1
+
+    steps:
+      - checkout
+        
+      - run: composer install -d ./LaravelTesting --ignore-platform-reqs
+      # - run: composer update -d ./LaravelTesting --ignore-platform-reqs
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "./LaravelTesting/composer.json" }}
+          paths:
+            - ./vendor
+      
+      # - run:
+      #     name: "Generate App key"
+      #     command: php ./LaravelTesting/artisan key:generate
+      # run laravel tests!
+
+      - run: 
+          name: "Dashboard Laravel Test"
+          command: ./LaravelTesting/vendor/bin/phpunit ./LaravelTesting/dashboard/dashboardTest.php
+      

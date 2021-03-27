@@ -1,0 +1,724 @@
+{
+  "info": {
+    "_postman_id": "ba37e17c-a88d-4d12-87a2-7c7bf214f9b6",
+    "name": "File Export / Import",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "files",
+      "item": [
+        {
+          "name": "export File Manager",
+          "item": [
+            {
+              "name": "View Exports",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Count Test\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "     tests[\"Count: \"  + jsonData.data.count] = true;\r",
+                      "});\r",
+                      "pm.test(\"Response time is less than 2000ms\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "pm.test(\"Fields Test\", function () {\r",
+                      "    pm.expect(pm.response.text()).to.include(\"id\",\"filename\",\"export_type\",\"created_by\",\"created_at\");\r",
+                      "});\r",
+                      "pm.test(\"Response Test\", function () {\r",
+                      "     pm.response.to.be.ok;\r",
+                      "     pm.response.to.be.withBody;\r",
+                      "     pm.response.to.be.json;\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/files/exportFileManager",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "files",
+                    "exportFileManager"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/exportFileManager",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        "exportFileManager"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": 56621074,\n \"message\": \"dolor aliqua voluptate ut exercitation\"\n}"
+                },
+                {
+                  "name": "Get Export Type Details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/exportFileManager",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        "exportFileManager"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "sunt magna ut aute ipsum",
+                      "description": ""
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Get Export Types",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Count Test\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "     tests[\"Count: \"  + jsonData.data.count] = true;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Fields Test\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"description\",\"group\",\"table_names\",\"query\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response Test\", function () {\r",
+                  "     pm.response.to.be.ok;\r",
+                  "     pm.response.to.be.withBody;\r",
+                  "     pm.response.to.be.json;\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/files/export-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "export-types"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about Export Types",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/export-types",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "export-types"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sunt magna ut aute ipsum",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/export-types",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "export-types"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 56621074,\n \"message\": \"dolor aliqua voluptate ut exercitation\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Import Types",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Count Test\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "     tests[\"Count: \"  + jsonData.data.count] = true;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Fields Test\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"table_names\",\"display_name\",\"template_location\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response Test\", function () {\r",
+                  "     pm.response.to.be.ok;\r",
+                  "     pm.response.to.be.withBody;\r",
+                  "     pm.response.to.be.json;\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/files/import-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "import-types"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about Import Types",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/import-types",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "import-types"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sunt magna ut aute ipsum",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/import-types",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "import-types"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 56621074,\n \"message\": \"dolor aliqua voluptate ut exercitation\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Export Type Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "\r",
+                  "pm.test(\"Fields Test\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"table_names\",\"display_name\",\"template_location\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response Test\", function () {\r",
+                  "     pm.response.to.be.ok;\r",
+                  "     pm.response.to.be.withBody;\r",
+                  "     pm.response.to.be.json;\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/files/export-details/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "export-details",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "23"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/export-details/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "export-details",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 56621074,\n \"message\": \"dolor aliqua voluptate ut exercitation\"\n}"
+            },
+            {
+              "name": "Get Export Type Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/export-details/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "export-details",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sunt magna ut aute ipsum",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{}"
+            }
+          ]
+        },
+        {
+          "name": "Export All Tables",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Content-Type header Test\", () => {\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Response Test\", function () {\r",
+                  "     pm.response.to.be.ok;\r",
+                  "     pm.response.to.be.withBody;\r",
+                  "     pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Fields Test\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"description\",\"group\",\"table_names\",\"query\");\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/export-all-tables?id=23",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "export-all-tables"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "23"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/export-all-tables",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "export-all-tables"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 56621074,\n \"message\": \"dolor aliqua voluptate ut exercitation\"\n}"
+            },
+            {
+              "name": "Export Tables",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/files/export-all-tables",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    "export-all-tables"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sunt magna ut aute ipsum",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "//const filesrequestschema = JSON.parse(pm.environment.get(\"filesrequestschema\"));",
+          "",
+          "",
+          "pm.test(\"Status Code\", () => {",
+          "  pm.expect(pm.response.code).to.be.oneOf([200,201,403,500,400,404]);",
+          "});",
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "importId",
+      "value": ""
+    },
+    {
+      "key": "export_detail_desc",
+      "value": ""
+    },
+    {
+      "key": "export_detail_group",
+      "value": ""
+    },
+    {
+      "key": "export_detail_id",
+      "value": ""
+    },
+    {
+      "key": "export_detail_name",
+      "value": ""
+    },
+    {
+      "key": "export_detail_query",
+      "value": ""
+    },
+    {
+      "key": "export_detail_tableNames",
+      "value": ""
+    },
+    {
+      "key": "tables",
+      "value": ""
+    },
+    {
+      "key": "includeTimestamps",
+      "value": ""
+    },
+    {
+      "key": "columns",
+      "value": ""
+    },
+    {
+      "key": "export_id",
+      "value": ""
+    },
+    {
+      "key": "exportTypeId",
+      "value": ""
+    },
+    {
+      "key": "filesrequestschema",
+      "value": ""
+    }
+  ]
+}

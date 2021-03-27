@@ -1,0 +1,803 @@
+{
+  "info": {
+    "_postman_id": "b8f84ae7-2f29-429d-820b-8c87c7258ade",
+    "name": "Analytics",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "analytics",
+      "item": [
+        {
+          "name": "Get specimens in Anp1p2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "\r",
+                  "pm.test(\"response Details are Present\", () => {\r",
+                  "    pm.response.to.have.jsonBody(\"data\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].id\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].key\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].key_bone_side\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].group\");\r",
+                  "   \r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "const Analyticsschema = {\r",
+                  "    \"type\": \"object\",\r",
+                  "        \"required\": [\r",
+                  "          \"data\"\r",
+                  "        ],\r",
+                  "        \"externalDocs\":{\r",
+                  "            \"url\": \"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#projects-table\"\r",
+                  "        },\r",
+                  "        \"properties\": {\r",
+                  "            \"data\": {\r",
+                  "            \r",
+                  "            \"title\": \"The data schema\",\r",
+                  "            \"description\": \"List of all analytics for Cora\",\r",
+                  "            \"default\": [],\r",
+                  "            \"items\": {\r",
+                  "                \"anyOf\": [\r",
+                  "                    {\r",
+                  "                        \"type\": \"object\",\r",
+                  "                        \"title\": \"The first anyOf schema\",\r",
+                  "                        \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "                        \"default\": {},\r",
+                  "                        \"required\": [\r",
+                  "                            \"id\",\r",
+                  "                            \"sb_id\",\r",
+                  "                            \"individuating_trait\"\r",
+                  "                            ],\r",
+                  "                        \"properties\": {\r",
+                  "                            \"id\": {\r",
+                  "                                \"type\": \"integer\",\r",
+                  "                                \"description\": \"\"\r",
+                  "                            },\r",
+                  "                            \"sb_id\": {\r",
+                  "                                \"type\": \"integer\",\r",
+                  "                                \"description\": \"\"\r",
+                  "                            },\r",
+                  "                            \"icon\": {\r",
+                  "                                \"type\": \"string\",\r",
+                  "                                \"description\": \"\"\r",
+                  "                            },\r",
+                  "                            \"color\": {\r",
+                  "                                \"type\": \"string\",\r",
+                  "                                \"description\": \"\"\r",
+                  "                            },\r",
+                  "                            \r",
+                  "                             \"created_by\"\t: {\r",
+                  "                                \"type\": \"string\",              \r",
+                  "                                \"description\": \"User who created project\"\r",
+                  "                            },\t\t\t\t\t\t\t\t\t\t\r",
+                  "                            \"updated_by\"\t: {\r",
+                  "                                \"type\": \"string\",               \r",
+                  "                                \"description\": \"User who last updated project\"\r",
+                  "                            },\t\t\t\t\t\t\t\t\t\t\r",
+                  "                            \"created_at\": {\r",
+                  "                                \"type\": \"string\",\r",
+                  "                                \"format\": \"date-time\",    \r",
+                  "                                \"description\": \"Date and Time of creation\"    \r",
+                  "                            },\t\t\t\t\t\t\t\t\t\t\r",
+                  "                            \"updated_at\": {\r",
+                  "                                \"type\": \"string\",\r",
+                  "                                \"format\": \"date-time\",    \r",
+                  "                                \"description\": \"Date and Time of last update\"    \r",
+                  "                            },\t\t\t\t\t\t\t\t\t\t\t\r",
+                  "                            \"deleted_at\": {\r",
+                  "                                \"type\": \"string\",\r",
+                  "                                \"format\": \"date-time\",     \r",
+                  "                                \"description\": \"Date and Time of project deleted\"    \r",
+                  "                            },\t\r",
+                  "                                               \t\t\t\t\t\t\t\t\r",
+                  "                            \"tag\": {\r",
+                  "                                \"type\": \"string\"                               \r",
+                  "                            }\r",
+                  "                        },\r",
+                  "                        \"additionalProperties\": true\r",
+                  "                    }\r",
+                  "                ]\r",
+                  "            }\r",
+                  "        },\r",
+                  "        \"links\": {\r",
+                  "            \"type\": \"object\",\r",
+                  "            \"title\": \"The links schema\",\r",
+                  "            \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "            \"default\": {},\r",
+                  "            \"properties\": {\r",
+                  "                \"first\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The first schema\",\r",
+                  "                    \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"last\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The last schema\",\r",
+                  "                    \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"prev\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The prev schema\",\r",
+                  "                    \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "                    \"default\": null\r",
+                  "                },\r",
+                  "                \"next\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The next schema\",\r",
+                  "                    \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "                    \"default\": null\r",
+                  "                }\r",
+                  "            },\r",
+                  "            \"additionalProperties\": true\r",
+                  "        },\r",
+                  "        \"meta\": {\r",
+                  "            \"type\": \"object\",\r",
+                  "            \"title\": \"The meta schema\",\r",
+                  "            \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "            \"default\": {},\r",
+                  "            \"properties\": {\r",
+                  "                \"current_page\": {\r",
+                  "                    \"type\": \"integer\",\r",
+                  "                    \"title\": \"The current_page schema\",\r",
+                  "                    \"description\": \"Current page number.\",\r",
+                  "                    \"default\": 0\r",
+                  "                },\r",
+                  "                \"from\": {\r",
+                  "                    \"type\": \"integer\",\r",
+                  "                    \"title\": \"The from schema\",\r",
+                  "                    \"description\": \"Starting page number\",\r",
+                  "                    \"default\": 0\r",
+                  "                },\r",
+                  "                \"last_page\": {\r",
+                  "                    \"type\": \"integer\",\r",
+                  "                    \"title\": \"The last_page schema\",\r",
+                  "                    \"description\": \"Last page number\",\r",
+                  "                    \"default\": 0\r",
+                  "                },\r",
+                  "                \"path\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The path schema\",\r",
+                  "                    \"description\": \"API URL.\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"per_page\": {\r",
+                  "                    \"type\": \"integer\",\r",
+                  "                    \"title\": \"The per_page schema\",\r",
+                  "                    \"description\": \"Results per page\",\r",
+                  "                    \"default\": 0\r",
+                  "                },\r",
+                  "                \"to\": {\r",
+                  "                    \"type\": \"integer\",\r",
+                  "                    \"title\": \"The to schema\",\r",
+                  "                    \"description\": \"Next page number\",\r",
+                  "                    \"default\": 0\r",
+                  "                },\r",
+                  "                \"total\": {\r",
+                  "                    \"type\": \"integer\",\r",
+                  "                    \"title\": \"The total schema\",\r",
+                  "                    \"description\": \"Total number of projects\",\r",
+                  "                    \"default\": 0\r",
+                  "                },\r",
+                  "                \"app\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The app schema\",\r",
+                  "                    \"description\": \"Application name\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"app_version\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The app_version schema\",\r",
+                  "                    \"description\": \"Application version\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"api_version\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The api_version schema\",\r",
+                  "                    \"description\": \"Version of API\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"author\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The author schema\",\r",
+                  "                    \"description\": \"Author of application.\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                },\r",
+                  "                \"copyright\": {\r",
+                  "                    \"type\": \"string\",\r",
+                  "                    \"title\": \"The copyright schema\",\r",
+                  "                    \"description\": \"Owner of application copyright.\",\r",
+                  "                    \"default\": \"\"\r",
+                  "                }\r",
+                  "            },\r",
+                  "            \"additionalProperties\": true\r",
+                  "        },\r",
+                  "        \"status\": {\r",
+                  "            \"type\": \"string\",\r",
+                  "            \"title\": \"The status schema\",\r",
+                  "            \"description\": \"An explanation about the purpose of this instance.\",\r",
+                  "            \"default\": \"\"\r",
+                  "        }\r",
+                  "        }\r",
+                  "};\r",
+                  "\r",
+                  "//pm.environment.set('Analyticsschema', JSON.stringify(Analyticsschema));\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-01\"],\r\n    \"p2\": [\"X-233E\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/analytics/anp1p2/specimens",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "analytics",
+                "anp1p2",
+                "specimens"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/anp1p2/specimens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "anp1p2",
+                    "specimens"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+            },
+            {
+              "name": "Details about specimens",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/anp1p2/specimens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "anp1p2",
+                    "specimens"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sit consectetur eu incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get taphonomy with specimens",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"an\": [\"CIL 2003-116\"],\r\n    \"p1\": [\"G-01\"],\r\n    \"p2\": [\"X-233E\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/analytics/taphonomy",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "analytics",
+                "taphonomy"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Details about taphonomy",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/taphonomy",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "taphonomy"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sit consectetur eu incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/taphonomy",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "taphonomy"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get pairs with specimens",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/analytics/pairs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "analytics",
+                "pairs"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/pairs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "pairs"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+            },
+            {
+              "name": "Details about pairs",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/pairs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "pairs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sit consectetur eu incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get specimens",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"response Details are Present\", () => {\r",
+                  "    pm.response.to.have.jsonBody(\"data\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].id\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].key\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].key_bone_side\");\r",
+                  "    pm.response.to.have.jsonBody(\"data.nodes[0].group\");\r",
+                  "   \r",
+                  "    \r",
+                  "\r",
+                  "\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/specimens/1269/degree/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "analytics",
+                "specimens",
+                "1269",
+                "degree",
+                "2"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/specimens/:id/degree/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "specimens",
+                    ":id",
+                    "degree",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 91033375,\n \"message\": \"ex culpa quis do\"\n}"
+            },
+            {
+              "name": "Details about specimens",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/analytics/specimens/:id/degree/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "specimens",
+                    ":id",
+                    "degree",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "sit consectetur eu incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const Analyticsschema = JSON.parse(pm.environment.get(\"Analyticsschema\"));",
+          "",
+          "pm.test('Schema is valid', function () {",
+          "    pm.response.to.have.jsonSchema(Analyticsschema)",
+          "});",
+          "",
+          "pm.test(\"Response time is less than 200ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+          "});",
+          "",
+          "pm.test(\"Status code is 200\", function () {",
+          "    pm.response.to.have.status(200);",
+          "});",
+          "",
+          "pm.test(\"Check the active environment\", () => {",
+          "  pm.expect(pm.environment.name).to.eql(\"Testing\");",
+          "});",
+          "",
+          "let jsonData = pm.response.json()",
+          "pm.test(\"Data, Status & Meta Test\", () => {",
+          "    if(jsonData.meta == true){",
+          "    pm.response.to.have.jsonBody(\"data\");",
+          "    }",
+          "    else{",
+          "        pm.test(\"response body doesnt have meta\");",
+          "    }",
+          " ",
+          "});",
+          "",
+          "pm.test(\"Data details are checked\", () => {",
+          "    let jsonData = pm.response.json()",
+          "    pm.expect(jsonData.data).to.be.an(\"object\")",
+          "});",
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "{{base_url}}/api"
+    },
+    {
+      "key": "schema",
+      "value": "{\"type\":\"object\",\"required\":[\"data\"],\"externalDocs\":{\"url\":\"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#projects-table\"},\"properties\":{\"data\":{\"title\":\"The data schema\",\"description\":\"List of all analytics for Cora\",\"default\":[],\"items\":{\"anyOf\":[{\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"id\",\"sb_id\",\"individuating_trait\"],\"properties\":{\"id\":{\"type\":\"integer\",\"description\":\"\"},\"sb_id\":{\"type\":\"integer\",\"description\":\"\"},\"icon\":{\"type\":\"string\",\"description\":\"\"},\"color\":{\"type\":\"string\",\"description\":\"\"},\"created_by\":{\"type\":\"string\",\"description\":\"User who created project\"},\"updated_by\":{\"type\":\"string\",\"description\":\"User who last updated project\"},\"created_at\":{\"type\":\"string\",\"format\":\"date-time\",\"description\":\"Date and Time of creation\"},\"updated_at\":{\"type\":\"string\",\"format\":\"date-time\",\"description\":\"Date and Time of last update\"},\"deleted_at\":{\"type\":\"string\",\"format\":\"date-time\",\"description\":\"Date and Time of project deleted\"},\"tag\":{\"type\":\"string\"}},\"additionalProperties\":true}]}},\"links\":{\"type\":\"object\",\"title\":\"The links schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"first\":{\"type\":\"string\",\"title\":\"The first schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"last\":{\"type\":\"string\",\"title\":\"The last schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"prev\":{\"type\":\"string\",\"title\":\"The prev schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null},\"next\":{\"type\":\"string\",\"title\":\"The next schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null}},\"additionalProperties\":true},\"meta\":{\"type\":\"object\",\"title\":\"The meta schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"current_page\":{\"type\":\"integer\",\"title\":\"The current_page schema\",\"description\":\"Current page number.\",\"default\":0},\"from\":{\"type\":\"integer\",\"title\":\"The from schema\",\"description\":\"Starting page number\",\"default\":0},\"last_page\":{\"type\":\"integer\",\"title\":\"The last_page schema\",\"description\":\"Last page number\",\"default\":0},\"path\":{\"type\":\"string\",\"title\":\"The path schema\",\"description\":\"API URL.\",\"default\":\"\"},\"per_page\":{\"type\":\"integer\",\"title\":\"The per_page schema\",\"description\":\"Results per page\",\"default\":0},\"to\":{\"type\":\"integer\",\"title\":\"The to schema\",\"description\":\"Next page number\",\"default\":0},\"total\":{\"type\":\"integer\",\"title\":\"The total schema\",\"description\":\"Total number of projects\",\"default\":0},\"app\":{\"type\":\"string\",\"title\":\"The app schema\",\"description\":\"Application name\",\"default\":\"\"},\"app_version\":{\"type\":\"string\",\"title\":\"The app_version schema\",\"description\":\"Application version\",\"default\":\"\"},\"api_version\":{\"type\":\"string\",\"title\":\"The api_version schema\",\"description\":\"Version of API\",\"default\":\"\"},\"author\":{\"type\":\"string\",\"title\":\"The author schema\",\"description\":\"Author of application.\",\"default\":\"\"},\"copyright\":{\"type\":\"string\",\"title\":\"The copyright schema\",\"description\":\"Owner of application copyright.\",\"default\":\"\"}},\"additionalProperties\":true},\"status\":{\"type\":\"string\",\"title\":\"The status schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}}}"
+    },
+    {
+      "key": "schema2",
+      "value": "{\"type\":\"object\",\"required\":[\"data\",\"meta\",\"status\"],\"externalDocs\":{\"url\":\"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#projects-table\"},\"properties\":{\"data\":{\"title\":\"The data schema\",\"description\":\"List of all analytics for Cora\",\"default\":[],\"items\":{\"anyOf\":[{\"type\":\"object\",\"title\":\"The first anyOf schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"required\":[\"id\",\"sb_id\",\"individuating_trait\"],\"properties\":{\"id\":{\"type\":\"integer\",\"description\":\"\"},\"sb_id\":{\"type\":\"integer\",\"description\":\"\"},\"icon\":{\"type\":\"string\",\"description\":\"\"},\"color\":{\"type\":\"string\",\"description\":\"\"},\"created_by\":{\"type\":\"string\",\"description\":\"User who created project\"},\"updated_by\":{\"type\":\"string\",\"description\":\"User who last updated project\"},\"created_at\":{\"type\":\"string\",\"format\":\"date-time\",\"description\":\"Date and Time of creation\"},\"updated_at\":{\"type\":\"string\",\"format\":\"date-time\",\"description\":\"Date and Time of last update\"},\"deleted_at\":{\"type\":\"string\",\"format\":\"date-time\",\"description\":\"Date and Time of project deleted\"},\"tag\":{\"type\":\"string\"}},\"additionalProperties\":true}]}},\"links\":{\"type\":\"object\",\"title\":\"The links schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"first\":{\"type\":\"string\",\"title\":\"The first schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"last\":{\"type\":\"string\",\"title\":\"The last schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"},\"prev\":{\"type\":\"string\",\"title\":\"The prev schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null},\"next\":{\"type\":\"string\",\"title\":\"The next schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":null}},\"additionalProperties\":true},\"meta\":{\"type\":\"object\",\"title\":\"The meta schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":{},\"properties\":{\"current_page\":{\"type\":\"integer\",\"title\":\"The current_page schema\",\"description\":\"Current page number.\",\"default\":0},\"from\":{\"type\":\"integer\",\"title\":\"The from schema\",\"description\":\"Starting page number\",\"default\":0},\"last_page\":{\"type\":\"integer\",\"title\":\"The last_page schema\",\"description\":\"Last page number\",\"default\":0},\"path\":{\"type\":\"string\",\"title\":\"The path schema\",\"description\":\"API URL.\",\"default\":\"\"},\"per_page\":{\"type\":\"integer\",\"title\":\"The per_page schema\",\"description\":\"Results per page\",\"default\":0},\"to\":{\"type\":\"integer\",\"title\":\"The to schema\",\"description\":\"Next page number\",\"default\":0},\"total\":{\"type\":\"integer\",\"title\":\"The total schema\",\"description\":\"Total number of projects\",\"default\":0},\"app\":{\"type\":\"string\",\"title\":\"The app schema\",\"description\":\"Application name\",\"default\":\"\"},\"app_version\":{\"type\":\"string\",\"title\":\"The app_version schema\",\"description\":\"Application version\",\"default\":\"\"},\"api_version\":{\"type\":\"string\",\"title\":\"The api_version schema\",\"description\":\"Version of API\",\"default\":\"\"},\"author\":{\"type\":\"string\",\"title\":\"The author schema\",\"description\":\"Author of application.\",\"default\":\"\"},\"copyright\":{\"type\":\"string\",\"title\":\"The copyright schema\",\"description\":\"Owner of application copyright.\",\"default\":\"\"}},\"additionalProperties\":true},\"status\":{\"type\":\"string\",\"title\":\"The status schema\",\"description\":\"An explanation about the purpose of this instance.\",\"default\":\"\"}}}"
+    },
+    {
+      "key": "an",
+      "value": ""
+    }
+  ]
+}

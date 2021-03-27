@@ -1,0 +1,4470 @@
+{
+	"info": {
+		"_postman_id": "39f0535a-2eec-4979-8dbd-1fc704ced909",
+		"name": "UI_Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "98727335-21ce-45f7-ad25-36557c6c7519",
+						"exec": [
+							"",
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\"), ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c679f74b-e27f-4705-aefa-0ab42b7f5e45",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 10s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);",
+							"});",
+							"",
+							"pm.test(\"Page title should be correct\", function(){",
+							"    var $ = cheerio.load(responseBody);",
+							"    ",
+							"    $(\"title\").text() == \"CoRA - Commingled Remains Analytics Welcome\";",
+							"    ",
+							"    $(\"li[class='breadcrumb-item active']\").text() == \"Home\";",
+							"    ",
+							"    $(\"h3\").text() == \"Welcome to CoRA - Commingled Remains Analytics\";",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit DNA as DNAAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "814f47eb-4a7c-4a15-b80b-9e4a02eb56b7",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\"), ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8639c4a6-6d7c-4023-a640-5d93e47b7e32",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"heaing of the page should be 'Mitochondrial DNA Report'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.heading).to.eql(\"Mitochondrial DNA Report\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The correct user information should be returned\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.theUser.id).to.eql(242);",
+							"    pm.expect(jsonData.theUser.name).to.eql(\"Test Anthro\");",
+							"    pm.expect(jsonData.theUser.email).to.eql(\"test.anthro.analyst@unomaha.edu\"); ",
+							"    pm.expect(jsonData.theUser.role_id).to.eql(5);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/mtdna",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"mtdna"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit DNA as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7753867b-8665-4984-97d4-00e8e9d585f8",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\"), ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "63754478-2d28-4d0c-867e-416c4922420d",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"heaing of the page should be 'Mitochondrial DNA Report'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.heading).to.eql(\"Mitochondrial DNA Report\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The correct user information should be returned\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.theUser.id).to.eql(242);",
+							"    pm.expect(jsonData.theUser.name).to.eql(\"Test Anthro\");",
+							"    pm.expect(jsonData.theUser.email).to.eql(\"test.anthro.analyst@unomaha.edu\"); ",
+							"    pm.expect(jsonData.theUser.role_id).to.eql(5);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/mtdna",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"mtdna"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View MtDNA as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "890b4d12-87e8-40bf-b2cd-6466730f1357",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/mtdna\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e0d118f6-ffff-44cd-933e-ddddd7fb2ebd",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"heaing of the page should be 'Mitochondrial DNA Report'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.heading).to.eql(\"Mitochondrial DNA Report\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The correct user information should be returned\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.theUser.id).to.eql(242);",
+							"    pm.expect(jsonData.theUser.name).to.eql(\"Test Anthro\");",
+							"    pm.expect(jsonData.theUser.email).to.eql(\"test.anthro.analyst@unomaha.edu\"); ",
+							"    pm.expect(jsonData.theUser.role_id).to.eql(5);",
+							"    pm.expect(jsonData.theUser.display_name).to.eql(\"Test Anthro Meeraa\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/mtdna",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"mtdna"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Zones as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7bfc406a-a93d-4166-b977-4cf01e35aa26",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f399c3b-b075-45e1-80d3-478134f1375b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Zones Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Zones Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Zones Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks zone-report component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"zonereport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/zones?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"zones"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Methods as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5150cadf-6e00-4df5-951f-8d4193cf436d",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d28e79b8-2d7a-4ea5-86c7-7da424dfff3c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Methods Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Methods Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Methods Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks methods-report component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"methodsreport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/methods?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"methods"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Measurements as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "213d8fa6-eaba-4724-bd60-f6e6baf29449",
+						"exec": [
+							"// pm.sendRequest({",
+							"    ",
+							"//     url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"//     method:\"GET\",",
+							"    ",
+							"// }, function(err,response){",
+							"      ",
+							"//         //getting the response html body",
+							"        ",
+							"//         var html = cheerio(response.text());",
+							"//         console.log(\"HTML BODY\"+html);",
+							"  ",
+							"//         //grabbing the content of the csrf token and assigning it to a variable",
+							"//         var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"//         console.log(\"TARGET TOKEN\"+target);",
+							"//         pm.environment.set(\"token\", target);",
+							"",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a50b894d-4d5a-41b1-8746-d28b724f01da",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Measurements Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Measurements Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Measurements Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks measurement-report component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"measurementreport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/measurements?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Reports Dashboard as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5cf08d70-b84f-4be9-bdbe-e63845048f55",
+						"exec": [
+							"// pm.sendRequest({",
+							"    ",
+							"//     url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"//     method:\"GET\",",
+							"    ",
+							"// }, function(err,response){",
+							"      ",
+							"//         //getting the response html body",
+							"        ",
+							"//         var html = cheerio(response.text());",
+							"//         console.log(\"HTML BODY\"+html);",
+							"  ",
+							"//         //grabbing the content of the csrf token and assigning it to a variable",
+							"//         var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"//         console.log(\"TARGET TOKEN\"+target);",
+							"//         pm.environment.set(\"token\", target);",
+							"",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e86db2c-9283-4b8f-89da-e2dd299f7ae3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checks dashboard-reports component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"dashboard-reports\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/dashboard?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"dashboard"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View About as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d63b6bef-b66e-4c7e-b81f-920e24692648",
+						"exec": [
+							"// pm.sendRequest({",
+							"    ",
+							"//     url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"//     method:\"GET\",",
+							"    ",
+							"// }, function(err,response){",
+							"      ",
+							"//         //getting the response html body",
+							"        ",
+							"//         var html = cheerio(response.text());",
+							"//         console.log(\"HTML BODY\"+html);",
+							"  ",
+							"//         //grabbing the content of the csrf token and assigning it to a variable",
+							"//         var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"//         console.log(\"TARGET TOKEN\"+target);",
+							"//         pm.environment.set(\"token\", target);",
+							"",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "76da9cf5-470c-4f4c-8a35-4983d3a36b77",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics About\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'About'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"About\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checks about component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"about-tab-menu\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/about?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"about"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrive Measurements Data as AnthroAnalyst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a9ce4ba4-2bb9-414c-a9be-353a28144533",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "32d66c91-b2d5-4b91-b68e-42752dcb3469",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"pm.test(\"heaing of the page should be 'Measurements Report'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.heading).to.eql(\"Measurements Report\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The correct user information should be returned\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.theUser.id).to.eql(242);",
+							"    pm.expect(jsonData.theUser.name).to.eql(\"Test Anthro\");",
+							"    pm.expect(jsonData.theUser.email).to.eql(\"test.anthro.analyst@unomaha.edu\"); ",
+							"    pm.expect(jsonData.theUser.role_id).to.eql(5);",
+							"    pm.expect(jsonData.theUser.display_name).to.eql(\"Test Anthro Meeraa\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/measurements?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MeasurementsForm",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "323d51b9-6d0b-4c9c-b3e8-a93bf42b00ae",
+						"exec": [
+							"",
+							"// pm.sendRequest({",
+							"    ",
+							"//     url: pm.environment.get(\"base_url\")+'/skeletalelements/27971/measurements', ",
+							"//     method:\"GET\",",
+							"    ",
+							"// }, function(err,response){",
+							"      ",
+							"//         //getting the response html body",
+							"        ",
+							"//         var html = cheerio(response.text());",
+							"//         // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"//         //grabbing the content of the csrf token and assigning it to a variable",
+							"//         var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"//         // console.log(\"TARGET TOKEN\"+target);",
+							"//         pm.environment.set(\"token\", target);",
+							"// });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4d40ccd-60e1-41f6-9292-e42f6934428a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics View Measurements\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'View Measurements'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"View Measurements\");",
+							"});",
+							"",
+							"pm.test(\"Specimen check\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"2016-230:X-34::005 :: Tibia-Right\");",
+							"});",
+							"",
+							"pm.test(\"Checks measurement-report component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"measurement\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/27971/measurements",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"27971",
+						"measurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create specimen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9a72e2ff-0197-4160-a176-b4602f3e0056",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/skeletalelements/create',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5d18d5b-301f-47b2-bb15-8e3f67b61f8f",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"Check for title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'New Specimen'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"New Specimen\");",
+							"});",
+							"",
+							"pm.test(\"Specimen check\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"2017-164\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checks specimen component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"specimen\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_token",
+							"value": "{{token}}",
+							"type": "text"
+						},
+						{
+							"key": "accession_number",
+							"value": "2016-231",
+							"type": "text"
+						},
+						{
+							"key": "accession_number",
+							"value": "2016-231",
+							"type": "text"
+						},
+						{
+							"key": "provenance1",
+							"value": "X-34",
+							"type": "text"
+						},
+						{
+							"key": "provenance1",
+							"value": "X-34",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "POST",
+							"type": "text"
+						},
+						{
+							"key": "provenance2",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "provenance",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "designator",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "sb_id",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "side",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "side",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "completeness",
+							"value": "incomplete",
+							"type": "text"
+						},
+						{
+							"key": "completeness",
+							"value": "incomplete",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/skeletalelements",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create method feature",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5bd119e6-1e6e-4544-a2d4-7b37fe141c47",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/api/specimens/50737/associations',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e795cd5-f959-4697-a66f-5525a65473ef",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"Check for title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Create Method'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Create Method\");",
+							"});",
+							"",
+							"pm.test(\"Specimen check\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"2017-019\");",
+							"});",
+							"",
+							"pm.test(\"Specimen unique ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"50737\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checks specimen component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"methodfeature\");",
+							"});",
+							"",
+							"pm.test(\"Checks the method type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Age\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/50737/methods/create?methodlist%5B%5D=120",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"50737",
+						"methods",
+						"create"
+					],
+					"query": [
+						{
+							"key": "methodlist%5B%5D",
+							"value": "120"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Advanced Specimen Report",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8348de03-2cc2-483a-9456-0a0dba09b8df",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/advanced/results\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "81fb5879-9623-483b-a7c4-2d41364fa1c4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Advanced Specimen Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Advanced Specimen Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Advanced Specimen Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks advanced-specimen-report component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"advanced-specimen-report\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/advanced",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"advanced"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pathology Report",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e01c2677-6a15-4cb7-9234-fcb39510a886",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/pathologys\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ced0132c-e25a-4a88-a63c-67e21a55cc95",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Pathology Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Pathology Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Pathology Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks pathologyreport component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"pathologyreport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/pathologys",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"pathologys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trauma Report",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f917ace9-1a0b-43f9-ac1c-d3de3f703d13",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/traumas\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "622ace72-83b6-4418-a15b-c6dc8fea0725",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Trauma Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Trauma Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Trauma Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks traumareport component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"traumareport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/traumas",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"traumas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Anomaly Report",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0f4748ed-e0f3-40b0-8ec7-f3e09c0c934e",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/anomalys\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "91a940fe-f52b-4ec7-a15b-f305f631a0d0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Anomaly Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Anomaly Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Anomaly Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks anomalyreport component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"anomalyreport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/anomalys",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"anomalys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create method",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a896756a-5110-4df5-97e6-7fc98fbe2508",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/api/specimens/50737/associations',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3169a220-0f0c-46d3-b44e-07c99135c2ab",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"Check for title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Create Method'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Create Method\");",
+							"});",
+							"",
+							"pm.test(\"Specimen check\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"2017-019\");",
+							"});",
+							"",
+							"pm.test(\"Specimen unique ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"50737\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checks specimen component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"methodfeature\");",
+							"});",
+							"",
+							"pm.test(\"Checks the method type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Age\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/50737/methods/create?methodlist%5B%5D=120",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"50737",
+						"methods",
+						"create"
+					],
+					"query": [
+						{
+							"key": "methodlist%5B%5D",
+							"value": "120"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Articulation Report",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b3662bc0-82cc-407b-9275-758445c2b338",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/articulation\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd40e0b1-a2f8-440e-b7e9-089269ec735d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Articulations Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Articulations Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Articulations Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks articulationsreport component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"articulationsreport\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/articulation",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"articulation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Individual Number Report",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8027d512-a22a-427e-925c-216395777a39",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/reports/individualnumber\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "02bf1ba1-46b6-44a3-8a1b-2ef7802f2f9c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Individual Number Report\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Reports Dashboard'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Reports Dashboard\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Specimens By Individual Number Report'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Specimens By Individual Number Report\");",
+							"});",
+							"",
+							"pm.test(\"Checks specimen-individual-report component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"specimen-individual-report\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/reports/individualnumber",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reports",
+						"individualnumber"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Instrument-Management-POST",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ff6c0c3-536e-4165-bfce-570d02b7ed4b",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/instruments',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fec3e0bb-5a36-40c2-803b-eaa2e4709397",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/instruments?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"instruments"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Instrument-Management-PUT",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "01f880b3-23c4-4135-8727-7fac77c194ab",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/instruments/170',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1715b88c-79fa-43a8-80c2-52d1572fa3ae",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/instruments/170?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"instruments",
+						"170"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Profile-Localisation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9232141a-748e-4b86-b61f-508b3f794330",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/users/242/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "353f5251-c8fa-400a-a821-f47120c3a333",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/users/242/localization?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"242",
+						"localization"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Profile-Notification",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "860d4e63-09ff-4b72-8491-66eca8fedd27",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/users/242/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f936a274-bb06-4d80-9ef4-c1509d40dce8",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/users/242/notifications?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"242",
+						"notifications"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Profile-General",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0dce7177-54d0-4ce2-afb4-8f5a80a64451",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/users/242/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ca22103-ec3f-43a7-9213-276f56088bb9",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/users/242/general?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"242",
+						"general"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Profile-Project",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d8db7621-ed59-4fd2-aaa5-e8cc388b32a5",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/users/242/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca932eff-6863-4fa5-be14-b08d5bd9d346",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/users/242/projects?email={{anthro_email}}&password={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"242",
+						"projects"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Profile-Profile-Tab",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "58513b77-1d1f-47cc-817c-dcdefb35d504",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/users/242/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "404cf46a-2c4c-4f7d-abc9-b9014315f378",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/users/242/updateProfile?email={{anthro_email}}&password ={{anthro_password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"242",
+						"updateProfile"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}"
+						},
+						{
+							"key": "password ",
+							"value": "{{anthro_password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Isotope Page",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "27e66e10-3524-4837-87e1-fb480f14402e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4eaa2200-b167-43be-ac62-618b62c0a02a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"//Validating page title",
+							"pm.test(\"Valid page title\",function() {",
+							"    var html = cheerio(responseBody);",
+							"    html.find(\"title\").text == \"CoRA - Commingled Remains Analytics\"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/50736/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"50736",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Isotope",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "13ac4b34-cc34-4924-8cef-c2bae937e7f4",
+						"exec": [
+							"",
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/skeletalelements/50736/\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe32d90f-327c-4c1b-8d87-0bb9eaf36c04",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"",
+							"//Validating the page that the user is redirected to after saving the changes",
+							"pm.test(\"Page title should be Edit Specimen - 2017-164:X-34:X-65:4281\", function() {",
+							"var html = cheerio(responseBody)",
+							"html.find(\"h4\").text==\"Edit Specimen - 2017-164:X-34:X-65:4281\";});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "https://cora-vuetify-dev.herokuapp.com"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Referer",
+						"value": "https://cora-vuetify-dev.herokuapp.com/skeletalelements/50736/edit"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cora-vuetify-dev.herokuapp.com/skeletalelements/50736",
+					"protocol": "https",
+					"host": [
+						"cora-vuetify-dev",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"skeletalelements",
+						"50736"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Go To Specimen Create Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39dffa16-1006-4262-b7e9-a1b1cbaa8dc7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 10s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);",
+							"});",
+							"",
+							"pm.test(\"Page title should be correct\", function() {",
+							"    var $ = cheerio.load(responseBody);",
+							"    ",
+							"    $(\"title\").text() == \">CoRA - Commingled Remains Analytics\";",
+							"    ",
+							"    //search field",
+							"    $(\"li[href='https://cora-vuetify-dev.herokuapp.com/skeletalelements/search']\").text() == \"Specimens Search\"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Specimen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3fed9493-84de-4110-b1bf-b33cc0d192f9",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/skeletalelements/create',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e58d1d9d-4843-4964-931c-3e3405dbab41",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"pm.test(\"Correct page should load after Specimen is created\", function() {",
+							"    var $ = cheerio.load(responseBody);",
+							"    ",
+							"    $(\"title\").text() == \">CoRA - Commingled Remains Analytics\";",
+							"    ",
+							"    $(\"h4\").text() == \"New Specimen\"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/skeletalelements",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Taphonomy Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aff3a913-cc46-47be-aa35-4fd1b8f72286",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Page title should be valid\", function() {",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text==\"CoRA - Commingled Remains Analytics Taphonomies\"",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/28054/taphonomys",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"28054",
+						"taphonomys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Articulations Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7668ff6-5018-461d-83a9-59a217f1625d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Page title should be valid\", function() {",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text==\"CoRA - Commingled Remains Analytics Articulations\"",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/28054/articulations",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"28054",
+						"articulations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Refits Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed01ea60-dd20-4ed3-bde6-7833f5545951",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Page title should be valid\", function() {",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text==\"CoRA - Commingled Remains Analytics Refits\"",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/28054/refits",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"28054",
+						"refits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get PairMatch Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07eb0ecc-5147-49a4-b09d-5a4c8202c75e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Page title should be valid\", function() {",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text==\"CoRA - Commingled Remains Analytics Pairs\"",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/28054/pairs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"28054",
+						"pairs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get PairMatch Page Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb16f86a-71d2-4d96-ae92-6a1803184881",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Page title should be valid\", function() {",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text==\"CoRA - Commingled Remains Analytics Pairs\"",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/28054/pairs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"28054",
+						"pairs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Zones Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5fb79a05-622c-4a4e-ab3d-2f1ef07bc97f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"pm.test(\"Page title should be valid\", function(){",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text == \"CoRA - Commingled Remains Analytics Zones\"",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/27968/zones/view",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"27968",
+						"zones",
+						"view"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Review Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "711b3ea8-999a-4ccf-953f-df3522be6ff7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Page title should be valid\", function() {",
+							"    ",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text==\"CoRA - Commingled Remains Analytics Review\"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/skeletalelements/27968/review",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"skeletalelements",
+						"27968",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/logout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login OrgAdmin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ed368a53-ea9b-4e40-8d52-d27af1464851",
+						"exec": [
+							"",
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\"), ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Haplogroup-Management-POST",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c356bb72-b1a7-4c7d-a608-eaaf2c29e606",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/haplogroups',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef16fea9-9ef0-4b74-8fd4-105fa899a730",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"user should be on the haplogroups page\",function() {",
+							"    var $ = cheerio.load(responseBody);",
+							"    $(\"title\").text() == \"CoRA - Commingled Remains Analytics Haplogroups\"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "{{anthro_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{anthro_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/haplogroups",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"haplogroups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org-Profile-APIkeys",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5a120f8-01a7-4464-90d1-3afabb1c6433",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/org/2/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa143c8e-5ce7-4b4c-9fd1-d966abff465f",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password ",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/org/apikeys",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"org",
+						"apikeys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org-Profile-General",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6ecc3b49-1f2b-4f1c-a2d7-441ea3323ac3",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/org/2/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "234efbc7-e086-4cd4-ae16-5d650e38a52f",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/org/general",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"org",
+						"general"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org-Profile-About",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "81754dca-29df-4797-a24d-691e903945a4",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/org/2/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b8956b9-3d59-4266-8465-2f87b4d6d3a5",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/org/about?245",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"org",
+						"about"
+					],
+					"query": [
+						{
+							"key": "245",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org-Profile-Units",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e45abc75-1c14-4116-8476-c348503dcff3",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/org/2/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d18a4d73-5744-4671-a7fb-e2d94d36e3b9",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/org/Measurements",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"org",
+						"Measurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Org-Profile-Localization",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9b5eb70b-6ced-4dc4-9d9e-cf15f655c18b",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/org/2/profile',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "96e1ceff-c5b4-4bb3-9ae8-81ba21c2598e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/org/Localization",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"org",
+						"Localization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Haplogroup-Management-PUT",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e9474eed-fa9a-4b42-abc4-b80b303b279b",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+'/haplogroups/239',",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3be6e324-686b-40df-97dc-aa1b35d0914c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/haplogroups/239",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"haplogroups",
+						"239"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User Profile",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d5344d9c-4393-44fc-945e-a8d942bb684a",
+						"exec": [
+							"// pm.sendRequest({",
+							"    ",
+							"//     url: pm.environment.get(\"base_url\")+\"/reports/zones\", ",
+							"//     method:\"GET\",",
+							"    ",
+							"// }, function(err,response){",
+							"      ",
+							"//         //getting the response html body",
+							"        ",
+							"//         var html = cheerio(response.text());",
+							"//         console.log(\"HTML BODY\"+html);",
+							"  ",
+							"//         //grabbing the content of the csrf token and assigning it to a variable",
+							"//         var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"//         console.log(\"TARGET TOKEN\"+target);",
+							"//         pm.environment.set(\"token\", target);",
+							"",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a76e77bf-190e-440c-a7f1-477ddac44348",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title my profile\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics My Profile - Pawaskar\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'My profile'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"My Profile\");",
+							"});",
+							"",
+							"pm.test(\"Checks about component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"tabmenu\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/users/245/profile",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"245",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View OrgProfile as OrgAdmin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "03ce77d1-139c-46b1-947b-f6888093037b",
+						"exec": [
+							"pm.sendRequest({",
+							"    ",
+							"    url: pm.environment.get(\"base_url\")+\"/org/2/profile\", ",
+							"    method:\"GET\",",
+							"    ",
+							"}, function(err,response){",
+							"      ",
+							"        //getting the response html body",
+							"        ",
+							"        var html = cheerio(response.text());",
+							"        // console.log(\"HTML BODY\"+html);",
+							"  ",
+							"        //grabbing the content of the csrf token and assigning it to a variable",
+							"        var target = html.find('meta[name=csrf-token]').attr('content');",
+							"        ",
+							"        // console.log(\"TARGET TOKEN\"+target);",
+							"        pm.environment.set(\"token\", target);",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6bb8d23-ed29-49fa-8a2c-376956dbddf0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 20s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+							"});",
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"pm.test(\"it should return a title\", () => { ",
+							"    pm.expect($('title').text()).to.not.be.empty;",
+							"});",
+							"pm.test(\"Title contains CoRA title\", () => { ",
+							"    pm.expect($('title').text()).to.include(\"CoRA - Commingled Remains Analytics Organization Profiles - DPAA\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Org Profile'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Org Profile\");",
+							"});",
+							"",
+							"pm.test(\"Breadcrumb string check 'Organization Profiles - DPAA'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Organization Profiles - DPAA\");",
+							"});",
+							"",
+							"pm.test(\"Checks org profile component call\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"orgtabmenu\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/org/2/profile",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"org",
+						"2",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout AdminOrg",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{org_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{org_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/logout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

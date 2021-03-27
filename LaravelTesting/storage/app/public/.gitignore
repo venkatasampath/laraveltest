@@ -1,0 +1,14 @@
+*
+!images/
+!images/*
+!images/measurements
+!images/reports
+!images/reports/*
+!images/zones
+!images/widget-backgrounds
+!users/
+!images/measurements/*
+!images/zones/*
+!images/widget-backgrounds/*
+!users/*
+!.gitignore

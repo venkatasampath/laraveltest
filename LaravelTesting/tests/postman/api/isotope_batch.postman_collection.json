@@ -1,0 +1,1300 @@
+{
+  "info": {
+    "_postman_id": "1660acd1-448d-4339-bec0-b5bee64084e3",
+    "name": "Isotope_Batch",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "isotope",
+      "item": [
+        {
+          "name": "batch/{batch}",
+          "item": [
+            {
+              "name": "GET Isotope batch details",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"body check is passed\", () => {\r",
+                      "    pm.response.to.have.jsonBody(\"data\");\r",
+                      "    pm.response.to.have.jsonBody(\"status\");\r",
+                      "    pm.response.to.have.jsonBody(\"meta\");\r",
+                      "    \r",
+                      "});\r",
+                      "const jsonData = pm.response.json();\r",
+                      "if (jsonData.status === \"success\"){\r",
+                      "    pm.test(\"Response data is an object \", () => {\r",
+                      "    pm.expect(jsonData).to.be.an(\"object\");\r",
+                      "        });\r",
+                      "\r",
+                      "    pm.test(\"Application name is correct from the response\", () => {\r",
+                      "    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");\r",
+                      "        });\r",
+                      "\r",
+                      "    pm.test(\"Test status of the response\", () => {\r",
+                      "    pm.expect(jsonData.status).to.be.a(\"string\",\"success\");\r",
+                      "    });\r",
+                      "} else if (jsonData.message === \"Unauthenticated.\"){\r",
+                      "    pm.test(\"Error. Please provide the authentication.\");\r",
+                      "}\r",
+                      "else {\r",
+                      "    pm.test(\"Error. Please check the request again.\")\r",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}api/isotope/batch/:batch",
+                  "host": [
+                    "{{base_url}}api"
+                  ],
+                  "path": [
+                    "isotope",
+                    "batch",
+                    ":batch"
+                  ],
+                  "variable": [
+                    {
+                      "key": "batch",
+                      "value": "1",
+                      "type": "string",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Successful response of Isotope information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/isotope/batch/:batch",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "isotope",
+                        "batch",
+                        ":batch"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "dolor exercitation consectetur incididunt",
+                      "description": ""
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+                },
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/isotope/batch/:batch",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "isotope",
+                        "batch",
+                        ":batch"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Update  Associate Isotopes",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const jsonData = pm.response.json();\r",
+                      "\r",
+                      "pm.test(\" Check success status\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data).to.eql(\"IsotopeBatch update successful.\");});\r",
+                      "\r",
+                      "     pm.test(\"Test data type of the id response\", () => {\r",
+                      "    pm.expect(jsonData.results.id).to.eql(1);\r",
+                      "    });\r",
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}api/isotope/batch/:batch/associateisotopes",
+                  "host": [
+                    "{{base_url}}api"
+                  ],
+                  "path": [
+                    "isotope",
+                    "batch",
+                    ":batch",
+                    "associateisotopes"
+                  ],
+                  "variable": [
+                    {
+                      "key": "batch",
+                      "value": "1",
+                      "type": "string",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/isotope/batch/:batch/associateisotopes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "isotope",
+                        "batch",
+                        ":batch",
+                        "associateisotopes"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+                },
+                {
+                  "name": "Successful response of Isotope Batch information",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/isotope/batch/:batch/associateisotopes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "isotope",
+                        "batch",
+                        ":batch",
+                        "associateisotopes"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "dolor exercitation consectetur incididunt",
+                      "description": ""
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Update  Isotope Batch startprocessing ",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const jsonData = pm.response.json();\r",
+                      " pm.test(\"Test data type of the id response\", () => {\r",
+                      "    pm.expect(jsonData.isotopebatch.id).to.eql(1);\r",
+                      "    });\r",
+                      "\r",
+                      "pm.test(\" Check success status\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data).to.eql(\"IsotopeBatch update successful.\");});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{org_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}api/isotope/batch/:batch/startprocessing",
+                  "host": [
+                    "{{base_url}}api"
+                  ],
+                  "path": [
+                    "isotope",
+                    "batch",
+                    ":batch",
+                    "startprocessing"
+                  ],
+                  "variable": [
+                    {
+                      "key": "batch",
+                      "value": "1",
+                      "type": "string",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Successful response of Isotope information",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/isotope/batch/:batch/startprocessing",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "isotope",
+                        "batch",
+                        ":batch",
+                        "startprocessing"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "x-next",
+                      "value": "dolor exercitation consectetur incididunt",
+                      "description": ""
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+                },
+                {
+                  "name": "unexpected error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/isotope/batch/:batch/startprocessing",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "isotope",
+                        "batch",
+                        ":batch",
+                        "startprocessing"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Create a Isotopebatch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Content-Type header is application/json\", () => {\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "});\r",
+                  "\r",
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n            \"id\": 1,\r\n            \"org_id\": 2,\r\n            \"project_id\": 2,\r\n            \"lab_id\": 5,\r\n            \"external_case_id\": null,\r\n            \"batch_num\":\"212ABCjj\",\r\n            \"status\": \"Open\",\r\n            \"cleaning_start_date\": \"2021-02-16\",\r\n            \"labeling_tubes\": false,\r\n            \"rsc\": false,\r\n            \"rinse_samples\": false,\r\n            \"sonicate_samples_dh2o_cycle1\": true,\r\n            \"sonicate_samples_dh2o_cycle1_start_date\": \"2021-02-16\",\r\n            \"sonicate_samples_dh2o_cycle2\": false,\r\n            \"sonicate_samples_dh2o_cycle2_start_date\": \"2021-02-16\",\r\n            \"sonicate_samples_ethanol95\": true,\r\n            \"sonicate_samples_ethanol95_start_date\": \"2021-02-16\",\r\n            \"sonicate_samples_ethanol100\": false,\r\n            \"sonicate_samples_ethanol100_start_date\": \"2021-02-16\",\r\n            \"dry_samples_start\": false,\r\n            \"dry_samples_start_date\": \"2021-02-16\",\r\n            \"dry_samples_end\": false,\r\n            \"dry_samples_end_date\": null,\r\n            \"cleaning_initials\": null,\r\n            \"demineralizing_treatment_start\": false,\r\n            \"demineralizing_treatment_end\": false,\r\n            \"demineralizing_treatment_start_date\": null,\r\n            \"demineralizing_treatment_end_date\": null,\r\n            \"rinse_demineralized_samples\": false,\r\n            \"rha_treatment_start\": false,\r\n            \"rha_treatment_end\": false,\r\n            \"rha_treatment_start_date\": null,\r\n            \"rha_treatment_end_date\": null,\r\n            \"rha_sample_rinse1_start\": false,\r\n            \"rha_sample_rinse1_end\": false,\r\n            \"rha_sample_rinse1_start_date\": null,\r\n            \"rha_sample_rinse1_end_date\": null,\r\n            \"rha_sample_rinse2_start\": false,\r\n            \"rha_sample_rinse2_end\": false,\r\n            \"rha_sample_rinse2_start_date\": null,\r\n            \"rha_sample_rinse2_end_date\": null,\r\n            \"rha_sample_rinse3_start\": false,\r\n            \"rha_sample_rinse3_end\": false,\r\n            \"rha_sample_rinse3_start_date\": null,\r\n            \"rha_sample_rinse3_end_date\": null,\r\n            \"rha_sample_rinse4_start\": false,\r\n            \"rha_sample_rinse4_end\": false,\r\n            \"rha_sample_rinse4_start_date\": null,\r\n            \"rha_sample_rinse4_end_date\": null,\r\n            \"rha_sample_rinse5_start\": false,\r\n            \"rha_sample_rinse5_end\": false,\r\n            \"rha_sample_rinse5_start_date\": null,\r\n            \"rha_sample_rinse5_end_date\": null,\r\n            \"sc_clean_vials_and_lids\": false,\r\n            \"sc_clean_vials_and_lids_date\": null,\r\n            \"sc_add_solubale\": false,\r\n            \"sc_place_in_oven\": false,\r\n            \"sc_centrifuge_tubes\": false,\r\n            \"sc_num_acid_heat_treatment\": null,\r\n            \"sc_num_collagen_transfers\": null,\r\n            \"sc_freeze_vials\": false,\r\n            \"sc_freeze_vials_date\": null,\r\n            \"fdc_on\": false,\r\n            \"fdc_samples_start\": false,\r\n            \"fdc_samples_end\": false,\r\n            \"fdc_samples_start_date\": null,\r\n            \"fdc_samples_end_date\": null,\r\n            \"combined_samples_weight\": false,\r\n            \"notes\": null,\r\n            \"created_by\": null,\r\n            \"updated_by\": \"Org Administrator\",\r\n            \"created_at\": \"2021-02-15 23:09:49\",\r\n            \"updated_at\": \"2021-03-04 02:17:05\",\r\n            \"deleted_at\": null,\r\n            \"isotopes\": [\r\n                {\r\n                    \"id\": 5,\r\n                    \"se_id\": 28034,\r\n                    \"sb_id\": 12,\r\n                    \"org_id\": 2,\r\n                    \"project_id\": 12,\r\n                    \"lab_id\": 5,\r\n                    \"batch_id\": 1,\r\n                    \"sample_number\": \"223B\",\r\n                    \"external_case_id\": \"55529N\",\r\n                    \"results_confidence\": null,\r\n                    \"weight_sample_cleaned\": null,\r\n                    \"weight_vial_lid\": null,\r\n                    \"weight_sample_vial_lid\": null,\r\n                    \"weight_collagen\": null,\r\n                    \"yield_collagen\": null,\r\n                    \"demineralizing_start_date\": null,\r\n                    \"demineralizing_end_date\": null,\r\n                    \"analysis_requested\": null,\r\n                    \"well_location\": null,\r\n                    \"collagen_weight_used_for_analysis\": null,\r\n                    \"c_weight\": null,\r\n                    \"n_weight\": null,\r\n                    \"o_weight\": null,\r\n                    \"s_weight\": null,\r\n                    \"c_delta\": null,\r\n                    \"n_delta\": null,\r\n                    \"o_delta\": null,\r\n                    \"s_delta\": null,\r\n                    \"c_percent\": null,\r\n                    \"n_percent\": null,\r\n                    \"o_percent\": null,\r\n                    \"s_percent\": null,\r\n                    \"c_to_n_ratio\": null,\r\n                    \"c_to_o_ratio\": null,\r\n                    \"created_by\": null,\r\n                    \"updated_by\": null,\r\n                    \"created_at\": \"2021-02-20 22:05:27\",\r\n                    \"updated_at\": \"2021-03-02 01:43:53\",\r\n                    \"deleted_at\": null,\r\n                    \"uuid\": null,\r\n                    \"user_id\": null,\r\n                    \"custom_field_1\": null,\r\n                    \"custom_field_2\": null,\r\n                    \"custom_field_3\": null\r\n                }\r\n            ]\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}api/isotope",
+              "host": [
+                "{{base_url}}api"
+              ],
+              "path": [
+                "isotope"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Successful response of Isotope information",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "dolor exercitation consectetur incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET all Isotpe Batches",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "if (jsonData.status === \"success\") {\r",
+                  "    pm.test(\"Status code is 200. Successfully retrieve the data.\");\r",
+                  "\r",
+                  "    pm.test(\"Application name is correct from the response\", () => {\r",
+                  "        pm.expect(jsonData.meta.app).to.be.a(\"string\", \"CoRA - Commingled Remains Analytics\");\r",
+                  "    });\r",
+                  "    \r",
+                  "\r",
+                  "    pm.test(\"Test data type of the id response\", () => {\r",
+                  "        pm.expect(jsonData.data[0].id).to.be.a(\"number\");\r",
+                  "    });\r",
+                  "\r",
+                  "\r",
+                  "    pm.test(\"Test status of the response\", () => {\r",
+                  "        pm.expect(jsonData.status).to.be.a(\"string\", \"success\");\r",
+                  "    });\r",
+                  "} else if (jsonData.message === \"Unauthenticated.\") {\r",
+                  "    pm.test(\"Error. Please provide the authentication.\");\r",
+                  "}\r",
+                  "else {\r",
+                  "    pm.test(\"Error. Please check the request again.\")\r",
+                  "}\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}api/isotope/batches",
+              "host": [
+                "{{base_url}}api"
+              ],
+              "path": [
+                "isotope",
+                "batches"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Successful response of Isotope information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    "batches"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "dolor exercitation consectetur incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            },
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    "batches"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Isotope Batch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "\r",
+                  "pm.test(\" Check success status\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.data).to.eql(\"IsotopeBatch update successful.\");\r",
+                  "    \r",
+                  "   \r",
+                  "});\r",
+                  "const jsonData = pm.response.json();\r",
+                  "if (jsonData.status === \"success\"){\r",
+                  "    pm.test(\"Response data is an object \", () => {\r",
+                  "    pm.expect(jsonData).to.be.an(\"object\");\r",
+                  "        });\r",
+                  "\r",
+                  "    pm.test(\"Application name is correct from the response\", () => {\r",
+                  "    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");\r",
+                  "        });\r",
+                  "\r",
+                  "    pm.test(\"Test status of the response\", () => {\r",
+                  "    pm.expect(jsonData.status).to.be.a(\"string\",\"success\");\r",
+                  "    });\r",
+                  "} else if (jsonData.message === \"Unauthenticated.\"){\r",
+                  "    pm.test(\"Error. Please provide the authentication.\");\r",
+                  "}\r",
+                  "else {\r",
+                  "    pm.test(\"Error. Please check the request again.\")\r",
+                  "}\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"org_id\": 2,\r\n        \"project_id\": 2,\r\n        \"lab_id\": 5,\r\n        \"external_case_id\": \"55529Nm\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}api/isotope/:batch",
+              "host": [
+                "{{base_url}}api"
+              ],
+              "path": [
+                "isotope",
+                ":batch"
+              ],
+              "variable": [
+                {
+                  "key": "batch",
+                  "value": "1",
+                  "type": "string",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/:batch",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    ":batch"
+                  ],
+                  "variable": [
+                    {
+                      "key": "batch"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+            },
+            {
+              "name": "Successful response of Isotope information",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/:batch",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    ":batch"
+                  ],
+                  "variable": [
+                    {
+                      "key": "batch"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "dolor exercitation consectetur incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET all Projectisotopes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "if (jsonData.status === \"success\") {\r",
+                  "    pm.test(\"Status code is 200. Successfully retrieve the data.\");\r",
+                  "\r",
+                  "    pm.test(\"Application name is correct from the response\", () => {\r",
+                  "        pm.expect(jsonData.meta.app).to.be.a(\"string\", \"CoRA - Commingled Remains Analytics\");\r",
+                  "    });\r",
+                  "    \r",
+                  "\r",
+                  "   \r",
+                  "\r",
+                  "\r",
+                  "    pm.test(\"Test status of the response\", () => {\r",
+                  "        pm.expect(jsonData.status).to.be.a(\"string\", \"success\");\r",
+                  "    });\r",
+                  "} else if (jsonData.message === \"Unauthenticated.\") {\r",
+                  "    pm.test(\"Error. Please provide the authentication.\");\r",
+                  "}\r",
+                  "else {\r",
+                  "    pm.test(\"Error. Please check the request again.\")\r",
+                  "}\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}api/isotope/projectisotopes",
+              "host": [
+                "{{base_url}}api"
+              ],
+              "path": [
+                "isotope",
+                "projectisotopes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/projectisotopes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    "projectisotopes"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+            },
+            {
+              "name": "Successful response of Isotope information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/projectisotopes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    "projectisotopes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "dolor exercitation consectetur incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET all Associated Isotopes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "if (jsonData.status === \"success\"){\r",
+                  "    pm.test(\"Response data is an object \", () => {\r",
+                  "    pm.expect(jsonData).to.be.an(\"object\");\r",
+                  "        });\r",
+                  "\r",
+                  "    pm.test(\"Application name is correct from the response\", () => {\r",
+                  "    pm.expect(jsonData.meta.app).to.be.a(\"string\",\"CoRA - Commingled Remains Analytics\");\r",
+                  "        });\r",
+                  "\r",
+                  "    pm.test(\"Test status of the response\", () => {\r",
+                  "    pm.expect(jsonData.status).to.be.a(\"string\",\"success\");\r",
+                  "    });\r",
+                  "} else if (jsonData.message === \"Unauthenticated.\"){\r",
+                  "    pm.test(\"Error. Please provide the authentication.\");\r",
+                  "}\r",
+                  "else {\r",
+                  "    pm.test(\"Error. Please check the request again.\")\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{org_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}api/isotope/associatedisotopes",
+              "host": [
+                "{{base_url}}api"
+              ],
+              "path": [
+                "isotope",
+                "associatedisotopes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/associatedisotopes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    "associatedisotopes"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"code\": 55510063,\n \"message\": \"minim laboris exercitation eu magna\"\n}"
+            },
+            {
+              "name": "Successful response of Isotope information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/isotope/associatedisotopes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "isotope",
+                    "associatedisotopes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "x-next",
+                  "value": "dolor exercitation consectetur incididunt",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n \"data\": [],\n \"links\": {},\n \"meta\": {},\n \"status\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const isotopebatchschema = JSON.parse(pm.environment.get(\"isotopebatchschema\"));",
+          "pm.test('Schema is valid', function () {",
+          "   pm.response.to.have.jsonSchema(isotopebatchschema)",
+          "});",
+          "      ",
+          "     ",
+          "",
+          "pm.test(\"Check the active environment\", () => {",
+          "  pm.expect(pm.environment.name).to.eql(\"Testing\");",
+          "});",
+          "",
+          "pm.test(\"body check is passed\", () => {",
+          "    pm.response.to.have.jsonBody(\"data\");",
+          "   ",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "isotopebatchschema",
+      "value": "{\n    \"type\": [\"array\",\"object\",\"null\",\"string\"],\n    \"required\": [\n        \"data\"\n        \n    ],\n    \"externalDocs\": {\n        \"url\": \"https://github.com/SachinPawaskarUNO/cora25/blob/master/docs/TechnicalManual/Database/CoRA%20Tables.md#isotopes-table\"\n    },\n    \"properties\": {\n        \"data\": {\n            \"type\": [\"array\",\"object\",\"null\",\"string\"],\n            \"title\": \"The data schema\",\n            \"description\": \"List of all Isotope for Cora\",\n            \"default\": [],\n            \"items\": {\n                \"anyOf\": [\n                    {\n                        \"type\": [\"array\",\"object\",\"null\",\"string\"],\n                        \"title\": \"The first anyOf schema\",\n                        \"description\": \"An explanation about the purpose of this instance.\",\n                        \"default\": {},\n                        \"required\": [\n                            \"id\",\n                            \"org_id\",\n                            \"status\"\n                        ],\n                        \"properties\": {\n                            \"id\": {\n                                \"type\": \"integer\",\n                                \"description\": \"ID of Isotope sample record\"\n                            },\n                            \"org_id\": {\n                                \"type\": \"integer\",\n                                \"description\": \"\"\n                            },\n                            \"project_id\": {\n                                \"type\": \"integer\",\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"lab_id\": {\n                                \"type\": \"integer\",\n                                \"description\": \"\"\n                            },\n                            \"external_case_id\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"batch_num\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"description\": \"\"\n                            },\n                            \"status\": {\n                                \"type\": \"string\",\n                                \n                                \"description\": \"\"\n                            },\n                            \"cleaning_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"s\"\n                            },\n                            \"labeling_tubes\": {\n                                \"type\": \"boolean\",\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"rsc\": {\n                                \"type\": \"boolean\",\n                                \"description\": \"\"\n                            },\n                            \"rinse_samples\": {\n                                \"type\": \"boolean\",\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_dh2o_cycle1\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_dh2o_cycle1_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_dh2o_cycle2\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_dh2o_cycle2_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_ethanol95\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_ethanol95_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_ethanol100\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sonicate_samples_ethanol100_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \"description\": \"\"\n                            },\n                            \"dry_samples_start\": {\n                                \"type\":[\"boolean\",\"null\"],\n                            \n                                \"description\": \"\"\n                            },\n                            \"dry_samples_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"dry_samples_end\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"dry_samples_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"cleaning_initials\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"demineralizing_treatment_start\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"demineralizing_treatment_end\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"demineralizing_treatment_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                    \n                                \"description\": \"\"\n                            },\n                            \"demineralizing_treatment_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                               \n                                \n                                \"description\": \"\"\n                            },\n                            \"rinse_demineralized_samples\": {\n                               \"type\": [\"boolean\",\"null\"],\n                                \"description\": \"\"\n                            },\n                            \"rha_treatment_start\": {\n                                \"type\": [\"boolean\",\"null\"],\n                                \"description\": \"\"\n                            },\n                            \"rha_treatment_end\": {\n        \n                                \"type\": [\"boolean\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"rha_treatment_start_date\": {\n                               \"type\": [\"string\",\"null\"],\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_treatment_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                               \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse1_start\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse1_end\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse1_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse1_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse2_start\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse2_end\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse2_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse2_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse3_start\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse3_end\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse3_start_date\": {\n                               \"type\": [\"string\",\"null\"],\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse3_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                               \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse4_start\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse4_end\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse4_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n    \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse4_end_date\": {\n                               \"type\": [\"string\",\"null\"],\n                              \n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse5_start\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse5_end\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse5_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \n                               \n                                \"description\": \"\"\n                            },\n                            \"rha_sample_rinse5_end_date\": {\n                               \"type\": [\"string\",\"null\"],\n                                \"nullable\":true,\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_clean_vials_and_lids\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_clean_vials_and_lids_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_add_solubale\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_place_in_oven\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_centrifuge_tubes\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_num_acid_heat_treatment\": {\n                                \"type\": [\"integer\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"sc_num_collagen_transfers\": {\n                                \"type\": [\"integer\",\"null\"],\n                                \"description\": \"\"\n                            },\n                            \"sc_freeze_vials\": {\n                                \"type\":[\"boolean\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"sc_freeze_vials_date\": {\n                                \"type\": [\"string\",\"null\"],\n                               \n                                \"description\": \"\"\n                            },\n                            \"fdc_on\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"fdc_samples_start\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"fdc_samples_end\": {\n                                 \"type\":[\"boolean\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"fdc_samples_start_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"fdc_samples_end_date\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \n                                \"description\": \"\"\n                            },\n                            \"combined_samples_weight\": {\n                                \"type\": [\"boolean\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"notes\": {\n                                \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"\"\n                            },\n                            \"created_by\": {\n                                 \"type\": [\"string\",\"null\"],\n                                \"description\": \"User who first created the DNA\"\n                            },\n                            \"updated_by\": {\n                                 \"type\": [\"string\",\"null\"],\n                                \"description\": \"User who last updated the DNA\"\n                            },\n                            \"created_at\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                               \n                                \"description\": \"Date and Time of creation\"\n                            },\n                            \"updated_at\": {\n                                \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                                \n                                \"description\": \"Date and Time of last update\"\n                            },\n                            \"deleted_at\": {\n                                 \"type\": [\"string\",\"null\"],\n                                \"nullable\": true,\n                               \n                                \"description\": \"Date and Time of recored deletion\"\n                            },\n                            \"uuid\": {\n                                 \"type\": [\"string\",\"null\"],\n                                \n                                \"format\": \"uuid\",\n                                \"description\": \"\"\n                            },\n                            \"user_id\": {\n                                \"type\": [\"integer\",\"null\"],\n                                \"nullable\": true,\n                                \"description\": \"\"\n                            },\n                            \"custom_field_1\": {\n                                 \"type\": [\"string\",\"null\"],\n                               \n                                \"description\": \"Custom field 1 for additional data\"\n                            },\n                            \"custom_field_2\": {\n                                 \"type\": [\"string\",\"null\"],\n                                \n                                \"description\": \"Custom field 2 for additional data\"\n                            },\n                            \"custom_field_3\": {\n                                 \"type\": [\"string\",\"null\"],\n                               \n                                \"description\": \"Custom field 3 for additional data\"\n                            },\n                            \"tag\": {\n                                \"type\": \"string\" \n                            \n                            }\n                        },\n                        \"additionalProperties\": true\n                    }\n                ]\n            }\n        },\n        \"meta\": {\n            \"type\": \"object\",\n            \"title\": \"The meta schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": {},\n            \"properties\": {\n                \"current_page\": {\n                    \"type\": \"integer\",\n                    \"title\": \"The current_page schema\",\n                    \"description\": \"Current page number.\",\n                    \"default\": 0\n                },\n                \"from\": {\n                    \"type\": \"integer\",\n                    \"title\": \"The from schema\",\n                    \"description\": \"Starting page number\",\n                    \"default\": 0\n                },\n                \"last_page\": {\n                    \"type\": \"integer\",\n                    \"title\": \"The last_page schema\",\n                    \"description\": \"Last page number\",\n                    \"default\": 0\n                },\n                \"path\": {\n                    \"type\": \"string\",\n                    \"title\": \"The path schema\",\n                    \"description\": \"API URL.\",\n                    \"default\": \"\"\n                },\n                \"per_page\": {\n                    \"type\": \"integer\",\n                    \"title\": \"The per_page schema\",\n                    \"description\": \"Results per page\",\n                    \"default\": 0\n                },\n                \"to\": {\n                    \"type\": \"integer\",\n                    \"title\": \"The to schema\",\n                    \"description\": \"Next page number\",\n                    \"default\": 0\n                },\n                \"total\": {\n                    \"type\": \"integer\",\n                    \"title\": \"The total schema\",\n                    \"description\": \"Total number of organizations\",\n                    \"default\": 0\n                },\n                \"app\": {\n                    \"type\": \"string\",\n                    \"title\": \"The app schema\",\n                    \"description\": \"Application name\",\n                    \"default\": \"\"\n                },\n                \"app_version\": {\n                    \"type\": \"string\",\n                    \"title\": \"The app_version schema\",\n                    \"description\": \"Application version\",\n                    \"default\": \"\"\n                },\n                \"api_version\": {\n                    \"type\": \"string\",\n                    \"title\": \"The api_version schema\",\n                    \"description\": \"Version of API\",\n                    \"default\": \"\"\n                },\n                \"author\": {\n                    \"type\": \"string\",\n                    \"title\": \"The author schema\",\n                    \"description\": \"Author of application.\",\n                    \"default\": \"\"\n                },\n                \"copyright\": {\n                    \"type\": \"string\",\n                    \"title\": \"The copyright schema\",\n                    \"description\": \"Owner of application copyright.\",\n                    \"default\": \"\"\n                }\n            },\n            \"additionalProperties\": true\n        },\n        \"status\": {\n            \"type\": \"string\",\n            \"title\": \"The status schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\"\n        }\n    }\n}",
+      "disabled": true
+    },
+    {
+      "key": "orgid",
+      "value": "",
+      "disabled": true
+    },
+    {
+      "key": "projectid",
+      "value": "",
+      "disabled": true
+    },
+    {
+      "key": "samplenumber",
+      "value": "",
+      "disabled": true
+    },
+    {
+      "key": "specimenid",
+      "value": "",
+      "disabled": true
+    },
+    {
+      "key": "batch_orgid",
+      "value": null,
+      "disabled": true
+    },
+    {
+      "key": "batch_projectid",
+      "value": null,
+      "disabled": true
+    },
+    {
+      "key": "batch_labid",
+      "value": null,
+      "disabled": true
+    },
+    {
+      "key": "batchnumber",
+      "value": null,
+      "disabled": true
+    },
+    {
+      "key": "isotopebatchid",
+      "value": null,
+      "disabled": true
+    },
+    {
+      "key": "externalid",
+      "value": "55529Nm",
+      "disabled": true
+    },
+    {
+      "key": "baseurl",
+      "value": "{{base_url}}api"
+    },
+    {
+      "key": "notes",
+      "value": null
+    },
+    {
+      "key": "labeling_tubes",
+      "value": ""
+    },
+    {
+      "key": "rinse_samples",
+      "value": ""
+    },
+    {
+      "key": "c_delta",
+      "value": ""
+    },
+    {
+      "key": "c_percent",
+      "value": ""
+    },
+    {
+      "key": "c_to_n_ratio",
+      "value": ""
+    },
+    {
+      "key": "c_weight",
+      "value": ""
+    },
+    {
+      "key": "caseid",
+      "value": ""
+    },
+    {
+      "key": "weight_collagen",
+      "value": ""
+    },
+    {
+      "key": "weight_sample_cleaned",
+      "value": ""
+    },
+    {
+      "key": "weight_sample_vial_lid",
+      "value": ""
+    },
+    {
+      "key": "weight_vial_lid",
+      "value": ""
+    },
+    {
+      "key": "id",
+      "value": 1
+    }
+  ]
+}

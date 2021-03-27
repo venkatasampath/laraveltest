@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "697047ff-3f1b-4c50-9a3b-7eb678976d6f",
+		"name": "File Export / Import",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "Wrong API Route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dc0c80d4-7371-41dd-a30d-6b4ecf46f4a9",
+								"exec": [
+									"\r",
+									"pm.test(\"Check unauthorized message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     pm.expect(jsonData.message).to.eql(\"Api Route Not Found. Please check the route name or URL. If error persists, contact Sachin Pawaskar at sachinpawaskar@msn.com\");\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    })\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/files/export-file/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"export-file",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative Export Wrong Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "259ce85b-c1e7-47ae-942b-b4e94b71ac45",
+								"exec": [
+									"anthrotoken = pm.environment.get(\"anthro_analyst_token\")\r",
+									"pm.globals.set(\"atoken\", anthrotoken);\r",
+									"\r",
+									"\r",
+									"var token = pm.globals.get(\"token\")\r",
+									"\r",
+									"if(!token){\r",
+									"     token = pm.globals.get(\"invalidtoken\");\r",
+									"}\r",
+									"\r",
+									"var currenttoken = token.shift();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"atoken\", currenttoken);\r",
+									"pm.globals.set(\"token\", token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3aaa1c5-6483-400c-bbfd-ca9ecd015d8a",
+								"exec": [
+									"\r",
+									"// This negative test will loop through diffrent invalid token values and checks if the data being returned or not. It will pass if there is no data being returned.\r",
+									"\r",
+									"var token = pm.globals.get(\"token\");\r",
+									"\r",
+									"if (token.length > 0) {\r",
+									"    postman.setNextRequest(\"Negative Export Wrong Token\")\r",
+									"\r",
+									"} else {\r",
+									"    pm.globals.unset(\"token\")\r",
+									"   \r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{atoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/files/export-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"export-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative wrong Export detail",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b21d6a64-0219-4e9f-87dc-b4982fd54c69",
+								"exec": [
+									"var export_id = pm.globals.get(\"export_id\")\r",
+									"\r",
+									"if(!export_id){\r",
+									"     export_id = [\"0000\",\"85\"];\r",
+									"}\r",
+									"\r",
+									"var currentid = export_id.shift();\r",
+									"pm.globals.set(\"exportid\", currentid);\r",
+									"pm.globals.set(\"export_id\", export_id);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0a53b80-3efe-43b2-b7c2-cc20ebd8364f",
+								"exec": [
+									"\r",
+									"//Looping through different export id types to get their details\r",
+									"\r",
+									"var export_id = pm.globals.get(\"export_id\");\r",
+									"\r",
+									"if (export_id.length > 0) {\r",
+									"    postman.setNextRequest(\"Negative wrong Export detail\")\r",
+									"\r",
+									"} else {\r",
+									"    \r",
+									"    pm.globals.unset(\"export_id\")\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"    })\r",
+									"\r",
+									"\r",
+									"pm.test(\"response must be not valid and not have a body\", function () {\r",
+									"     pm.response.to.not.be.json;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{anthro_analyst_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/files/export-details/{{exportid}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"export-details",
+								"{{exportid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Export Details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "00622b5f-b0e7-490c-aacb-73147deafcde",
+						"exec": [
+							"var export_id = pm.globals.get(\"export_id\")\r",
+							"\r",
+							"if(!export_id){\r",
+							"     export_id = [\"23\",\"24\",\"35\",\"43\"];\r",
+							"}\r",
+							"\r",
+							"var currentid = export_id.shift();\r",
+							"pm.globals.set(\"exportid\", currentid);\r",
+							"pm.globals.set(\"export_id\", export_id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2be749f3-2b70-4b06-9634-208962f0e3c7",
+						"exec": [
+							"\r",
+							"//Looping through different export id types to get their details\r",
+							"\r",
+							"var export_id = pm.globals.get(\"export_id\");\r",
+							"\r",
+							"if (export_id.length > 0) {\r",
+							"    postman.setNextRequest(\"Export Details\")\r",
+							"\r",
+							"} else {\r",
+							" \r",
+							"    pm.globals.unset(\"export_id\")\r",
+							"}\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/files/export-details/{{exportid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"files",
+						"export-details",
+						"{{exportid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Export Types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10641515-a0e7-40c6-9b57-7853d31f4982",
+						"exec": [
+							"pm.test(\"Display count of records\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     tests[\"Count: \"  + jsonData.data.count] = true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test to see the fields\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"description\",\"group\",\"table_names\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/files/export-types",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"files",
+						"export-types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import Types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ba143e6-ac4a-4265-90fe-0aa1cb5fe3c2",
+						"exec": [
+							"pm.test(\"Display count of records\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     tests[\"Count: \"  + jsonData.data.count] = true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test to see the fields\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\",\"name\",\"table_names\",\"display_name\",\"template_location\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{anthro_analyst_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/files/import-types",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"files",
+						"import-types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Export Advanced",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/files/export-file",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"files",
+						"export-file"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "147aad65-4aff-40a4-908a-6b61eacb8b1c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "66d1f683-54e0-49a8-96c6-a0ede08545e0",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status Code\", () => {",
+					"  pm.expect(pm.response.code).to.be.oneOf([200,201,403,500,400,404]);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 20s\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(20000);",
+					"});"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
